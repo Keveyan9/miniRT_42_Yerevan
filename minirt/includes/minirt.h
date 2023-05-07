@@ -2,8 +2,11 @@
 # define MINIRT_H
 
 # include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
-#include "../get_next_line/get_next_line.h"
+# include "../get_next_line/get_next_line.h"
+# define SPLIT_SET " \t\v\b"
 
 enum e_objs
 {

@@ -42,7 +42,7 @@ typedef struct s_plane
 	t_vec *point;
 	t_vec *normal;
 	t_color *tint;
-} t_sphere;
+} t_plane;
 
 typedef struct s_cylinder
 {

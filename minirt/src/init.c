@@ -38,3 +38,28 @@ t_cam	*init_cam(t_vec *orient, t_vec *orig, float fov)
 	camera->fov = fov;
 	return (camera);
 }
+
+t_light	*init_light(t_vec *orig, float ratio)
+{
+	t_light *light;
+
+	light = malloc(sizeof(t_light));
+	if (!light)
+		exit_code(1, "origin malloc failed");
+	light->orig = orig;
+	light->ratio = ratio;
+	return (light);
+}
+
+t_sphere	*init_sphere(t_vec *center, t_color *tint, float radius)
+{
+	t_sphere *sphere;
+
+	sphere = malloc(sizeof(t_sphere));
+	if (!sphere)
+		exit_code(1, "sphere malloc failed");
+	sphere->center = center;
+	sphere->tint = tint;
+	sphere->radius = radius;
+	return (sphere);
+}

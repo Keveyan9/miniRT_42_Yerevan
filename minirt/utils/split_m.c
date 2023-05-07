@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minirt.h"
 
-static int	ft_count(char const *s, char c)
+static int	ft_count(char const *s)
 {
 	int	count;
 
@@ -21,29 +21,29 @@ static int	ft_count(char const *s, char c)
 		return (0);
 	while (*s)
 	{
-		if (*s != c && (*(s + 1) == c || *(s + 1) == '\0'))
+		if (!is_in_set(*s) && (is_in_set(*(s + 1)) || *(s + 1) == '\0'))
 			count++;
 		s++;
 	}
 	return (count);
 }
 
-static char const	*ft_start(char const *s, char c)
+static char const	*ft_start(char const *s)
 {
 	while (*s)
 	{
-		if (*s != c)
+		if (!is_in_set(*s))
 			return (s);
 		s++;
 	}
 	return (NULL);
 }
 
-static char const	*ft_end(char const *s, char c)
+static char const	*ft_end(char const *s)
 {
 	while (*s)
 	{
-		if (*s != c && ((*(s + 1) == c) || (*(s + 1) == '\0')))
+		if (!is_in_set(*s) && (is_in_set(*(s + 1)) || (*(s + 1) == '\0')))
 			return (s);
 		s++;
 	}
@@ -60,22 +60,22 @@ static int	ft_check_alloc(char **split, char *str, int index)
 	return (1);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_m(char const *s)
 {
 	char	**split;
 	int		count;
 	int		i;
 	int		end;
 
-	count = ft_count(s, c);
+	count = ft_count(s);
 	split = ft_calloc((count + 1), sizeof(s));
 	if (split == NULL)
 		return (NULL);
 	i = 0;
 	while (i < count)
 	{
-		s = ft_start(s, c);
-		end = ft_end(s, c) - s + 1;
+		s = ft_start(s);
+		end = ft_end(s) - s + 1;
 		split[i] = malloc((end + 1) * sizeof(char));
 		if (ft_check_alloc(split, split[i], i))
 			return (NULL);

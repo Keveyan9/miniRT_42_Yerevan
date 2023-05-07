@@ -6,6 +6,6 @@ void    check_d_line(char *line)
     char    **splitted;
 
     i = -1;
-    splitted = ft_split(line, ' ');
+    splitted = ft_split_m(line);
     
 }

@@ -68,4 +68,8 @@ typedef struct s_cylinder
 	t_color *tint;
 } t_cylinder;
 
+int is_in_set(char c);
+char	**ft_split_m(char const *s);
+void    exit_code(int code, char *msg);
+
 #endif

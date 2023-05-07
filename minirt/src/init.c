@@ -63,3 +63,31 @@ t_sphere	*init_sphere(t_vec *center, t_color *tint, float radius)
 	sphere->radius = radius;
 	return (sphere);
 }
+
+t_plane	*init_plane(t_vec *point, t_vec *normal, t_color *tint)
+{
+	t_plane *plane;
+
+	plane = malloc(sizeof(t_plane));
+	if (!plane)
+		exit_code(1, "plane malloc failed");
+	plane->point = point;
+	plane->normal = normal;
+	plane->tint = tint;
+	return (plane);
+}
+
+t_cylinder	*init_cylinder(t_vec *center, t_vec *normal, float radius, float height, t_color *tint)
+{
+	t_cylinder *cylinder;
+
+	cylinder = malloc(sizeof(t_cylinder));
+	if (!cylinder)
+		exit_code(1, "cylinder malloc failed");
+	cylinder->center = center;
+	cylinder->normal = normal;
+	cylinder->radius = radius;
+	cylinder->height = height;
+	cylinder->tint = tint;
+	return (cylinder);
+}

@@ -1,0 +1,3 @@
+[submodule "minirt/get_next_line"]
+	path = minirt/get_next_line
+	url = https://github.com/AniIvanyan/get_next_line

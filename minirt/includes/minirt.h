@@ -2,6 +2,18 @@
 # define MINIRT_H
 
 # include <stdio.h>
+# include "../libft/libft.h"
+#include "../get_next_line/get_next_line.h"
+
+enum e_objs
+{
+	A,
+	C,
+	L,
+	pl,
+	sp,
+	cy
+};
 
 typedef struct s_vec
 {

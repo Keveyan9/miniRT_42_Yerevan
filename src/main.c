@@ -1,6 +1,17 @@
-#include <minirt.h>
+#include "../includes/minirt.h"
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   ft_printf("test\n");
+	char	*line;
+	int		fd;
+
+	if (argc != 2)
+		exit_code(1, "Invalid number of arguments\n");
+	fd = open(argv[1], O_RDWR);
+	if (fd < 0)
+		exit_code(1, "error opening the file\n");
+	while (line = get_next_line(fd))
+	{
+		//here Zheno's function call
+	}
 }

@@ -5,7 +5,6 @@ int is_in_set(char c)
     int j;
 
     j = -1;
-    j = -1;
     while (SPLIT_SET[++j])
     {
         if (c == SPLIT_SET[j])

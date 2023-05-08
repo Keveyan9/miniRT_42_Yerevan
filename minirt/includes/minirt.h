@@ -8,16 +8,6 @@
 # include "../get_next_line/get_next_line.h"
 # define SPLIT_SET " \t\v\b"
 
-enum e_objs
-{
-	A,
-	C,
-	L,
-	pl,
-	sp,
-	cy
-};
-
 typedef struct s_vec
 {
 	float x;
@@ -68,8 +58,9 @@ typedef struct s_cylinder
 	t_color *tint;
 } t_cylinder;
 
-int is_in_set(char c);
+int 	is_in_set(char c);
 char	**ft_split_m(char const *s);
 void    exit_code(int code, char *msg);
-
+int		ft_double_len(char **str);
+float 	ft_atof(char *str);
 #endif

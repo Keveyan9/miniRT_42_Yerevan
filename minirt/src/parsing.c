@@ -9,3 +9,4 @@ void    check_d_line(char *line)
     splitted = ft_split_m(line);
     
 }
+

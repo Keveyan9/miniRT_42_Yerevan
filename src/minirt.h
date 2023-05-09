@@ -4,17 +4,16 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "libft.h"
-#include "get_next_line.h"
-# define SPLIT_SET " \t\v\b"
-
+# include "/root/minirt/lib/libft/libft.h"
+# include "/root/minirt/lib/gnl/get_next_line.h"
+# define SPLIT_SET	" \t\v\b"
 
 typedef struct s_ambient
 {
 	float	ratio;
 	float	tint[3];
+}	t_ambient;
 
-}t_ambient;
 typedef struct s_cam
 {
 	float	orig[3];
@@ -81,7 +80,7 @@ typedef struct s_window
 
 void	exit_code(int code, char *msg);
 void	parsing(int argc, char **argv, t_head *head);
-void	checker_parsing(char **splitted_line);
+void	checker_parsing(char **splitted_line, t_head *head);
 
 // int 	is_in_set(char c);
 // char	**ft_split_m(char const *s);

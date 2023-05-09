@@ -11,7 +11,6 @@ static char	**check_d_line(char *line)
 	return (splitted);
 }
 
-
 static void	reading_file(int fd, t_head *var_head)
 {
 	char	*line;

@@ -19,7 +19,6 @@ void check_rgb(char **rgb, int *color[3])
 	*color[2] = ft_atof(rgb[2]);
 	if (color_range_check(*color[0], *color[1], *color[2]) == 0)
 		exit_code(1, "R, G, B out of range, [0, 255]\n");
-	// color = init_color(ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
 }
 
 void checker_A(char **splitted_A)
@@ -39,8 +38,6 @@ void checker_A(char **splitted_A)
 		exit_error(1, "Out of range for A\n");
 	rgb = ft_split(splitted_A, ',');
 	check_rgb(rgb, &color);
-	now_nod_coler()
-	put
 }
 
 void checker_C(char **splitted_C)
@@ -62,22 +59,20 @@ void checker_C(char **splitted_C)
 	check_rgb(rgb, &color);
 }
 
-void	checker_parsing(char **splitted_line, t_head *head)
+void checker_parsing(char **splitted_line, t_head *head)
 {
-
-	if (splitted_line[0])
-	{
-		if (ft_strncmp(splitted_line[0], "A", 2))
-			checker_A(splitted_line);
-		// else if (ft_strncmp(splitted_line[0], "C", 2))
-		// else if (ft_strncmp(splitted_line[0], "L", 2))
-		// else if (ft_strncmp(splitted_line[0], "pl", 3))
-		// //
-		// else if (ft_strncmp(splitted_line[0], "sp", 3))
-		// //
-		// else if (ft_strncmp(splitted_line[0], "cy", 3))
-		//     //
-		// else
-		//     exit_code(1, "Invalid argument");
-	}
+	if (!splitted_line[0] || !splitted_line[0][0])
+		exit_error(1, "Empty or only spaces detected\n");
+	if (ft_strncmp(splitted_line[0], "A", 2))
+		checker_A(splitted_line);
+	// else if (ft_strncmp(splitted_line[0], "C", 2))
+	// else if (ft_strncmp(splitted_line[0], "L", 2))
+	// else if (ft_strncmp(splitted_line[0], "pl", 3))
+	// //
+	// else if (ft_strncmp(splitted_line[0], "sp", 3))
+	// //
+	// else if (ft_strncmp(splitted_line[0], "cy", 3))
+	//     //
+	// else
+	//     exit_code(1, "Invalid argument");
 }

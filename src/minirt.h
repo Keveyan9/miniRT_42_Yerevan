@@ -4,6 +4,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stddef.h>
+# include <limits.h>
 # include "/root/minirt/lib/libft/libft.h"
 # include "/root/minirt/lib/gnl/get_next_line.h"
 # define SPLIT_SET	" \t\v\b"
@@ -32,9 +34,8 @@ typedef struct s_sphere
 	float		center[3];
 	float		tint[3];
 	float		radius;
-
-	t_sphere	*prev;
-	t_sphere	*next;
+	struct s_sphere	*prev;
+	struct s_sphere	*next;
 }	t_sphere;
 
 typedef struct s_plane
@@ -42,10 +43,10 @@ typedef struct s_plane
 	float	point[3];
 	float	normal[3];
 	int		tint[3];
-
-	t_plane	*prev;
-	t_plane	*next;
+	struct s_plane	*prev;
+	struct s_plane	*next;
 }	t_plane;
+
 typedef struct s_cylinder
 {
 	float		center[3];
@@ -53,13 +54,14 @@ typedef struct s_cylinder
 	float		radius;
 	float		height;
 	int			tint[3];
-	t_cylinder	*prev;
-	t_cylinder	*next;
+	struct s_cylinder	*prev;
+	struct s_cylinder	*next;
 
 }	t_cylinder;
 
 typedef struct s_head
 {
+	t_ambient	*amb;
 	t_cam		*cam;
 	t_light		*light;
 	t_sphere	*sphere;
@@ -69,21 +71,34 @@ typedef struct s_head
 	t_cylinder	*cylin;
 	t_cylinder	*begin_cylinder;
 	int			cofficient;
-
-}t_head;
+}	t_head;
 
 typedef struct s_window
 {
 	int	width;
 	int	height;
-}t_window;
+}	t_window;
 
-void	exit_code(int code, char *msg);
-void	parsing(int argc, char **argv, t_head *head);
-void	checker_parsing(char **splitted_line, t_head *head);
-
-// int 	is_in_set(char c);
-// char	**ft_split_m(char const *s);
-// int		ft_double_len(char **str);
-// float 	ft_atof(char *str);
+void		exit_code(int code, char *msg);
+void		parsing(int argc, char **argv, t_head *head);
+void		checker_parsing(char **splitted_line, t_head *head);
+//init.c
+t_ambient	*init_ambient(float ratio, float tint[3]);
+t_cam		*init_cam(float orient[3], float origin[3], float fov);
+t_light		*init_light(float orig[3], float ratio);
+t_sphere	*init_sphere(float center[3], int tint[3], float radius);
+t_plane		*init_plane(float point[3], float normal[3], int tint[3]);
+t_cylinder	*init_cylinder(float center[3], float normal[3], int tint[3], float radius, float height);
+//utils1.c
+int			ft_double_len(char **str);
+float 	ft_atof(char *str);
+//is_in_set.c
+int			is_in_set(char c);
+int			ft_isspace(char c);
+//main.c
+void		init_head(t_head *head);
+//checker_parsing.c
+void		check_vector(char **vec_splitted, float (*vec)[3], int lower_bound, int upper_bound);
+//split_m.c
+char	**ft_split_m(char const *s);
 #endif

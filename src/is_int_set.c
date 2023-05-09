@@ -12,3 +12,9 @@ int	is_in_set(char c)
 	}
 	return (0);
 }
+
+int	ft_isspace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\f'
+		|| c == '\n' || c == '\r' || c == '\v');
+}

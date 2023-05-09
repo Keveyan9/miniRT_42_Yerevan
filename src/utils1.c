@@ -7,9 +7,7 @@ float ft_atof(char *str)
 	float fraction = 0.1;
 
 	while (ft_isspace(*str))
-	{
 		str++;
-	}
 	if (*str == '-')
 	{
 		sign = -1.0;

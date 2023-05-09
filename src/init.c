@@ -41,7 +41,7 @@ t_ambient *init_ambient(float ratio, float tint[3])
 	return (amb);
 }
 
-t_cam *init_cam(float orient[3], int origin[3], float fov)
+t_cam *init_cam(float orient[3],float origin[3], float fov)
 {
 	t_cam *camera;
 	int i;

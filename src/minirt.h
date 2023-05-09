@@ -4,7 +4,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../libft/libft.h"
+# include "libft.h"
+#include "get_next_line.h"
 # define SPLIT_SET " \t\v\b"
 
 
@@ -63,8 +64,11 @@ typedef struct s_head
 	t_cam		*cam;
 	t_light		*light;
 	t_sphere	*sphere;
+	t_sphere	*begin_sphere;
 	t_plane		*plane;
+	t_plane		*begin_plane;
 	t_cylinder	*cylin;
+	t_cylinder	*begin_cylinder;
 	int			cofficient;
 
 }t_head;
@@ -75,8 +79,9 @@ typedef struct s_window
 	int	height;
 }t_window;
 
-void	parsing(int argc, char **argv, t_head *head);
 void	exit_code(int code, char *msg);
+void	parsing(int argc, char **argv, t_head *head);
+void	checker_parsing(char **splitted_line);
 
 // int 	is_in_set(char c);
 // char	**ft_split_m(char const *s);

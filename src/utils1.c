@@ -1,4 +1,4 @@
-#include "../include/minirt.h"
+#include "../includes/minirt.h"
 
 float ft_atof(char *str)
 {

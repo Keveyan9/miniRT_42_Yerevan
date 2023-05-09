@@ -1,8 +1,8 @@
-#include "../includes/minirt.h"
+#include "minirt.h"
 
-void    check_d_line(char *line)
+void	heck_d_line(char *line)
 {
-    int     i;
+ 	int     i;
     char    **splitted;
 
     i = -1;
@@ -53,6 +53,7 @@ void    checker_A(char **splitted_A)
 
 t_color *check_rgb(char **rgb)
 {
+
     int     len;
     int     i;
     float   col;
@@ -71,4 +72,22 @@ t_color *check_rgb(char **rgb)
     }
     color = init_color(ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
     return (color);
+}
+
+void	parsing(int argc, char **argv, t_head var_head);
+{
+	char	*line;
+	int		fd;
+
+	if (argc != 2)
+	{
+		if (argc == 1)
+			exit_code(1, "Is not argument\n");
+		else
+			exit_code(1, "Is more arguments\n");
+	}
+	fd = open(argv[1], O_RDWR);
+	if (fd < 0)
+		exit_code(1, "error opening the file\n");
+		
 }

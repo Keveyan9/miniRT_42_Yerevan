@@ -1,4 +1,4 @@
-#include "../includes/minirt.h"
+#include "../include/minirt.h"
 
 void    exit_code(int code, char *msg)
 {

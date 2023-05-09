@@ -1,4 +1,4 @@
-#include "../includes/minirt.h"
+#include "../include/minirt.h"
 
 void    check_d_line(char *line)
 {
@@ -36,8 +36,7 @@ void    checker_A(char **splitted_A)
     int     i;
     float   range;
     char    **rgb;
-    t_color *color;
-    
+    int     color[3];
 
     i = -1;
     while (splitted_A[++i])
@@ -48,27 +47,28 @@ void    checker_A(char **splitted_A)
     if (range < 0.0 || range > 1.0)
         exit_error(1, "Out of range for A\n");   
     rgb = ft_split(splitted_A, ',');
-    color = check_rgb(rgb);
+    check_rgb(rgb, &color);
 }
 
-t_color *check_rgb(char **rgb)
+int color_range_check(int col0, int col1, int col2)
 {
-    int     len;
+    if ((col0 < 0 || col0 > 255) || (col1 < 0 || col1 > 255)
+        || (col2 < 0 || col2 > 255))
+        return (0);
+    return (1);
+}
+
+void check_rgb(char **rgb, int *color[3])
+{
     int     i;
-    float   col;
-    t_color *color;
 
     i = 0;
-    col = 0;
-    len = ft_double_len(rgb);
-    if (len != 3)
+    if (ft_double_len(rgb) != 3)
         exit_code(1, "Invalid number of parameters for RGB\n");
-    while (i < len)
-    {
-        col = ft_atof(rgb[i]);
-        if (col < 0 || col > 255)
-            exit_code(1, "Invalid range for RGB\n");
-    }
-    color = init_color(ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
-    return (color);
+    *color[0] = ft_atof(rgb[0]);
+    *color[1] = ft_atof(rgb[1]);
+    *color[2] = ft_atof(rgb[2]);
+    if (color_range_check(*color[0], *color[1], *color[2]) == 0)
+        exit_code(1, "R, G, B out of range, [0, 255]\n");
+    //color = init_color(ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
 }

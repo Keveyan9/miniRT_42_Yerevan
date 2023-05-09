@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
+#include "../include/minirt.h"
 
 static int	ft_count(char const *s)
 {

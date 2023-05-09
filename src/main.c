@@ -1,4 +1,4 @@
-#include "../includes/minirt.h"
+#include "../include/minirt.h"
 
 int main(int argc, char **argv)
 {

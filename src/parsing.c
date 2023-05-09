@@ -1,74 +1,47 @@
-#include "../includes/minirt.h"
+#include "minirt.h"
 
-void    check_d_line(char *line)
+static char	**check_d_line(char *line)
 {
-    int     i;
-    char    **splitted;
+	int		i;
+	char	**splitted;
 
-    i = -1;
-    splitted = ft_split_m(line);
-    //checker for each line function
+	i = -1;
+	splitted = ft_split_m(line);
+	free (*line);//stex line need doing free
+	return (splitted);
 }
 
-void    checker(char **splitted_line)
+
+static void	reading_file(int fd, t_head *var_head)
 {
-    if (splitted_line[0])
-    {
-        if (ft_strncmp(splitted_line[0], "A", 2))
-            checker_A(splitted_line);
-        // else if (ft_strncmp(splitted_line[0], "C", 2))
-        // //
-        // else if (ft_strncmp(splitted_line[0], "L", 2))
-        // //
-        // else if (ft_strncmp(splitted_line[0], "pl", 3))
-        // //
-        // else if (ft_strncmp(splitted_line[0], "sp", 3))
-        // //
-        // else if (ft_strncmp(splitted_line[0], "cy", 3))
-        //     //
-        else
-            exit_code(1, "Invalid argument");    
-    }
+	char	*line;
+	char	**splitted;
+
+	line = NULL;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		splitted = check_d_line(line);
+		checker_parsing(splitted, var_head);
+	}
 }
 
-void    checker_A(char **splitted_A)
+void	parsing(int argc, char **argv, t_head *var_head)
 {
-    int     i;
-    float   range;
-    char    **rgb;
-    t_color *color;
-    
+	int		fd;
 
-    i = -1;
-    while (splitted_A[++i])
-        ;
-    if (i != 3)
-        exit_error(1, "Invalid number of parameters for A\n");
-    range = ft_atof(splitted_A[1]);
-    if (range < 0.0 || range > 1.0)
-        exit_error(1, "Out of range for A\n");   
-    rgb = ft_split(splitted_A, ',');
-    color = check_rgb(rgb);
-}
-
-t_color *check_rgb(char **rgb)
-{
-    int     len;
-    int     i;
-    float   col;
-    t_color *color;
-
-    i = 0;
-    col = 0;
-    len = ft_double_len(rgb);
-    if (len != 3)
-        exit_code(1, "Invalid number of parameters for RGB\n");
-    while (i < len)
-    {
-        col = ft_atof(rgb[i]);
-        if (col < 0 || col > 255)
-            exit_code(1, "Invalid range for RGB\n");
-    }
-    color = init_color(ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
-    return (color);
+	fd = 0;
+	if (argc != 2)
+	{
+		if (argc == 1)
+			exit_code(1, "Is not argument\n");
+		else
+			exit_code(1, "Is more arguments\n");
+	}
+	fd = open(argv[1], O_RDWR);
+	if (fd < 0)
+		exit_code(1, "error opening the file\n");
+	reading_file(fd, var_head);
 }

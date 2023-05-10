@@ -30,7 +30,7 @@ float ft_atof(char *str)
 			str++;
 		}
 	}
-	return (result);
+	return (result * sign);
 }
 
 int	ft_double_len(char **str)

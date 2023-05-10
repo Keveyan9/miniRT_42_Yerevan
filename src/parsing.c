@@ -7,7 +7,7 @@ static char	**check_d_line(char *line)
 
 	i = -1;
 	splitted = ft_split_m(line);
-	//free (*line);//stex line need doing free
+	//free (line);//stex line need doing free
 	return (splitted);
 }
 
@@ -23,7 +23,7 @@ static void	reading_file(int fd, t_head *var_head)
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
-		//printf("line == %s\n", line);
+		// printf("line == %s\n", line);
 		checker_parsing(splitted, var_head);
 	}
 }

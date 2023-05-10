@@ -74,7 +74,7 @@ t_light *init_light(float orig[3], float ratio)
 	return (light);
 }
 
-t_sphere *init_sphere(float center[3], int tint[3], float radius)
+t_sphere *init_sphere(float center[3], float tint[3], float radius)
 {
 	t_sphere *sphere;
 	int i;
@@ -92,7 +92,7 @@ t_sphere *init_sphere(float center[3], int tint[3], float radius)
 	return (sphere);
 }
 
-t_plane *init_plane(float point[3], float normal[3], int tint[3])
+t_plane *init_plane(float point[3], float normal[3], float tint[3])
 {
 	t_plane *plane;
 	int i;
@@ -110,7 +110,7 @@ t_plane *init_plane(float point[3], float normal[3], int tint[3])
 	return (plane);
 }
 
-t_cylinder *init_cylinder(float center[3], float normal[3], int tint[3], float radius, float height)
+t_cylinder *init_cylinder(float center[3], float normal[3], float tint[3], float radius, float height)
 {
 	t_cylinder *cylinder;
 	int i;

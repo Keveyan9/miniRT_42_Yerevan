@@ -43,7 +43,7 @@ typedef struct s_plane
 {
 	float	point[3];
 	float	normal[3];
-	int		tint[3];
+	float	tint[3];
 	struct s_plane	*prev;
 	struct s_plane	*next;
 }	t_plane;
@@ -54,10 +54,9 @@ typedef struct s_cylinder
 	float		normal[3];
 	float		radius;
 	float		height;
-	int			tint[3];
+	float		tint[3];
 	struct s_cylinder	*prev;
 	struct s_cylinder	*next;
-
 }	t_cylinder;
 
 typedef struct s_head
@@ -87,9 +86,9 @@ void		checker_parsing(char **splitted_line, t_head *head);
 t_ambient	*init_ambient(float ratio, float tint[3]);
 t_cam		*init_cam(float orient[3], float origin[3], float fov);
 t_light		*init_light(float orig[3], float ratio);
-t_sphere	*init_sphere(float center[3], int tint[3], float radius);
-t_plane		*init_plane(float point[3], float normal[3], int tint[3]);
-t_cylinder	*init_cylinder(float center[3], float normal[3], int tint[3], float radius, float height);
+t_sphere	*init_sphere(float center[3], float tint[3], float radius);
+t_plane		*init_plane(float point[3], float normal[3], float tint[3]);
+t_cylinder	*init_cylinder(float center[3], float normal[3], float tint[3], float radius, float height);
 //utils1.c
 int			ft_double_len(char **str);
 float 	ft_atof(char *str);
@@ -99,7 +98,7 @@ int			ft_isspace(char c);
 //main.c
 void		init_head(t_head *head);
 //checker_parsing.c
-void		check_vector(char **vec_splitted, float (*vec)[3], int lower_bound, int upper_bound);
+void		check_vector(char **vec_splitted, float (*vec)[3], float lower_bound, float upper_bound);
 //split_m.c
 char	**ft_split_m(char const *s);
 #endif

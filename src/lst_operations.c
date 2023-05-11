@@ -12,4 +12,5 @@ void    init_head(t_head *head)
     head->cylin = NULL;
     head->begin_cylinder = NULL;
     head->cofficient = 0;
+    head->atof_flag = 0;
 }

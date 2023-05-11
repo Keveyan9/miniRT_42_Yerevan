@@ -2,9 +2,6 @@
 
 int color_range_check(float vec[3], float lower_bound, float upper_bound)
 {
-	printf("vec[0] == %f\n", vec[0]);
-	printf("vec[1] == %f\n", vec[1]);
-	printf("vec[2] == %f\n", vec[2]);
 	if ((vec[0] < lower_bound || vec[0] > upper_bound)
 		|| (vec[1] < lower_bound || vec[1] > upper_bound)
 		|| (vec[2] < lower_bound || vec[2] > upper_bound))
@@ -144,19 +141,18 @@ void checker_parsing(char **splitted_line, t_head *head)
 {
 	if (!splitted_line[0] || !splitted_line[0][0])
 		exit_code(1, "Empty or only spaces detected\n");
-	printf("0 == %s\n", splitted_line[0]);
 	if (ft_strncmp(splitted_line[0], "A", 2) == 0)
 		checker_A(splitted_line, head);
 	else if (ft_strncmp(splitted_line[0], "C", 2) == 0)
 		checker_C(splitted_line, head);
-	// else if (ft_strncmp(splitted_line[0], "L", 2) == 0)
-	// 	checker_L(splitted_line, head);
-	// else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
-	// 	checker_pl(splitted_line, head);
-	// else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
-	// 	checker_sp(splitted_line, head);
-	// else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
-	// 	checker_cy(splitted_line, head);./GI	
+	else if (ft_strncmp(splitted_line[0], "L", 2) == 0)
+		checker_L(splitted_line, head);
+	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
+		checker_pl(splitted_line, head);
+	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
+		checker_sp(splitted_line, head);
+	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
+		checker_cy(splitted_line, head);
 	else
 	    exit_code(1, "Invalid argument");
 }

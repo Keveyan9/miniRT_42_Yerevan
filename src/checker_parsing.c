@@ -2,9 +2,9 @@
 
 int color_range_check(float vec[3], float lower_bound, float upper_bound)
 {
-	printf("vec[0] == %f\n", vec[0]);
-	printf("vec[1] == %f\n", vec[1]);
-	printf("vec[2] == %f\n", vec[2]);
+//	printf("vec[0] == %f\n", vec[0]);
+//	printf("vec[1] == %f\n", vec[1]);
+//	printf("vec[2] == %f\n", vec[2]);
 	if ((vec[0] < lower_bound || vec[0] > upper_bound)
 		|| (vec[1] < lower_bound || vec[1] > upper_bound)
 		|| (vec[2] < lower_bound || vec[2] > upper_bound))

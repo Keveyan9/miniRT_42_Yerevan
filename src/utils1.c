@@ -1,4 +1,4 @@
-#include "../includes/minirt.h"
+#include "minirt.h"
 
 float ft_atof(char *str)
 {
@@ -7,9 +7,7 @@ float ft_atof(char *str)
 	float fraction = 0.1;
 
 	while (ft_isspace(*str))
-	{
 		str++;
-	}
 	if (*str == '-')
 	{
 		sign = -1.0;
@@ -32,7 +30,7 @@ float ft_atof(char *str)
 			str++;
 		}
 	}
-	return (result);
+	return (result * sign);
 }
 
 int	ft_double_len(char **str)

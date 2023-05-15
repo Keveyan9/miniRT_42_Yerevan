@@ -13,7 +13,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 
 # endif
 
@@ -21,10 +21,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <stdint.h>
+# include "/root/minirt/lib/libft/libft.h"
 
 char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-char	*ft_strdup(const char *s);
 size_t	chekin_n(char *s);
 int		write_return(char **temporary, char **returnline, size_t *i_return);
 char	*ft_strjoin(char const *s1, char const *s2);

@@ -14,16 +14,25 @@ int	only_digit_in_str(char *s)
 	int	i;
 	int	k;
 
-	i = -1;
+	i = 0;
 	k = 0;
 	if (s[0] == '\n')
 		return (0);
 	if (s[0] == '-' || s[0] == '+')
-		k = 1;
-	while (s && ++i < ft_strlen(s) - 1)//the last one is '\n'
 	{
-		if (!ft_isdigit(s[i]) && k == 0 && s[i] != '.' && ft_isdigit(s[i + 1]))
+		k = 1;
+		i++;
+	}
+	while (s && s[i] != '\n' && s[i] && i < ft_strlen(s))//the last one is '\n'
+	{
+		if (!ft_isdigit(s[i]) && k == 0 && s[i] != '.')
+		{
+			printf("here 0000\n");
 			return (0);
+		}
+		else if (s[i] == '.' && s[i + 1] && !ft_isdigit(s[i + 1]))
+			return (0);
+		i++;
 	}
 	return (1);
 }
@@ -33,10 +42,10 @@ void check_vector(char **vec_splitted, float (*vec)[3], float lower_bound, float
 	// printf("vec[0] == %f\n", (*vec)[0]);
 	// printf("vec[1] == %f\n", (*vec)[1]);
 	// printf("vec[2] == %f\n", (*vec)[2]);
-	printf("len == %d\n", ft_double_len(vec_splitted));
-	printf("vec[0] == %s\n", vec_splitted[0]);
-	printf("vec[1] == %s\n", vec_splitted[1]);
-	printf("vec[2] == %s\n", vec_splitted[2]);
+	// printf("len == %d\n", ft_double_len(vec_splitted));
+	// printf("vec[0] == %s\n", vec_splitted[0]);
+	// printf("vec[1] == %s\n", vec_splitted[1]);
+	// printf("vec[2] == %s\n", vec_splitted[2]);
 	if (ft_double_len(vec_splitted) != 3)
 		exit_code(1, "Invalid number of parameters for vector\n");
 	if (!only_digit_in_str(vec_splitted[0]))

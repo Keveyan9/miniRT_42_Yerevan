@@ -7,8 +7,8 @@
 # include <stddef.h>
 # include <limits.h>
 # include <float.h>
-# include "../lib/libft/libft.h"
-# include "../lib/gnl/get_next_line.h"
+# include "/root/minirt/lib/libft/libft.h"
+# include "/root/minirt/lib/gnl/get_next_line.h"
 # define SPLIT_SET	" \t\v\b"
 
 typedef struct s_ambient
@@ -71,6 +71,7 @@ typedef struct s_head
 	t_cylinder	*cylin;
 	t_cylinder	*begin_cylinder;
 	int			cofficient;
+	int			atof_flag;
 }	t_head;
 
 typedef struct s_window
@@ -91,14 +92,14 @@ t_plane		*init_plane(float point[3], float normal[3], float tint[3]);
 t_cylinder	*init_cylinder(float center[3], float normal[3], float tint[3], float radius, float height);
 //utils1.c
 int			ft_double_len(char **str);
-float 	ft_atof(char *str);
+float 	ft_atof(char *str, t_head *head);
 //is_in_set.c
 int			is_in_set(char c);
 int			ft_isspace(char c);
 //main.c
 void		init_head(t_head *head);
 //checker_parsing.c
-void		check_vector(char **vec_splitted, float (*vec)[3], float lower_bound, float upper_bound);
+void		check_vector(char **vec_splitted, float (*vec)[3], float lower_bound, float upper_bound, t_head *);
 //split_m.c
 char	**ft_split_m(char const *s);
 #endif

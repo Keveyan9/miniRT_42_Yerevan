@@ -22,7 +22,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdint.h>
-# include "../libft/libft.h"
+# include "/root/minirt/lib/libft/libft.h"
 
 char	*get_next_line(int fd);
 size_t	chekin_n(char *s);

@@ -7,8 +7,8 @@
 # include <stddef.h>
 # include <limits.h>
 # include <float.h>
-# include "/root/minirt/lib/libft/libft.h"
-# include "/root/minirt/lib/gnl/get_next_line.h"
+# include "../lib/libft/libft.h"
+# include "../lib/gnl/get_next_line.h"
 # define SPLIT_SET	" \t\v\b"
 
 typedef struct s_ambient

@@ -16,4 +16,8 @@ int	ft_isdigit(int c)
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
+<<<<<<< HEAD
 }	
+=======
+}
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0

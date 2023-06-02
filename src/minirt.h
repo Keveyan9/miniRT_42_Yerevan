@@ -4,17 +4,31 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
+<<<<<<< HEAD
 # include "libft.h"
 #include "get_next_line.h"
 # define SPLIT_SET " \t\v\b"
 
+=======
+# include <stddef.h>
+# include <limits.h>
+# include <float.h>
+# include "../lib/libft/libft.h"
+# include "../lib/gnl/get_next_line.h"
+# define SPLIT_SET	" \t\v\b"
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 
 typedef struct s_ambient
 {
 	float	ratio;
 	float	tint[3];
+<<<<<<< HEAD
 
 }t_ambient;
+=======
+}	t_ambient;
+
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 typedef struct s_cam
 {
 	float	orig[3];
@@ -33,34 +47,57 @@ typedef struct s_sphere
 	float		center[3];
 	float		tint[3];
 	float		radius;
+<<<<<<< HEAD
 
 	t_sphere	*prev;
 	t_sphere	*next;
+=======
+	struct s_sphere	*prev;
+	struct s_sphere	*next;
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 }	t_sphere;
 
 typedef struct s_plane
 {
 	float	point[3];
 	float	normal[3];
+<<<<<<< HEAD
 	int		tint[3];
 
 	t_plane	*prev;
 	t_plane	*next;
 }	t_plane;
+=======
+	float	tint[3];
+	struct s_plane	*prev;
+	struct s_plane	*next;
+}	t_plane;
+
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 typedef struct s_cylinder
 {
 	float		center[3];
 	float		normal[3];
 	float		radius;
 	float		height;
+<<<<<<< HEAD
 	int			tint[3];
 	t_cylinder	*prev;
 	t_cylinder	*next;
 
+=======
+	float		tint[3];
+	struct s_cylinder	*prev;
+	struct s_cylinder	*next;
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 }	t_cylinder;
 
 typedef struct s_head
 {
+<<<<<<< HEAD
+=======
+	t_ambient	*amb;
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 	t_cam		*cam;
 	t_light		*light;
 	t_sphere	*sphere;
@@ -70,13 +107,19 @@ typedef struct s_head
 	t_cylinder	*cylin;
 	t_cylinder	*begin_cylinder;
 	int			cofficient;
+<<<<<<< HEAD
 
 }t_head;
+=======
+	int			atof_flag;
+}	t_head;
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 
 typedef struct s_window
 {
 	int	width;
 	int	height;
+<<<<<<< HEAD
 }t_window;
 
 void	exit_code(int code, char *msg);
@@ -87,4 +130,30 @@ void	checker_parsing(char **splitted_line);
 // char	**ft_split_m(char const *s);
 // int		ft_double_len(char **str);
 // float 	ft_atof(char *str);
+=======
+}	t_window;
+
+void		exit_code(int code, char *msg);
+void		parsing(int argc, char **argv, t_head *head);
+void		checker_parsing(char **splitted_line, t_head *head);
+//init.c
+t_ambient	*init_ambient(float ratio, float tint[3]);
+t_cam		*init_cam(float orient[3], float origin[3], float fov);
+t_light		*init_light(float orig[3], float ratio);
+t_sphere	*init_sphere(float center[3], float tint[3], float radius);
+t_plane		*init_plane(float point[3], float normal[3], float tint[3]);
+t_cylinder	*init_cylinder(float center[3], float normal[3], float tint[3], float radius, float height);
+//utils1.c
+int			ft_double_len(char **str);
+float 	ft_atof(char *str, t_head *head);
+//is_in_set.c
+int			is_in_set(char c);
+int			ft_isspace(char c);
+//main.c
+void		init_head(t_head *head);
+//checker_parsing.c
+void		check_vector(char **vec_splitted, float (*vec)[3], float lower_bound, float upper_bound, t_head *);
+//split_m.c
+char	**ft_split_m(char const *s);
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 #endif

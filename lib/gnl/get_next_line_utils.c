@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include"get_next_line.h"
 
+<<<<<<< HEAD
 size_t	ft_strlen(const char *s)
 {
 	size_t	n;
@@ -43,6 +44,8 @@ char	*ft_strdup(const char *s)
 	return (NULL);
 }
 
+=======
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 size_t	chekin_n(char *s)
 {
 	size_t	n;
@@ -58,6 +61,7 @@ size_t	chekin_n(char *s)
 	return (1);
 }
 
+<<<<<<< HEAD
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*nowstring;
@@ -82,6 +86,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (nowstring);
 }
 
+=======
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 void	freek(char **s)
 {
 	if (*s)
@@ -89,4 +95,8 @@ void	freek(char **s)
 		free(*s);
 		(*s) = NULL;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0

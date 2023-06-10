@@ -1,32 +1,20 @@
 #include "minirt.h"
 
-// t_vec	*init_vector(float x, float y, float z)
-// {
-// 	t_vec *vector;
+void	init_vector(t_vec vector, t_vec *objVect)
+{
+	(*objVect).x = vector.x;
+	(*objVect).y = vector.y;
+	(*objVect).z = vector.z;
+}
 
-// 	vector = malloc(sizeof(t_vec));
-// 	if (!vector)
-// 		exit_code(1, "vector malloc failed");
-// 	vector->x = x;
-// 	vector->y = y;
-// 	vector->z = z;
-// 	return (vector);
-// }
+void	init_color(t_color tint, t_color *ambTint)
+{
+	(*ambTint).r = tint.r;
+	(*ambTint).g = tint.g;
+	(*ambTint).b = tint.b;
+}
 
-// t_color	*init_color(float r, float g, float b)
-// {
-// 	t_color *color;
-
-// 	color = malloc(sizeof(t_color));
-// 	if (!color)
-// 		exit_code(1, "color malloc failed");
-// 	color->r = r;
-// 	color->g = g;
-// 	color->b = b;
-// 	return (color);
-// }
-
-t_ambient *init_ambient(float ratio, float tint[3])
+t_ambient *init_ambient(float ratio, t_color tint)
 {
 	t_ambient *amb;
 	int i;
@@ -35,13 +23,12 @@ t_ambient *init_ambient(float ratio, float tint[3])
 	amb = malloc(sizeof(t_ambient));
 	if (!amb)
 		exit_code(1, "ambient malloc failed");
-	while (++i < 3)
-		amb->tint[i] = tint[i];
+	init_color(tint, &(amb->tint));
 	amb->ratio = ratio;
 	return (amb);
 }
 
-t_cam *init_cam(float orient[3],float origin[3], float fov)
+t_cam *init_cam(t_vec origin, t_vec orient, float fov)
 {
 	t_cam *camera;
 	int i;
@@ -50,16 +37,13 @@ t_cam *init_cam(float orient[3],float origin[3], float fov)
 	camera = malloc(sizeof(t_cam));
 	if (!camera)
 		exit_code(1, "camera malloc failed");
-	while (++i < 3)
-	{
-		camera->orientation[i] = orient[i];
-		camera->orig[i] = origin[i];
-	}
+	init_vector(origin, &(camera->orig));
+	init_vector(orient, &(camera->orientation));
 	camera->fov = fov;
 	return (camera);
 }
 
-t_light *init_light(float orig[3], float ratio)
+t_light	*init_light(t_vec orig, float ratio)
 {
 	t_light *light;
 	int i;
@@ -68,13 +52,12 @@ t_light *init_light(float orig[3], float ratio)
 	light = malloc(sizeof(t_light));
 	if (!light)
 		exit_code(1, "origin malloc failed");
-	while (++i < 3)
-		light->orig[i] = orig[i];
+	init_vector(orig, &(light->orig));
 	light->ratio = ratio;
 	return (light);
 }
 
-t_sphere *init_sphere(float center[3], float tint[3], float radius)
+t_sphere	*init_sphere(t_vec orig, t_color tint, float radius)
 {
 	t_sphere *sphere;
 	int i;
@@ -83,16 +66,13 @@ t_sphere *init_sphere(float center[3], float tint[3], float radius)
 	sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
 		exit_code(1, "sphere malloc failed");
-	while (++i < 3)
-	{
-		sphere->center[i] = center[i];
-		sphere->tint[i] = tint[i];
-	}
+	init_vector(orig, &(sphere->center));
+	init_color(tint, &(sphere->tint));
 	sphere->radius = radius;
 	return (sphere);
 }
 
-t_plane *init_plane(float point[3], float normal[3], float tint[3])
+t_plane	*init_plane(t_vec point, t_vec normal, t_color tint)
 {
 	t_plane *plane;
 	int i;
@@ -101,16 +81,13 @@ t_plane *init_plane(float point[3], float normal[3], float tint[3])
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
 		exit_code(1, "plane malloc failed");
-	while (++i < 3)
-	{
-		plane->point[i] = point[i];
-		plane->normal[i] = normal[i];
-		plane->tint[i] = tint[i];
-	}
+	init_vector(point, &(plane->point));
+	init_vector(normal, &(plane->normal));
+	init_color(tint, &(plane->tint));
 	return (plane);
 }
 
-t_cylinder *init_cylinder(float center[3], float normal[3], float tint[3], float radius, float height)
+t_cylinder	*init_cylinder(t_vec center, t_vec normal, t_color tint, float radius, float height)
 {
 	t_cylinder *cylinder;
 	int i;
@@ -119,12 +96,9 @@ t_cylinder *init_cylinder(float center[3], float normal[3], float tint[3], float
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		exit_code(1, "cylinder malloc failed");
-	while (++i < 3)
-	{
-		cylinder->center[i] = center[i];
-		cylinder->normal[i] = normal[i];
-		cylinder->tint[i] = tint[i];
-	}
+	init_vector(center, &(cylinder->center));
+	init_vector(normal, &(cylinder->normal));
+	init_color(tint, &(cylinder->tint));
 	cylinder->radius = radius;
 	cylinder->height = height;
 	return (cylinder);

@@ -20,9 +20,9 @@ static void	chek_plus_minus( const char **str, int *minus_counter)
 		(*str)++;
 		if (!(**str >= '0' && **str <= '9'))
 		{
-			write (1, "non corect input\n", 17);
+			write (1, "non correct input\n", 17);
 			exit(0);
-		}	
+		}
 	}
 }
 
@@ -44,6 +44,6 @@ long int	ft_atoi(const char *str)
 	}
 	if (!(*str))
 		return (res * minus_counter);
-	write (1, "non corect input\n", 17);
+	write (1, "non correct input\n", 17);
 	exit(0);
 }

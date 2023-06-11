@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-float ft_atof(char *str, t_head *head)
+float ft_atof(char *str)
 {
 	float result = 0.0;
 	float sign = 1.0;

@@ -6,15 +6,11 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:31:44 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/05/08 13:31:26 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/03 03:14:38 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-<<<<<<< HEAD
-#include "../includes/minirt.h"
-=======
 #include "minirt.h"
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 
 static int	ft_count(char const *s)
 {

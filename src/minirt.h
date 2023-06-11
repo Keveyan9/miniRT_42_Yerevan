@@ -3,32 +3,21 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <math.h>
 # include <fcntl.h>
-<<<<<<< HEAD
-# include "libft.h"
-#include "get_next_line.h"
-# define SPLIT_SET " \t\v\b"
-
-=======
 # include <stddef.h>
 # include <limits.h>
 # include <float.h>
 # include "../lib/libft/libft.h"
 # include "../lib/gnl/get_next_line.h"
 # define SPLIT_SET	" \t\v\b"
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 
 typedef struct s_ambient
 {
 	float	ratio;
 	float	tint[3];
-<<<<<<< HEAD
-
-}t_ambient;
-=======
 }	t_ambient;
 
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 typedef struct s_cam
 {
 	float	orig[3];
@@ -47,57 +36,33 @@ typedef struct s_sphere
 	float		center[3];
 	float		tint[3];
 	float		radius;
-<<<<<<< HEAD
-
-	t_sphere	*prev;
-	t_sphere	*next;
-=======
 	struct s_sphere	*prev;
 	struct s_sphere	*next;
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 }	t_sphere;
 
 typedef struct s_plane
 {
 	float	point[3];
 	float	normal[3];
-<<<<<<< HEAD
-	int		tint[3];
-
-	t_plane	*prev;
-	t_plane	*next;
-}	t_plane;
-=======
 	float	tint[3];
 	struct s_plane	*prev;
 	struct s_plane	*next;
 }	t_plane;
 
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 typedef struct s_cylinder
 {
 	float		center[3];
 	float		normal[3];
 	float		radius;
 	float		height;
-<<<<<<< HEAD
-	int			tint[3];
-	t_cylinder	*prev;
-	t_cylinder	*next;
-
-=======
 	float		tint[3];
 	struct s_cylinder	*prev;
 	struct s_cylinder	*next;
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 }	t_cylinder;
 
 typedef struct s_head
 {
-<<<<<<< HEAD
-=======
 	t_ambient	*amb;
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 	t_cam		*cam;
 	t_light		*light;
 	t_sphere	*sphere;
@@ -107,30 +72,13 @@ typedef struct s_head
 	t_cylinder	*cylin;
 	t_cylinder	*begin_cylinder;
 	int			cofficient;
-<<<<<<< HEAD
-
-}t_head;
-=======
 	int			atof_flag;
 }	t_head;
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
 
 typedef struct s_window
 {
 	int	width;
 	int	height;
-<<<<<<< HEAD
-}t_window;
-
-void	exit_code(int code, char *msg);
-void	parsing(int argc, char **argv, t_head *head);
-void	checker_parsing(char **splitted_line);
-
-// int 	is_in_set(char c);
-// char	**ft_split_m(char const *s);
-// int		ft_double_len(char **str);
-// float 	ft_atof(char *str);
-=======
 }	t_window;
 
 void		exit_code(int code, char *msg);
@@ -145,7 +93,7 @@ t_plane		*init_plane(float point[3], float normal[3], float tint[3]);
 t_cylinder	*init_cylinder(float center[3], float normal[3], float tint[3], float radius, float height);
 //utils1.c
 int			ft_double_len(char **str);
-float 	ft_atof(char *str, t_head *head);
+float 		ft_atof(char *str, t_head *head);
 //is_in_set.c
 int			is_in_set(char c);
 int			ft_isspace(char c);
@@ -154,6 +102,18 @@ void		init_head(t_head *head);
 //checker_parsing.c
 void		check_vector(char **vec_splitted, float (*vec)[3], float lower_bound, float upper_bound, t_head *);
 //split_m.c
-char	**ft_split_m(char const *s);
->>>>>>> 61d7204ee9f1bc3f99e90e0bc475ab2b0f512df0
+char		**ft_split_m(char const *s);
+
+//vector_operations.c
+void 		vec_subtract(float c[3], float a[3], float b[3]);
+void 		vec_add(float c[3], float a[3], float b[3]);
+float 		dot_product(float a[3], float b[3]);
+void 		cross(float c[3], float a[3], float b[3]);
+void 		normalize(float p[3]);
+
+//light.c
+void		ambient_lightning(t_ambient *amb, float ambient[3]);
+float		diffuse_lightning(float	crossing_point[3], float normal[3], t_light *light);
+void		final_color(float ambient[3], float diffuse, float tint[3]);
+void		sphere_normal(float normal[3], float crossing_point[3], float center[3]);
 #endif

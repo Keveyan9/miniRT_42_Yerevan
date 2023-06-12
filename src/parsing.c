@@ -10,7 +10,7 @@ static char	**check_d_line(char *line)
 	return (splitted);
 }
 
-static void	reading_file(int fd, t_head *var_head)
+static void	reading_file(int fd, t_scene *var_scene)
 {
 	char	*line;
 	char	**splitted;
@@ -22,11 +22,12 @@ static void	reading_file(int fd, t_head *var_head)
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
-		checker_parsing(splitted, var_head);
+		if (checker_parsing(splitted, var_scene) > 3)
+			exit_code(1, "upper letter objects repeated in file\n");
 	}
 }
 
-void	parsing(int argc, char **argv, t_head *var_head)
+void	parsing(int argc, char **argv, t_scene *var_scene)
 {
 	int		fd;
 
@@ -41,5 +42,5 @@ void	parsing(int argc, char **argv, t_head *var_head)
 	fd = open(argv[1], O_RDWR);
 	if (fd < 0)
 		exit_code(1, "error opening the file\n");
-	reading_file(fd, var_head);
+	reading_file(fd, var_scene);
 }

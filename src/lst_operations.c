@@ -1,15 +1,15 @@
 #include "minirt.h"
 
-void    init_head(t_head *head)
+void    init_scene(t_scene *scene)
 {
-    head->amb = NULL;
-    head->cam = NULL;
-    head->light = NULL;
-    head->sphere = NULL;
-    head->begin_sphere = NULL;
-    head->plane = NULL;
-    head->begin_plane = NULL;
-    head->cylin = NULL;
-    head->begin_cylinder = NULL;
-    head->coefficient = 0;
+    scene->amb = NULL;
+    scene->cam = NULL;
+    scene->light = NULL;
+    scene->sphere = NULL;
+    scene->begin_sphere = NULL;
+    scene->plane = NULL;
+    scene->begin_plane = NULL;
+    scene->cylin = NULL;
+    scene->begin_cylinder = NULL;
+    scene->coefficient = 0;
 }

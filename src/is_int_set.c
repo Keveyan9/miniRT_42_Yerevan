@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "scene.h"
 
 int	is_in_set(char c)
 {

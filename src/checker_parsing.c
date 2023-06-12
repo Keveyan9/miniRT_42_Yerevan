@@ -80,7 +80,7 @@ void check_color(char **vec_splitted, t_color *tint)
 		exit_code(1, "Color coordinates are out of range\n");
 }
 
-void checker_A(char **splitted_A, t_head *head)
+void checker_A(char **splitted_A, t_scene *scene)
 {
 	float	ratio = 1;
 	char	**rgb_splitted;
@@ -93,10 +93,10 @@ void checker_A(char **splitted_A, t_head *head)
 		exit_code(1, "Ratio is out of range for A\n");
 	rgb_splitted = ft_split(splitted_A[2], ',');
 	check_color(rgb_splitted, &color);
-	head->amb = init_ambient(ratio, color);
+	scene->amb = init_ambient(ratio, color);
 }
 
-void checker_C(char **splitted_C, t_head *head)
+void checker_C(char **splitted_C, t_scene *scene)
 {
 	char	**orientation_splitted;
 	char	**origin;
@@ -113,10 +113,10 @@ void checker_C(char **splitted_C, t_head *head)
 	fov = ft_atof(splitted_C[3]);
 	if (fov < 0.0 || fov > 180.0)
 		exit_code(1, "fov is out of range for C\n");
-	head->cam = init_cam(orientVec, originVec, fov);
+	scene->cam = init_cam(orientVec, originVec, fov);
 }
 
-void checker_L(char **splitted_L, t_head *head)
+void checker_L(char **splitted_L, t_scene *scene)
 {
 	char	**origin;
 	t_vec	origin_vec;
@@ -129,10 +129,10 @@ void checker_L(char **splitted_L, t_head *head)
 	ratio = ft_atof(splitted_L[2]);
 	if (ratio < 0.0 || ratio > 1.0)
 		exit_code(1, "Ratio is out of range for L\n");
-	head->light = init_light(origin_vec, ratio);
+	scene->light = init_light(origin_vec, ratio);
 }
 
-void checker_pl(char **splitted_pl, t_head *head)
+void checker_pl(char **splitted_pl, t_scene *scene)
 {
 	char	**orientationSplitted;
 	char	**origin;
@@ -149,10 +149,10 @@ void checker_pl(char **splitted_pl, t_head *head)
 	check_vector(origin, &originVec, INT_MIN, FLT_MAX);
 	check_vector(orientationSplitted, &orientVec, -1, 1);
 	check_color(tintSplitted, &tint);
-	head->plane = init_plane(orientVec, originVec, tint);
+	scene->plane = init_plane(orientVec, originVec, tint);
 }
 
-void checker_sp(char **splitted_sp, t_head *head)
+void checker_sp(char **splitted_sp, t_scene *scene)
 {
 	char	**center;
 	char	**tint;
@@ -167,10 +167,10 @@ void checker_sp(char **splitted_sp, t_head *head)
 	check_vector(center, &centerVec, INT_MIN, FLT_MAX);
 	check_color(tint, &tintVec);
 	radius = ft_atof(splitted_sp[2]);
-	head->sphere = init_sphere(centerVec, tintVec, radius);
+	scene->sphere = init_sphere(centerVec, tintVec, radius);
 }
 
-void checker_cy(char **splitted_cy, t_head *head)
+void checker_cy(char **splitted_cy, t_scene *scene)
 {
 	char	**orientationSplitted;
 	char	**origin;
@@ -191,25 +191,28 @@ void checker_cy(char **splitted_cy, t_head *head)
 	check_vector(origin, &originVec, INT_MIN, FLT_MAX);
 	check_vector(orientationSplitted, &orientVec, -1, 1);
 	check_color(tint, &tintVec);
-	head->cylin = init_cylinder(originVec, orientVec, tintVec, radius, height);
+	scene->cylin = init_cylinder(originVec, orientVec, tintVec, radius, height);
 }
 
-void checker_parsing(char **splitted_line, t_head *head)
+int checker_parsing(char **splitted_line, t_scene *scene)
 {
-	if (!splitted_line[0] || !splitted_line[0][0])
-		exit_code(1, "Empty line or only spaces detected\n");
-	if (ft_strncmp(splitted_line[0], "A", 2) == 0)
-		checker_A(splitted_line, head);
-	else if (ft_strncmp(splitted_line[0], "C", 2) == 0)
-		checker_C(splitted_line, head);
-	else if (ft_strncmp(splitted_line[0], "L", 2) == 0)
-		checker_L(splitted_line, head);
+	static int	upperLetters = 0;
+
+	if (splitted_line[0][0] == '\n')
+		return (0);
+	if (ft_strncmp(splitted_line[0], "A", 2) == 0 && ++upperLetters)
+		checker_A(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "C", 2) == 0 && ++upperLetters)
+		checker_C(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "L", 2) == 0 && ++upperLetters)
+		checker_L(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
-		checker_pl(splitted_line, head);
+		checker_pl(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
-		checker_sp(splitted_line, head);
+		checker_sp(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
-		checker_cy(splitted_line, head);
+		checker_cy(splitted_line, scene);
 	else
 	    exit_code(1, "Invalid argument\n");
+	return (upperLetters);
 }

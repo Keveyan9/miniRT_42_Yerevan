@@ -16,33 +16,44 @@ t_vec   gettingWPrime(t_vec u, t_vec v, t_vec w, int width, int height, t_cam ca
     t_vec   vCoeff;
     t_vec   wCoeff;
 
-    // uCoeff = vecScale((-width/2), u);
-    // vCoeff = vecScale((height/2), v);
-    // wCoeff = vecScale(((-height/2)/tan(fov * 0.5)), w);
-    // wPrime = vecAdd(vecAdd(uCoeff, vCoeff), wCoeff);
+    uCoeff = vecScale((-width/2), u);//why - ?????
+    vCoeff = vecScale((height/2), v);
+    wCoeff = vecScale(((-height/2)/tan(camera.fov * 0.5)), w);
+    wPrime = vecAdd(vecAdd(uCoeff, vCoeff), wCoeff);
     return(wPrime);
 }
 
-t_vec   rayDirGenerate(t_vec u, t_vec v, t_vec w, int width, int height, t_cam camera)//t_matrix lookAt, 
+t_vec   rayDirGenerate(t_vec u, t_vec v, t_vec w, int width, int height, t_cam camera, float x, float y)//t_matrix lookAt, 
 {
     t_vec   rayDir;
     t_vec   xu;
     t_vec   yMinusv;
     t_vec   wPrime;
 
-    // xu = vectMult(x, u);
-    // yMinusv = vectMult(y, -v);
-    // wPrime = gettingWPrime();
-    // rayDir = vecAdd(vecAdd(xu, yMinusv), wPrime);
-    // normalize(&rayDir)
+    xu = vecScale(x, u);
+    yMinusv = vecScale(y, vecScale(-1, v));
+    wPrime = gettingWPrime(u, v, w, width, height, camera);
+    rayDir = vecAdd(vecAdd(xu, yMinusv), wPrime);
+    rayDir = normalize(rayDir);//changing with address
     return (rayDir);
 }
 
-t_ray   rayGenerate(t_vec u, t_vec v, t_vec w, int width, int height, t_cam camera)//t_matrix lookAt
+t_ray   rayGenerate(int width, int height, float x, float y)//t_matrix lookAt
 {
     t_ray   ray;
+    t_vec   u;
+    t_vec   v;
+    t_vec   w;
+    //t_matrix lookAt;
+    //lookAt.u; .v; .w;
+    t_cam   camera;// = lookAt(lookAt.u, lookAt.v, lookAt.w)
 
     ray.orig = camera.orig;
-    ray.dir = rayDirGenerate(u, v, w, width, height, camera);
-     
+    ray.dir = rayDirGenerate(u, v, w, width, height, camera, x, y);
+    return (ray);
+}
+
+void    rayCast(int width, int height, t_mlx mlxData)
+{
+    
 }

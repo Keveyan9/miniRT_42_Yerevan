@@ -10,7 +10,30 @@ static char	**check_d_line(char *line)
 	return (splitted);
 }
 
-static void	reading_file(int fd, t_scene *var_scene)
+int checkerForEachObject(char **splitted_line, t_scene *scene)
+{
+	static int	upperLetters = 0;
+
+	if (splitted_line[0][0] == '\n')
+		return (0);
+	if (ft_strncmp(splitted_line[0], "A", 2) == 0 && ++upperLetters)
+		checker_A(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "C", 2) == 0 && ++upperLetters)
+		checker_C(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "L", 2) == 0 && ++upperLetters)
+		checker_L(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
+		checkerPl(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
+		checkerSp(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
+		checkerCy(splitted_line, scene);
+	else
+	    exit_code(1, "Invalid argument\n");
+	return (upperLetters);
+}
+
+static void	reading_file(int fd, t_scene *scene)
 {
 	char	*line;
 	char	**splitted;
@@ -22,7 +45,7 @@ static void	reading_file(int fd, t_scene *var_scene)
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
-		if (checker_parsing(splitted, var_scene) > 3)
+		if (checkerForEachObject(splitted, scene) > 3)
 			exit_code(1, "upper letter objects repeated in file\n");
 	}
 }

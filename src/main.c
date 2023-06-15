@@ -11,6 +11,6 @@ int	main(int argc, char **argv)
 
 	init_scene(&scene);
 	parsing(argc, argv, &scene);
-	// printf("height == %f\n", scene.cylin->height);
+	// printf("height == %f\n", scene.cylin->next->height);
 	return (0);
 }

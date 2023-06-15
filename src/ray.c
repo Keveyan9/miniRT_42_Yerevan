@@ -53,7 +53,31 @@ t_ray   rayGenerate(int width, int height, float x, float y)//t_matrix lookAt
     return (ray);
 }
 
-void    rayCast(int width, int height, t_mlx mlxData)
+bool    rayTrace()
 {
     
+}
+
+t_color    rayCast(int width, int height, t_ray ray)
+{
+    //rays from origin to x, y
+}
+
+void    render(int width, int height)//, t_mlx mlxData)
+{
+    t_ray   ray;
+    int     x;
+    int     y;
+
+    x = -1;
+    y = -1;
+    while (++x < width)
+    {
+        y = -1;
+        while (++y < height)
+        {
+            ray = rayGenerate(width, height, x, y);
+            //raycast();
+        }
+    }
 }

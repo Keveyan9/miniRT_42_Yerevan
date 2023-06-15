@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+# include "minirt.h"
+# include <math.h>
 
 t_vec   vecAdd(t_vec a, t_vec b)
 {
@@ -72,4 +73,12 @@ t_vec   vecScale(float n, t_vec p)
 float   distance(t_vec p1, t_vec p2)
 {
 	return (sqrtf(powf(p2.x - p1.x, 2) + powf(p2.y - p1.y, 2) + powf(p2.z - p1.z, 2)));
+}
+
+float	vecNorm(t_vec vec)
+{
+	float	norm;
+
+	norm = sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+	return (norm);
 }

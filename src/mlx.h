@@ -1,7 +1,8 @@
 #ifndef MLX_H
 # define MLX_H
 
-#include "minirt.h"
+# include "minirt.h"
+# include <math.h>
 
 typedef struct s_mlx
 {

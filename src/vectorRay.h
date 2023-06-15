@@ -29,5 +29,6 @@ t_vec   cross(t_vec a, t_vec b);
 t_vec   normalize(t_vec p);
 t_vec   vecScale(float n, t_vec p);
 float   distance(t_vec p1, t_vec p2);
+float	vecNorm(t_vec vec);
 
 #endif

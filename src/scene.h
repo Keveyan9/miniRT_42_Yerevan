@@ -29,6 +29,7 @@ typedef struct s_sphere
 	t_vec			center;
 	t_color			tint;
 	float			radius;
+	int				size;
 	struct s_sphere	*prev;
 	struct s_sphere	*next;
 }	t_sphere;

@@ -46,7 +46,7 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
 	t_vec				center;
-	t_vec				normal;
+	t_vec				axis;
 	t_color				tint;
 	float				radius;
 	float				height;

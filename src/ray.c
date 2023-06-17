@@ -9,21 +9,21 @@ t_ray   createRay(t_vec orig, t_vec dir)
     return (ray);
 }
 
-t_vec   gettingWPrime(t_vec u, t_vec v, t_vec w, int width, int height, t_cam camera)
+t_vec   gettingWPrime(t_vec u, t_vec v, t_vec w, t_cam camera)
 {
     t_vec   wPrime;
     t_vec   uCoeff;
     t_vec   vCoeff;
     t_vec   wCoeff;
 
-    uCoeff = vecScale((-width/2), u);//why - ?????
-    vCoeff = vecScale((height/2), v);
-    wCoeff = vecScale(((-height/2)/tan(camera.fov * 0.5)), w);
+    uCoeff = vecScale((-WIDTH/2), u);//why - ?????
+    vCoeff = vecScale((HEIGHT/2), v);
+    wCoeff = vecScale(((-HEIGHT/2)/tan(camera.fov * 0.5)), w);
     wPrime = vecAdd(vecAdd(uCoeff, vCoeff), wCoeff);
     return(wPrime);
 }
 
-t_vec   rayDirGenerate(t_vec u, t_vec v, t_vec w, int width, int height, t_cam camera, float x, float y)//t_matrix lookAt, 
+t_vec   rayDirGenerate(t_vec u, t_vec v, t_vec w, t_cam camera, float x, float y)//t_matrix lookAt, 
 {
     t_vec   rayDir;
     t_vec   xu;
@@ -32,13 +32,13 @@ t_vec   rayDirGenerate(t_vec u, t_vec v, t_vec w, int width, int height, t_cam c
 
     xu = vecScale(x, u);
     yMinusv = vecScale(y, vecScale(-1, v));
-    wPrime = gettingWPrime(u, v, w, width, height, camera);
+    wPrime = gettingWPrime(u, v, w, camera);
     rayDir = vecAdd(vecAdd(xu, yMinusv), wPrime);
     rayDir = normalize(rayDir);//changing with address
     return (rayDir);
 }
 
-t_ray   rayGenerate(int width, int height, float x, float y)//t_matrix lookAt
+t_ray   rayGenerate(float x, float y)//t_matrix lookAt
 {
     t_ray   ray;
     t_vec   u;
@@ -49,21 +49,23 @@ t_ray   rayGenerate(int width, int height, float x, float y)//t_matrix lookAt
     t_cam   camera;// = lookAt(lookAt.u, lookAt.v, lookAt.w)
 
     ray.orig = camera.orig;
-    ray.dir = rayDirGenerate(u, v, w, width, height, camera, x, y);
+    ray.dir = rayDirGenerate(u, v, w, camera, x, y);
     return (ray);
 }
 
-bool    rayTrace()
+bool    rayTrace(t_scene scene, t_ray ray)
 {
-    
+    //loop over all scene objects
+    //intersection checking
+    //tNear deciding
 }
 
-t_color    rayCast(int width, int height, t_ray ray)
+t_color    rayCast(t_ray ray)
 {
     //rays from origin to x, y
 }
 
-void    render(int width, int height)//, t_mlx mlxData)
+void    render()//, t_mlx mlxData)
 {
     t_ray   ray;
     int     x;
@@ -71,12 +73,12 @@ void    render(int width, int height)//, t_mlx mlxData)
 
     x = -1;
     y = -1;
-    while (++x < width)
+    while (++x < WIDTH)
     {
         y = -1;
-        while (++y < height)
+        while (++y < HEIGHT)
         {
-            ray = rayGenerate(width, height, x, y);
+            ray = rayGenerate(x, y);
             //raycast();
         }
     }

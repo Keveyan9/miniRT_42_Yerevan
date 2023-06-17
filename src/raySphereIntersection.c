@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-bool intersect_sphere(t_ray ray, t_sphere sphere, float *t0, float *t1)
+bool    intersect_sphere(t_ray ray, t_sphere sphere, float *t0, float *t1)
 {
     float   tOHdot;
     float   tHC;

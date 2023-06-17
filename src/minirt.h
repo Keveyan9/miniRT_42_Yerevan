@@ -16,6 +16,9 @@
 # include "mlx.h"
 # include "vectorRay.h"
 
+# define WIDTH 1600
+# define HEIGHT 900
+
 typedef struct s_window
 {
 	int	width;
@@ -35,6 +38,7 @@ t_cylinder	*initCylinder(t_vec center, t_vec normal, t_color tint, float radius,
 //utils1.c
 int			ft_double_len(char **str);
 float 		ft_atof(char *str);
+bool		isInRangeCheck(float number, float lower, float upper);
 //isInSet.c
 int			isInSet(char c);
 int			ft_isspace(char c);
@@ -63,5 +67,8 @@ void		checker_A(char **splitted_A, t_scene *scene);
 void		checkerPl(char **splitted_pl, t_scene *scene);
 void		checkerSp(char **splitted_sp, t_scene *scene);
 void		checkerCy(char **splitted_cy, t_scene *scene);
+//intersections
+bool		intersectPlane(t_ray ray, t_plane plane, float *t);
+bool		intersect_sphere(t_ray ray, t_sphere sphere, float *t0, float *t1);
 
 #endif

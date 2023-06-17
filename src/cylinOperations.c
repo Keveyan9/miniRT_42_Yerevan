@@ -32,7 +32,7 @@ t_cylinder	*initCylinder(t_vec center, t_vec normal, t_color tint, float radius,
 	if (!cylinder)
 		exit_code(1, "cylinder malloc failed");
 	initVector(center, &(cylinder->center));
-	initVector(normal, &(cylinder->normal));
+	initVector(normal, &(cylinder->axis));
 	initColor(tint, &(cylinder->tint));
 	cylinder->radius = radius;
 	cylinder->height = height;
@@ -55,7 +55,7 @@ void	checkerCy(char **splitted_cy, t_scene *scene)
 	origin = ft_split(splitted_cy[1], ',');
 	orientationSplitted = ft_split(splitted_cy[2], ',');
 	tint = ft_split(splitted_cy[5], ',');
-	radius = ft_atof(splitted_cy[3]);
+	radius = ft_atof(splitted_cy[3]) / 2;
 	height = ft_atof(splitted_cy[4]);
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX);
 	checkVector(orientationSplitted, &orientVec, -1, 1);

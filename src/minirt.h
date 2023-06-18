@@ -8,92 +8,17 @@
 # include <stddef.h>
 # include <limits.h>
 # include <float.h>
+# include <math.h>
+# include <stdbool.h>
+# include "../lib/minilibx-linux/mlx.h"
 # include "../lib/libft/libft.h"
 # include "../lib/gnl/get_next_line.h"
-# define SPLIT_SET	" \t\v\b"
+# include "scene.h"
+# include "mlx.h"
+# include "vectorRay.h"
 
-typedef struct s_vec
-{
-	float	x;
-	float	y;
-	float	z;
-}	t_vec;
-
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
-
-typedef struct s_ray
-{
-	float	t;
-	t_vec	orig;
-	t_vec	dir;
-}	t_ray;
-
-typedef struct s_ambient
-{
-	float	ratio;
-	t_color	tint;
-}	t_ambient;
-
-typedef struct s_cam
-{
-	t_vec	orig;
-	t_vec	orientation;
-	float	fov;
-}	t_cam;
-
-typedef struct s_light
-{
-	t_vec	orig;
-	float	ratio;
-}	t_light;
-
-typedef struct s_sphere
-{
-	t_vec			center;
-	t_color			tint;
-	float			radius;
-	struct s_sphere	*prev;
-	struct s_sphere	*next;
-}	t_sphere;
-
-typedef struct s_plane
-{
-	t_vec	point;
-	t_vec	normal;
-	t_color	tint;
-	struct s_plane	*prev;
-	struct s_plane	*next;
-}	t_plane;
-
-typedef struct s_cylinder
-{
-	t_vec				center;
-	t_vec				normal;
-	t_color				tint;
-	float				radius;
-	float				height;
-	struct s_cylinder	*prev;
-	struct s_cylinder	*next;
-}	t_cylinder;
-
-typedef struct s_head
-{
-	t_ambient	*amb;
-	t_cam		*cam;
-	t_light		*light;
-	t_sphere	*sphere;
-	t_sphere	*begin_sphere;
-	t_plane		*plane;
-	t_plane		*begin_plane;
-	t_cylinder	*cylin;
-	t_cylinder	*begin_cylinder;
-	int			coefficient;
-}	t_head;////////////changeeeeeeeeeeee
+# define WIDTH 1600
+# define HEIGHT 900
 
 typedef struct s_window
 {
@@ -102,25 +27,49 @@ typedef struct s_window
 }	t_window;
 
 void		exit_code(int code, char *msg);
-void		parsing(int argc, char **argv, t_head *head);
-void		checker_parsing(char **splitted_line, t_head *head);
+void		parsing(int argc, char **argv, t_scene *scene);
+int			checker_parsing(char **splitted_line, t_scene *scene);
 //init.c
-t_ambient	*init_ambient(float ratio, t_color tint);
-t_cam		*init_cam(t_vec orig, t_vec orient, float fov);
-t_light		*init_light(t_vec orig, float ratio);
-t_sphere	*init_sphere(t_vec orig, t_color tint, float radius);
-t_plane		*init_plane(t_vec point, t_vec normal, t_color tint);
-t_cylinder	*init_cylinder(t_vec center, t_vec normal, t_color tint, float radius, float height);
+t_ambient	*initAmbient(float ratio, t_color tint);
+t_cam		*initCam(t_vec orig, t_vec orient, float fov);
+t_light		*initLight(t_vec orig, float ratio);
+t_sphere	*initSphere(t_vec orig, t_color tint, float radius);
+t_plane		*initPlane(t_vec point, t_vec normal, t_color tint);
+t_cylinder	*initCylinder(t_vec center, t_vec normal, t_color tint, float radius, float height);
 //utils1.c
 int			ft_double_len(char **str);
 float 		ft_atof(char *str);
-//is_in_set.c
-int			is_in_set(char c);
+bool		isInRangeCheck(float number, float lower, float upper);
+//isInSet.c
+int			isInSet(char c);
 int			ft_isspace(char c);
 //main.c
-void		init_head(t_head *head);
+void		init_scene(t_scene *scene);
 //checker_parsing.c
-void		check_vector(char **vec_splitted, t_vec *vector, float lower_bound, float upper_bound);
+void		checkVector(char **vec_splitted, t_vec *vector, float lower_bound, float upper_bound);
 //split_m.c
 char		**ft_split_m(char const *s);
+//checkerUtils.c
+int			only_digit_in_str(char *s);
+int			color_range_check(t_color *tint);
+int 		vector_range_check(t_vec *vector, float lower_bound, float upper_bound);
+//objectsInit.c
+void		initVector(t_vec vector, t_vec *objVect);
+void		initColor(t_color tint, t_color *ambTint);
+t_ambient	*initAmbient(float ratio, t_color tint);
+t_cam		*initCam(t_vec origin, t_vec orient, float fov);
+t_light		*initLight(t_vec orig, float ratio);
+//checkers.c
+void		checkVector(char **vec_splitted, t_vec *vector, float lower_bound, float upper_bound);
+void		checkColor(char **vec_splitted, t_color *tint);
+void		checker_C(char **splitted_C, t_scene *scene);
+void		checker_L(char **splitted_L, t_scene *scene);
+void		checker_A(char **splitted_A, t_scene *scene);
+void		checkerPl(char **splitted_pl, t_scene *scene);
+void		checkerSp(char **splitted_sp, t_scene *scene);
+void		checkerCy(char **splitted_cy, t_scene *scene);
+//intersections
+bool		intersectPlane(t_ray ray, t_plane plane, float *t);
+bool		intersect_sphere(t_ray ray, t_sphere sphere, float *t0, float *t1);
+
 #endif

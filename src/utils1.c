@@ -42,3 +42,10 @@ int	ft_double_len(char **str)
 		;
 	return (i);
 }
+
+bool	isInRangeCheck(float number, float lower, float upper)
+{
+	if (number >= lower && number <= upper)
+		return (true);
+	return (false);
+}

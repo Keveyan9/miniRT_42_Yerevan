@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 10:39:29 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/20 23:20:50 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/21 01:30:58 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vec	reflect_vec(t_vec l, t_vec n)
 	return (r);
 }
 
-void	cross_point(t_vec *p, t_ray r, float t)
+void	point_calc(t_vec *p, t_ray r, float t)
 {
 	p->x = r.orig.x + t * r.dir.x;
 	p->y = r.orig.y + t * r.dir.y;

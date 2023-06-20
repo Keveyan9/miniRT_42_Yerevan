@@ -75,6 +75,6 @@ t_color		specular_lightning(t_light *light, t_cross *cross, t_cam  *cam, float s
 t_color		colorMul(t_color c, float f);
 t_vec		sphere_normal(t_vec p, t_vec center);
 t_vec		reflect_vec(t_vec l, t_vec n);
-void		cross_point(t_vec *p, t_ray r, float t);
+void		point_calc(t_vec *p, t_ray r, float t);
 
 #endif

@@ -20,7 +20,7 @@ bool    intersect_sphere(t_ray ray, t_sphere sphere, t_cross *cross)
     t = tOHdot + tHC;
     if (t < cross->t)
         cross->t = t;
-    cross_point(&cross->p, ray, cross->t);
+    point_calc(&cross->p, ray, cross->t);
     cross->n = sphere_normal(cross->p, sphere.center);
     return (true);
 }

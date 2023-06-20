@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:20:59 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/20 11:14:42 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/21 01:37:12 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_vec   normalize(t_vec p)
 	t_vec	n;
 	float	len;
 
-	len = sqrtf(p.x * p.x + p.y * p.y + p.z * p.z);
+	len = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
 	n.x = p.x / len;
 	n.y = p.y / len;
 	n.z = p.z / len;
@@ -72,7 +72,7 @@ t_vec   vecScale(float n, t_vec p)
 
 float   distance(t_vec p1, t_vec p2)
 {
-	return (sqrtf(powf(p2.x - p1.x, 2) + powf(p2.y - p1.y, 2) + powf(p2.z - p1.z, 2)));
+	return (sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2)));
 }
 
 float	vecNorm(t_vec vec)

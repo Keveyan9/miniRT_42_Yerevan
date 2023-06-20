@@ -73,15 +73,19 @@ void	checker_C(char **splitted_C, t_scene *scene)
 void	checker_L(char **splitted_L, t_scene *scene)
 {
 	char	**origin;
+	char	**rgb_splitted;
 	t_vec	origin_vec;
 	float	ratio;
+	t_color	color;
 
-	if (ft_double_len(splitted_L) != 3)
+	if (ft_double_len(splitted_L) != 4)
 		exit_code(1, "Invalid number of parameters for L\n");
 	origin = ft_split(splitted_L[1], ',');
 	checkVector(origin, &origin_vec, INT_MIN, FLT_MAX);
 	ratio = ft_atof(splitted_L[2]);
 	if (ratio < 0.0 || ratio > 1.0)
 		exit_code(1, "Ratio is out of range for L\n");
+	rgb_splitted = ft_split(splitted_L[3], ',');
+	checkColor(rgb_splitted, &color);
 	scene->light = initLight(origin_vec, ratio);
 }

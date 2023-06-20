@@ -22,6 +22,7 @@ typedef struct s_light
 {
 	t_vec	orig;
 	float	ratio;
+	t_color	tint;
 }	t_light;
 
 typedef struct s_sphere

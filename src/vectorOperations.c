@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_operations.c                                :+:      :+:    :+:   */
+/*   vectorOperations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:20:59 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/12 02:51:07 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:14:42 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,14 @@ float	vecNorm(t_vec vec)
 
 	norm = sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 	return (norm);
+}
+
+t_vec	vecMul(t_vec v, float f)
+{
+	t_vec	vec;
+
+	vec.x = v.x * f;
+	vec.y = v.y * f;
+	vec.z = v.z * f;
+	return (vec);
 }

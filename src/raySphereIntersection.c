@@ -1,10 +1,11 @@
 #include "minirt.h"
 
-bool    intersect_sphere(t_ray ray, t_sphere sphere, float *t0, float *t1)
+bool    intersect_sphere(t_ray ray, t_sphere sphere, t_cross *cross)
 {
     float   tOHdot;
     float   tHC;
     float   dSquare;
+    float   t;
     t_vec   L;
 
     L = vecSub(sphere.center, ray.orig);
@@ -15,7 +16,11 @@ bool    intersect_sphere(t_ray ray, t_sphere sphere, float *t0, float *t1)
     if (dSquare > sphere.radius * sphere.radius)
         return (false);
     tHC = sqrt(sphere.radius * sphere.radius - dSquare);
-    *t0 = tOHdot - tHC;
-    *t1 = tOHdot + tHC;
+    cross->t = tOHdot - tHC;
+    t = tOHdot + tHC;
+    if (t < cross->t)
+        cross->t = t;
+    cross_point(&cross->p, ray, cross->t);
+    cross->n = sphere_normal(cross->p, sphere.center);
     return (true);
 }

@@ -6,48 +6,43 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:51:31 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/08 03:31:55 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/20 23:38:17 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	ambient_lightning(t_ambient *amb, float ambient[3])
+t_color	ambient_lighting(t_ambient *ambient)
 {
-	int		i;
-
-	i = -1;
-	while (++i < 3)
-		ambient[i] = amb->tint[i] * amb->ratio;
+	return (colorMul(ambient->tint, ambient->ratio));
 }
 
-float	diffuse_lightning(float	crossing_point[3], float normal[3], t_light *light)
+t_color	diffuse_lighting(t_light *light, t_cross *cross)
 {
-	float	light_ray[3];
+	t_vec	light_ray;
 	float	dot;
 	
-	vec_subtract(light_ray, light->orig, crossing_point);
-	normalize(light_ray);
-	dot = dot_product(light_ray, normal);
+	light_ray = normalize(vecSub(light->orig, cross->p));
+	dot	= dotProduct(light_ray, cross->n);
 	if (dot < 0)
 		dot = 0;
-	return (dot * light->ratio);
+	return (colorMul(light->tint, light->ratio * dot));
 }
 
-// ambient from ambient_lightning function and diffuse from diffuse_lightning
-void	final_color(float ambient[3], float diffuse, float tint[3]) // pass tint of an intersected object
+//strenght between 0-1, shininess prefered 32 can add in light
+t_color	specular_lightning(t_light *light, t_cross *cross, t_cam  *cam, float strength, float s)
 {
-	int	i;
-
-	i = -1;
-	while (++i < 3)
-		tint[i] = (ambient[i] + diffuse) * tint[i];
-}
-
-
-//using in diffuse lightning if sphere
-void	sphere_normal(float normal[3], float crossing_point[3], float center[3])
-{
-	vec_subtract(normal, crossing_point, center);
-	normalize(normal);
+	t_vec	light_ray;
+	t_vec	reflect_ray;
+	t_vec	view_ray;
+	float	dot;
+	
+	light_ray = normalize(vecSub(light->orig, cross->p));
+	reflect_ray = reflect_vec(light_ray, cross->n);
+	view_ray = normalize(vecSub(cam->orig, cross->p));
+	dot	= dotProduct(view_ray, reflect_ray);
+	if (dot < 0)
+		dot = 0;
+	dot = powf(dot, s);
+	return (colorMul(light->tint, dot * strength));
 }

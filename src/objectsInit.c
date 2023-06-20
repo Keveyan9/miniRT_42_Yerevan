@@ -43,7 +43,7 @@ t_cam	*initCam(t_vec origin, t_vec orient, float fov)
 	return (camera);
 }
 
-t_light	*initLight(t_vec orig, float ratio)
+t_light	*initLight(t_vec orig, float ratio, t_color tint)
 {
 	t_light *light;
 	int i;
@@ -53,6 +53,7 @@ t_light	*initLight(t_vec orig, float ratio)
 	if (!light)
 		exit_code(1, "origin malloc failed");
 	initVector(orig, &(light->orig));
+	initColor(tint, &(light->tint));
 	light->ratio = ratio;
 	return (light);
 }

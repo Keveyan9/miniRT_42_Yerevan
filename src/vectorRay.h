@@ -27,6 +27,7 @@ typedef struct s_cross
 	t_vec	n;
 	t_vec	p;
 	float	t;
+	t_color color;
 }	t_cross;
 
 t_vec   vecAdd(t_vec a, t_vec b);

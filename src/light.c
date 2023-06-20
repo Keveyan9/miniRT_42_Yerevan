@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:51:31 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/21 01:48:59 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/21 02:17:46 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,24 @@ bool	shadow(t_cross *cross, t_light *light)
 	point_calc(&shadow_ray.orig, shadow_ray, 1e-4);
 	//if intersect an object &&  (distance(cross->p, light->orig) > distance(cross->p, shadow's croos_point))
 	return (true);
+}
+
+
+void	final_lighting(t_light *light, t_ambient *ambient, t_cam  *cam, float strength, float s)
+{
+	t_cross	cross;
+	t_color	amb_factor;
+	t_color	diffuse;
+	t_color	specular;
+	
+	//in shadow_ray need to call the intersection functions and define cross point
+	if (!shadow_ray(&cross, light))
+	{
+		amb_factor = ambient_lighting(ambient);
+		diffuse = diffuse_lighting(light, &cross);
+		specular = specular_lightning(light, &cross, cam, strength, s);
+		cross.color = final_color(light, amb_factor, diffuse, specular);
+	}
+	else
+		cross.color = init_color(0, 0, 0);
 }

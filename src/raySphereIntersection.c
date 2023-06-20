@@ -22,5 +22,6 @@ bool    intersect_sphere(t_ray ray, t_sphere sphere, t_cross *cross)
         cross->t = t;
     point_calc(&cross->p, ray, cross->t);
     cross->n = sphere_normal(cross->p, sphere.center);
+    cross->color = sphere.tint;
     return (true);
 }

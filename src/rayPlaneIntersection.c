@@ -10,6 +10,7 @@ bool    intersectPlane(t_ray ray, t_plane plane, t_cross *cross)
     cross->t = (dotProduct(vecSub(plane.point, ray.orig), plane.normal))
             / denominator;
     cross->n = plane.normal;
+    cross->color = plane.tint;
     point_calc(&cross->p, ray, cross->t);
     return (true);
 }

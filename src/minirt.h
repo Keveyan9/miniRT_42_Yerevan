@@ -59,10 +59,24 @@ void		checkerPl(char **splitted_pl, t_scene *scene);
 void		checkerSp(char **splitted_sp, t_scene *scene);
 void		checkerCy(char **splitted_cy, t_scene *scene);
 //intersections
-bool		intersectPlane(t_ray ray, t_plane plane, float *t);
-bool		intersectSphere(t_ray ray, t_sphere sphere, float *t);
-bool		intersectCylin(t_ray ray, t_cylinder cylin, float *tNear);
+bool		intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
+bool		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
+bool		intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
 t_ray		rayGenerate(float x, float y);//t_matrix lookAt
 
+// light.c
+t_color		ambient_lighting(t_ambient *ambient);
+t_color		diffuse_lighting(t_light *light, t_cross *cross);
+t_color		specular_lightning(t_light *light, t_cross *cross, t_cam  *cam, float strength, float s);
+bool		shadow(t_cross *cross, t_light *light);
+void		final_lighting(t_light *light, t_ambient *ambient, t_cam  *cam, float strength, float s);
+
+// light_utils.c
+t_color		colorMul(t_color c, float f);
+t_color		init_color(float r, float g, float b);
+t_vec		sphere_normal(t_vec p, t_vec center);
+t_vec		reflect_vec(t_vec l, t_vec n);
+void		point_calc(t_vec *p, t_ray r, float t);
+t_color		final_color(t_light *light, t_color amb, t_color diff, t_color spec);
 #endif

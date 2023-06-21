@@ -87,5 +87,5 @@ void	checker_L(char **splitted_L, t_scene *scene)
 		exit_code(1, "Ratio is out of range for L\n");
 	rgb_splitted = ft_split(splitted_L[3], ',');
 	checkColor(rgb_splitted, &color);
-	scene->light = initLight(origin_vec, ratio);
+	scene->light = initLight(origin_vec, ratio, color);
 }

@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-bool    intersectCylin(t_ray ray, t_cylinder cylin, float *tNear)
+bool    intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross)
 {
     t_vec   V;//vector from ray origin to the cylinder center
     float   t;//projection of V onto ray direction D
@@ -21,13 +21,16 @@ bool    intersectCylin(t_ray ray, t_cylinder cylin, float *tNear)
     U = vecSub(Q, vecScale(d, cylin.axis));
     if (isInRangeCheck(d, -HEIGHT/2, HEIGHT/2) && vecNorm(U) <= cylin.radius)
     {
-        *tNear = t;
+        cross->t = t;
+        cross->p = P;
+       // cross->n = cylinder_norm
+        cross->color = cylin.tint;
         return (true);
     }
     return (false);
 }
 
-bool    intersectSphere(t_ray ray, t_sphere sphere, float *t)
+bool    intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross)
 {
     float   tOHdot;
     float   tHC;
@@ -54,18 +57,24 @@ bool    intersectSphere(t_ray ray, t_sphere sphere, float *t)
         if (t0 < 0)
             return (false);
     }
-    *t = t0;
+    cross->t = t0;
+    point_calc(&cross->p, ray, cross->t);
+    cross->n = sphere_normal(cross->p, sphere.center);
+    cross->color = sphere.tint;
     return (true);
 }
 
-bool    intersectPlane(t_ray ray, t_plane plane, float *t)
+bool    intersectPlane(t_ray ray, t_plane plane, t_cross *cross)
 {
     float   denominator;
 
     denominator = dotProduct(ray.dir, plane.normal);
     if (denominator < 1e-6)
         return (false);
-    *t = (dotProduct(vecSub(plane.point, ray.orig), plane.normal))
+    cross->t = (dotProduct(vecSub(plane.point, ray.orig), plane.normal))
             / denominator;
+    point_calc(&cross->p, ray, cross->t);
+    cross->n = plane.normal;
+    cross->color = plane.tint;
     return (true);
 }

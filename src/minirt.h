@@ -20,12 +20,6 @@
 # define WIDTH 1600
 # define HEIGHT 900
 
-typedef struct s_window
-{
-	int	width;
-	int	height;
-}	t_window;
-
 void		exit_code(int code, char *msg);
 void		parsing(int argc, char **argv, t_scene *scene);
 int			checker_parsing(char **splitted_line, t_scene *scene);
@@ -34,6 +28,8 @@ int			checker_parsing(char **splitted_line, t_scene *scene);
 int			ft_double_len(char **str);
 float 		ft_atof(char *str);
 bool		isInRangeCheck(float number, float lower, float upper);
+void		swap(float	*a, float *b);
+float		findMin(float a, float b, float c);
 //isInSet.c
 int			isInSet(char c);
 int			ft_isspace(char c);
@@ -63,22 +59,10 @@ void		checkerPl(char **splitted_pl, t_scene *scene);
 void		checkerSp(char **splitted_sp, t_scene *scene);
 void		checkerCy(char **splitted_cy, t_scene *scene);
 //intersections
-bool		intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
-bool		intersect_sphere(t_ray ray, t_sphere sphere, t_cross *cross);
-
-//light.c
-t_color		ambient_lighting(t_ambient *ambient);
-t_color		diffuse_lighting(t_light *light, t_cross *cross);
-t_color		specular_lightning(t_light *light, t_cross *cross, t_cam  *cam, float strength, float s);
-bool		shadow(t_cross *cross, t_light *light);
-void		final_lighting(t_light *light, t_ambient *ambient, t_cam  *cam, float strength, float s);
-
-//light_utils.c
-t_color		colorMul(t_color c, float f);
-t_color		init_color(float r, float g, float b);
-t_vec		sphere_normal(t_vec p, t_vec center);
-t_vec		reflect_vec(t_vec l, t_vec n);
-void		point_calc(t_vec *p, t_ray r, float t);
-t_color		final_color(t_light *light, t_color amb, t_color diff, t_color spec);
+bool		intersectPlane(t_ray ray, t_plane plane, float *t);
+bool		intersectSphere(t_ray ray, t_sphere sphere, float *t);
+bool		intersectCylin(t_ray ray, t_cylinder cylin, float *tNear);
+//ray.c
+t_ray		rayGenerate(float x, float y);//t_matrix lookAt
 
 #endif

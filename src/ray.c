@@ -52,34 +52,3 @@ t_ray   rayGenerate(float x, float y)//t_matrix lookAt
     ray.dir = rayDirGenerate(u, v, w, camera, x, y);
     return (ray);
 }
-
-bool    rayTrace(t_scene scene, t_ray ray)
-{
-    //loop over all scene objects
-    //intersection checking
-    //tNear deciding
-}
-
-t_color    rayCast(t_ray ray)
-{
-    //rays from origin to x, y
-}
-
-void    render()//, t_mlx mlxData)
-{
-    t_ray   ray;
-    int     x;
-    int     y;
-
-    x = -1;
-    y = -1;
-    while (++x < WIDTH)
-    {
-        y = -1;
-        while (++y < HEIGHT)
-        {
-            ray = rayGenerate(x, y);
-            //raycast();
-        }
-    }
-}

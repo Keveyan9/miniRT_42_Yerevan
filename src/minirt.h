@@ -19,12 +19,6 @@
 # define WIDTH 1600
 # define HEIGHT 900
 
-typedef struct s_window
-{
-	int	width;
-	int	height;
-}	t_window;
-
 void		exit_code(int code, char *msg);
 void		parsing(int argc, char **argv, t_scene *scene);
 int			checker_parsing(char **splitted_line, t_scene *scene);
@@ -39,6 +33,8 @@ t_cylinder	*initCylinder(t_vec center, t_vec normal, t_color tint, float radius,
 int			ft_double_len(char **str);
 float 		ft_atof(char *str);
 bool		isInRangeCheck(float number, float lower, float upper);
+void		swap(float	*a, float *b);
+float		findMin(float a, float b, float c);
 //isInSet.c
 int			isInSet(char c);
 int			ft_isspace(char c);
@@ -69,6 +65,9 @@ void		checkerSp(char **splitted_sp, t_scene *scene);
 void		checkerCy(char **splitted_cy, t_scene *scene);
 //intersections
 bool		intersectPlane(t_ray ray, t_plane plane, float *t);
-bool		intersect_sphere(t_ray ray, t_sphere sphere, float *t0, float *t1);
+bool		intersectSphere(t_ray ray, t_sphere sphere, float *t);
+bool		intersectCylin(t_ray ray, t_cylinder cylin, float *tNear);
+//ray.c
+t_ray		rayGenerate(float x, float y);//t_matrix lookAt
 
 #endif

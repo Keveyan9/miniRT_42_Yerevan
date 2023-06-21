@@ -49,3 +49,22 @@ bool	isInRangeCheck(float number, float lower, float upper)
 		return (true);
 	return (false);
 }
+
+void	swap(float	*a, float *b)
+{
+	float	c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+float	findMin(float a, float b, float c)
+{
+	if (a <= b && a <= c)
+		return (a);
+	else if (b <= a && b <= c)
+		return (b);
+	else
+		return (c);
+}

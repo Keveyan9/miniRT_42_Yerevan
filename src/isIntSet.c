@@ -1,6 +1,6 @@
-#include "minirt.h"
+#include "scene.h"
 
-int	is_in_set(char c)
+int	isInSet(char c)
 {
 	int	j;
 

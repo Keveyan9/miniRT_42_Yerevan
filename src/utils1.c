@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-float ft_atof(char *str, t_head *head)
+float ft_atof(char *str)
 {
 	float result = 0.0;
 	float sign = 1.0;
@@ -41,4 +41,30 @@ int	ft_double_len(char **str)
 	while (str && str[++i])
 		;
 	return (i);
+}
+
+bool	isInRangeCheck(float number, float lower, float upper)
+{
+	if (number >= lower && number <= upper)
+		return (true);
+	return (false);
+}
+
+void	swap(float	*a, float *b)
+{
+	float	c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+float	findMin(float a, float b, float c)
+{
+	if (a <= b && a <= c)
+		return (a);
+	else if (b <= a && b <= c)
+		return (b);
+	else
+		return (c);
 }

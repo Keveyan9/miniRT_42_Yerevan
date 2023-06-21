@@ -23,7 +23,7 @@ bool    intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross)
     {
         cross->t = t;
         cross->p = P;
-       // cross->n = cylinder_norm
+        cross->n = cylinder_normal(cylin, cross->p);
         cross->color = cylin.tint;
         return (true);
     }

@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 10:39:29 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/21 02:16:47 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:54:57 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ t_color	init_color(float r, float g, float b)
 	c.g = g;
 	c.b = b;
 	return (c);
-}
-
-t_vec	sphere_normal(t_vec p, t_vec center)
-{
-	return (normalize(vecSub(p, center)));
 }
 
 t_vec	reflect_vec(t_vec l, t_vec n)

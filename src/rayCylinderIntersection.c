@@ -15,7 +15,7 @@ int solveDiscriminant(float a, float b, float c)
     t2 = (-b + D)/2*a;
 }
 
-bool    intersectCylin(t_ray ray, t_cylinder cylin, float *tNear, float x, float y)
+bool    intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross, float x, float y)
 {
     t_vec   V;//vector from ray origin to the cylinder center
     float   t;//projection of V onto ray direction D
@@ -29,11 +29,17 @@ bool    intersectCylin(t_ray ray, t_cylinder cylin, float *tNear, float x, float
 
     V = vecSub(ray.orig, cylin.center);
     t = dotProduct(V, ray.dir) / dotProduct(ray.dir, ray.dir);
-    P = vecAdd(ray.orig, vecScale(t, ray.dir));
+    point_calc(&P, ray, t);
+    //P = vecAdd(ray.orig, vecScale(t, ray.dir));
     Q = vecSub(P, cylin.center);
     d = dotProduct(Q, cylin.axis);
     U = vecSub(Q, vecScale(d, cylin.axis));
     if (isInRangeCheck(d, -HEIGHT/2, HEIGHT/2) && vecNorm(U) <= cylin.radius)
+    {
+        cross->t = t;
+        //TODO cylinder normal vector
+        cross->p = P;
         return (true);
+    }
     return (false);
 }

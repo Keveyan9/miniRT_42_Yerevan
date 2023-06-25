@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:54:27 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/21 23:34:49 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:42:21 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	bottomCapCenter(t_vec *bottom, t_cylinder cyl)
     bottom->z = cyl.center.z;
 }
 
-t_vec	cylinder_normal(t_cylinder	cyl, t_vec p)
+t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
 {
 	t_vec	bottom_center;
 	t_vec	top_center;

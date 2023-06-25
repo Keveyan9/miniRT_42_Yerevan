@@ -83,5 +83,5 @@ t_color		final_color(t_light *light, t_color amb, t_color diff, t_color spec);
 t_vec		sphere_normal(t_vec p, t_vec center);
 void		topCapCenter(t_vec *top, t_cylinder cyl);
 void		bottomCapCenter(t_vec *bottom, t_cylinder cyl);
-t_vec		cylinder_normal(t_cylinder	cyl, t_vec p);
+t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
 #endif

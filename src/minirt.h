@@ -20,6 +20,23 @@
 # define WIDTH 1600
 # define HEIGHT 900
 
+enum    objectType
+{
+    SPHERE,
+    PLANE,
+    CYLIN,
+    noType
+};
+
+typedef struct s_cross
+{
+	t_vec	        n;
+	t_vec	        p;
+	float           t;
+	t_color         color;
+	enum objectType type;
+}	t_cross;
+
 void		exit_code(int code, char *msg);
 void		parsing(int argc, char **argv, t_scene *scene);
 int			checker_parsing(char **splitted_line, t_scene *scene);
@@ -68,9 +85,9 @@ t_ray		rayGenerate(float x, float y);//t_matrix lookAt
 // light.c
 t_color		ambient_lighting(t_ambient *ambient);
 t_color		diffuse_lighting(t_light *light, t_cross *cross);
-t_color		specular_lightning(t_light *light, t_cross *cross, t_cam  *cam, float strength, float s);
-bool		shadow(t_cross *cross, t_light *light);
-t_color		final_lighting(t_light *light, t_ambient *ambient, t_cam  *cam, float strength, float s);
+t_color		specular_lightning(t_scene scene, t_cross *cross, float strength, float s);
+bool		shadow(t_cross cross, t_scene scene);
+t_color		final_lighting(t_scene scene, t_cross cross, float strength, float s);
 
 // light_utils.c
 t_color		colorMul(t_color c, float f);
@@ -84,4 +101,8 @@ t_vec		sphere_normal(t_vec p, t_vec center);
 void		topCapCenter(t_vec *top, t_cylinder cyl);
 void		bottomCapCenter(t_vec *bottom, t_cylinder cyl);
 t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
+
+
+//rayTrace
+bool    rayTrace(t_scene scene, t_ray ray, t_cross *finalCross);
 #endif

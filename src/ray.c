@@ -38,7 +38,7 @@ t_vec   rayDirGenerate(t_vec u, t_vec v, t_vec w, t_cam camera, float x, float y
     return (rayDir);
 }
 
-t_ray   rayGenerate(float x, float y)//t_matrix lookAt
+t_ray   rayGenerate(float x, float y)//t_matrix camera-to-world
 {
     t_ray   ray;
     t_vec   u;

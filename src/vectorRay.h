@@ -22,14 +22,6 @@ typedef struct s_ray
 	t_vec	dir;
 }	t_ray;
 
-typedef struct s_cross
-{
-	t_vec	n;
-	t_vec	p;
-	float	t;
-	t_color color;
-}	t_cross;
-
 t_vec   vecAdd(t_vec a, t_vec b);
 t_vec   vecSub(t_vec a, t_vec b);
 float   dotProduct(t_vec a, t_vec b);

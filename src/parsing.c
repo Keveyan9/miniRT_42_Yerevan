@@ -45,7 +45,7 @@ static void	reading_file(int fd, t_scene *scene)
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
-		if (checkerForEachObject(splitted, scene) > 3)
+		if (checkerForEachObject(splitted, scene) != 3)
 			exit_code(1, "upper letter objects repeated in file\n");
 	}
 }

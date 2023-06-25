@@ -20,6 +20,22 @@
 # define WIDTH 1600
 # define HEIGHT 900
 
+enum    objectType
+{
+    SPHERE,
+    PLANE,
+    CYLIN
+};
+
+typedef struct s_cross
+{
+	t_vec	        n;
+	t_vec	        p;
+	float           t;
+	t_color         color;
+	enum objectType type;
+}	t_cross;
+
 void		exit_code(int code, char *msg);
 void		parsing(int argc, char **argv, t_scene *scene);
 int			checker_parsing(char **splitted_line, t_scene *scene);

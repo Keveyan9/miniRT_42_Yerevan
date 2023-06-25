@@ -1,71 +1,82 @@
 #include "minirt.h"
 
-float   loopSphereList(t_sphere *sphere, t_ray ray)
+t_cross   loopSphereList(t_sphere *sphere, t_ray ray)
 {
     t_sphere    *head;
+    t_cross     cross;
     float       tNear;
-    float       t;
 
     head = sphere;
     tNear = INFINITY;
+    cross.t = 0;
     while (head && head->next)
     {
-        if (intersectSphere(ray, *head, &t) && t < tNear)
-            tNear = t;
+        if (intersectSphere(ray, *head, &cross) && cross.t < tNear)
+            tNear = cross.t;
         head = head->next;
     }
-    return (tNear);
+    cross.t = tNear;
+    cross.type = SPHERE;
+    return (cross);
 }
 
-float   loopPlaneList(t_plane *plane, t_ray ray)
+t_cross   loopPlaneList(t_plane *plane, t_ray ray)
 {
     t_plane    *head;
+    t_cross     cross;
     float       tNear;
-    float       t;
 
     head = plane;
     tNear = INFINITY;
+    cross.t = 0;
     while (head && head->next)
     {
-        if (intersectPlane(ray, *head, &t) && t < tNear)
-            tNear = t;
+        if (intersectPlane(ray, *head, &cross) && cross.t < tNear)
+            tNear = cross.t;
         head = head->next;
     }
-    return (tNear);
+    cross.t = tNear;
+    cross.type = PLANE;
+    return (cross);
 }
 
-float   loopCylinList(t_cylinder *cylin, t_ray ray)
+t_cross   loopCylinList(t_cylinder *cylin, t_ray ray)
 {
     t_cylinder  *head;
+    t_cross     cross;
     float       tNear;
-    float       t;
 
     head = cylin;
     tNear = INFINITY;
+    cross.t = 0;
     while (head && head->next)
     {
-        if (intersectCylin(ray, *head, &t) && t < tNear)
-            tNear = t;
+        if (intersectCylin(ray, *head, &cross) && cross.t < tNear)
+            tNear = cross.t;
         head = head->next;
     }
-    return (tNear);
+    cross.t = tNear;
+    cross.type = CYLIN;
+    return (cross);
 }
 
 bool    rayTrace(t_scene scene, t_ray ray)
 {
     float   tNear;
-
-    tNear = INFINITY;
+    float   tsp;
+    float   tpl;
+    float   tcy;
     
     //loop over all scene objects
     //intersection checking
     //tNear deciding
-}
-
-t_color    rayCast(t_ray ray)
-{
-    //rays from origin to x, y
-    //color deciding
+    tcy = loopPlaneList(scene.plane, ray).t;
+    tpl = loopCylinList(scene.cylin, ray).t;
+    tsp = loopSphereList(scene.sphere, ray).t;
+    tNear = findMin(tcy, tpl, tsp);
+    if (tNear != INFINITY)
+        return (1);
+    return (0);
 }
 
 void    render()//, t_mlx mlxData)

@@ -60,30 +60,31 @@ t_cross   loopCylinList(t_cylinder *cylin, t_ray ray)
     return (cross);
 }
 
-bool    rayTrace(t_scene scene, t_ray ray)
+bool    rayTrace(t_scene scene, t_ray ray, t_cross *finalCross)
 {
     float   tNear;
-    float   tsp;
-    float   tpl;
-    float   tcy;
+    t_cross crossPlane;
+    t_cross crossSphere;
+    t_cross crossCylin;
     
     //loop over all scene objects
     //intersection checking
     //tNear deciding
-    tcy = loopPlaneList(scene.plane, ray).t;
-    tpl = loopCylinList(scene.cylin, ray).t;
-    tsp = loopSphereList(scene.sphere, ray).t;
-    tNear = findMin(tcy, tpl, tsp);
-    if (tNear != INFINITY)
+    crossPlane = loopPlaneList(scene.plane, ray);
+    crossCylin = loopCylinList(scene.cylin, ray);
+    crossSphere = loopSphereList(scene.sphere, ray);
+    tNear = findMin(crossPlane.t, crossSphere.t, crossCylin.t);
+    if (tNear != INFINITY)//&& finalCross->type != noType) I think we don't need this check
         return (1);
     return (0);
 }
 
 void    render()//, t_mlx mlxData)
 {
-    t_ray   ray;
     int     x;
     int     y;
+    t_ray   ray;
+    t_cross finalCross;
 
     x = -1;
     y = -1;

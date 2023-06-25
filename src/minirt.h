@@ -24,7 +24,8 @@ enum    objectType
 {
     SPHERE,
     PLANE,
-    CYLIN
+    CYLIN,
+    noType
 };
 
 typedef struct s_cross

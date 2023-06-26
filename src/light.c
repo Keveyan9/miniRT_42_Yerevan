@@ -58,7 +58,6 @@ bool	shadow(t_cross *cross, t_light *light)
 	return (true);
 }
 
-
 void	final_lighting(t_light *light, t_ambient *ambient, t_cam  *cam, float strength, float s)
 {
 	t_cross	cross;

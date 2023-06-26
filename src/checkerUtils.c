@@ -32,13 +32,10 @@ int	only_digit_in_str(char *s)
 		k = 1;
 		i++;
 	}
-	while (s && s[i] != '\n' && s[i] && i < ft_strlen(s))//the last one is '\n'
+	while (s && s[i] != '\n' && s[i] && i < ft_strlen(s))
 	{
 		if (!ft_isdigit(s[i]) && k == 0 && s[i] != '.')
-		{
-			printf("here 0000\n");
 			return (0);
-		}
 		else if (s[i] == '.' && s[i + 1] && !ft_isdigit(s[i + 1]))
 			return (0);
 		i++;

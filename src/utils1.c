@@ -1,4 +1,4 @@
-#include "../includes/minirt.h"
+#include "minirt.h"
 
 float ft_atof(char *str)
 {
@@ -7,9 +7,7 @@ float ft_atof(char *str)
 	float fraction = 0.1;
 
 	while (ft_isspace(*str))
-	{
 		str++;
-	}
 	if (*str == '-')
 	{
 		sign = -1.0;
@@ -32,7 +30,7 @@ float ft_atof(char *str)
 			str++;
 		}
 	}
-	return (result);
+	return (result * sign);
 }
 
 int	ft_double_len(char **str)
@@ -43,4 +41,30 @@ int	ft_double_len(char **str)
 	while (str && str[++i])
 		;
 	return (i);
+}
+
+bool	isInRangeCheck(float number, float lower, float upper)
+{
+	if (number >= lower && number <= upper)
+		return (true);
+	return (false);
+}
+
+void	swap(float	*a, float *b)
+{
+	float	c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+float	findMin(float a, float b, float c)
+{
+	if (a <= b && a <= c)
+		return (a);
+	else if (b <= a && b <= c)
+		return (b);
+	else
+		return (c);
 }

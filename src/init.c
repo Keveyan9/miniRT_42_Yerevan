@@ -1,4 +1,4 @@
-#include "../include/minirt.h"
+#include "minirt.h"
 
 t_vec	*init_vector(float x, float y, float z)
 {

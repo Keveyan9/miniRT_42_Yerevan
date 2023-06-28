@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 22:38:53 by skeveyan          #+#    #+#             */
@@ -42,6 +43,15 @@ char	*ft_strdup(const char *s)
 	}
 	return (NULL);
 }
+=======
+/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/02 22:38:53 by skeveyan          #+#    #+#             */
+/*   Updated: 2023/06/03 03:07:52 by aivanyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+>>>>>>> e56c2580ca659774f6cb40549f947c93618c50ba
 
 size_t	chekin_n(char *s)
 {
@@ -58,6 +68,7 @@ size_t	chekin_n(char *s)
 	return (1);
 }
 
+<<<<<<< HEAD
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*nowstring;
@@ -82,6 +93,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (nowstring);
 }
 
+=======
+>>>>>>> e56c2580ca659774f6cb40549f947c93618c50ba
 void	freek(char **s)
 {
 	if (*s)

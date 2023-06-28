@@ -6,11 +6,11 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:31:44 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/05/08 13:31:26 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/03 03:14:38 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
+#include "minirt.h"
 
 static int	ft_count(char const *s)
 {
@@ -21,7 +21,7 @@ static int	ft_count(char const *s)
 		return (0);
 	while (*s)
 	{
-		if (!is_in_set(*s) && (is_in_set(*(s + 1)) || *(s + 1) == '\0'))
+		if (!isInSet(*s) && (isInSet(*(s + 1)) || *(s + 1) == '\0'))
 			count++;
 		s++;
 	}
@@ -32,7 +32,7 @@ static char const	*ft_start(char const *s)
 {
 	while (*s)
 	{
-		if (!is_in_set(*s))
+		if (!isInSet(*s))
 			return (s);
 		s++;
 	}
@@ -43,7 +43,7 @@ static char const	*ft_end(char const *s)
 {
 	while (*s)
 	{
-		if (!is_in_set(*s) && (is_in_set(*(s + 1)) || (*(s + 1) == '\0')))
+		if (!isInSet(*s) && (isInSet(*(s + 1)) || (*(s + 1) == '\0')))
 			return (s);
 		s++;
 	}

@@ -70,12 +70,13 @@ bool    rayTrace(t_scene scene, t_ray ray, t_cross *finalCross)
     //loop over all scene objects
     //intersection checking
     //tNear deciding
-}
-
-t_color    rayCast(t_ray ray)
-{
-    //rays from origin to x, y
-    //color deciding
+    crossPlane = loopPlaneList(scene.plane, ray);
+    crossCylin = loopCylinList(scene.cylin, ray);
+    crossSphere = loopSphereList(scene.sphere, ray);
+    tNear = findMin(crossPlane.t, crossSphere.t, crossCylin.t);
+    if (tNear != INFINITY)
+        return (1);
+    return (0);
 }
 
 void    render()//, t_mlx mlxData)
@@ -93,6 +94,9 @@ void    render()//, t_mlx mlxData)
         {
             ray = rayGenerate(x, y);
             //raycast();
+            //final_lightning()
+            //get color
+            //mlx_pixel_put
         }
     }
     //put image to window with mlx_put_image_to_window()

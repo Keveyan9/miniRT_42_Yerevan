@@ -90,6 +90,21 @@ bool		shadow(t_cross cross, t_scene scene);
 t_color		final_lighting(t_scene scene, t_cross cross, float strength, float s);
 
 // light_utils.c
+t_color		colorMul(t_color c, float f);
+t_color		init_color(float r, float g, float b);
+t_vec		reflect_vec(t_vec l, t_vec n);
+void		point_calc(t_vec *p, t_ray r, float t);
+t_color		final_color(t_light *light, t_color amb, t_color diff, t_color spec);
+
+//normal.c
+t_vec		sphere_normal(t_vec p, t_vec center);
+void		topCapCenter(t_vec *top, t_cylinder cyl);
+void		bottomCapCenter(t_vec *bottom, t_cylinder cyl);
+t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
+
+
+//rayTrace
+bool    		rayTrace(t_scene scene, t_ray ray, t_cross *finalCross);
 t_color			colorMul(t_color c, float f);
 t_color			init_color(float r, float g, float b);
 t_vec			sphere_normal(t_vec p, t_vec center);

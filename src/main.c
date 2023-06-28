@@ -13,6 +13,6 @@ int	main(int argc, char **argv)
 	init_scene(&scene);
 	mlxInit(&mlxData);
 	parsing(argc, argv, &scene);
-	render(scene, &mlxData);
+	//render(scene, &mlxData);
 	return (0);
 }

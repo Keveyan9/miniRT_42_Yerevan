@@ -10,11 +10,11 @@
 # include <float.h>
 # include <math.h>
 # include <stdbool.h>
-# include "../lib/minilibx-linux/mlx.h"
+# include <mlx.h>
 # include "../lib/libft/libft.h"
 # include "../lib/gnl/get_next_line.h"
 # include "scene.h"
-# include "mlx.h"
+# include "myMlx.h"
 # include "vectorRay.h"
 
 # define WIDTH 1600
@@ -115,5 +115,9 @@ t_color			final_color(t_light *light, t_color amb, t_color diff, t_color spec);
 //colorOperations.c
 unsigned int	makeIntFromRGB(t_color color);
 t_color			makeRGBfromInt(unsigned int color);
+
+//mlxFunctions.c
+void	my_mlx_pixel_put(t_mlx *data, double x, double y, unsigned int color);
+void    mlxInit(t_mlx *mlxData);
 
 #endif

@@ -19,7 +19,7 @@ bool    intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross)
     Q = vecSub(P, cylin.center);
     d = dotProduct(Q, cylin.axis);
     U = vecSub(Q, vecScale(d, cylin.axis));
-    if (isInRangeCheck(d, -HEIGHT/2, HEIGHT/2) && vecNorm(U) <= cylin.radius)
+    if (isInRangeCheck(d, -cylin.height/2, cylin.height/2) && vecNorm(U) <= cylin.radius)
     {
         cross->t = t;
         cross->p = P;

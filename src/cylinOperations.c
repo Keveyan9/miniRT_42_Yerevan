@@ -61,5 +61,4 @@ void	checkerCy(char **splitted_cy, t_scene *scene)
 	checkVector(orientationSplitted, &orientVec, -1, 1);
 	checkColor(tint, &tintVec);
 	ft_lstadd_back_cy(&scene->cylin, initCylinder(originVec, orientVec, tintVec, radius, height));
-	// scene->cylin = initCylinder(originVec, orientVec, tintVec, radius, height);
 }

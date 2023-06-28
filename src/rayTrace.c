@@ -74,7 +74,7 @@ bool    rayTrace(t_scene scene, t_ray ray, t_cross *finalCross)
     crossCylin = loopCylinList(scene.cylin, ray);
     crossSphere = loopSphereList(scene.sphere, ray);
     tNear = findMin(crossPlane.t, crossSphere.t, crossCylin.t);
-    if (tNear != INFINITY)//&& finalCross->type != noType) I think we don't need this check
+    if (tNear != INFINITY)
         return (1);
     return (0);
 }
@@ -87,7 +87,6 @@ void    render()//, t_mlx mlxData)
     t_cross finalCross;
 
     x = -1;
-    y = -1;
     while (++x < WIDTH)
     {
         y = -1;
@@ -96,6 +95,9 @@ void    render()//, t_mlx mlxData)
             ray = rayGenerate(x, y);
             //raycast();
             //final_lightning()
+            //get color
+            //mlx_pixel_put
         }
     }
+    //put image to window with mlx_put_image_to_window()
 }

@@ -104,5 +104,16 @@ t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
 
 
 //rayTrace
-bool    rayTrace(t_scene scene, t_ray ray, t_cross *finalCross);
+bool    		rayTrace(t_scene scene, t_ray ray, t_cross *finalCross);
+t_color			colorMul(t_color c, float f);
+t_color			init_color(float r, float g, float b);
+t_vec			sphere_normal(t_vec p, t_vec center);
+t_vec			reflect_vec(t_vec l, t_vec n);
+void			point_calc(t_vec *p, t_ray r, float t);
+t_color			final_color(t_light *light, t_color amb, t_color diff, t_color spec);
+
+//colorOperations.c
+unsigned int	makeIntFromRGB(t_color color);
+t_color			makeRGBfromInt(unsigned int color);
+
 #endif

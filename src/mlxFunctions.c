@@ -17,4 +17,3 @@
 //     mlxData->img = mlx_new_image(mlxData->mlx, width, height);
 //     mlxData->addr = mlx_get_data_addr(mlxData->img, &mlxData->bpp, &mlxData->line_length, &mlxData->endian);
 // }
-

@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:20:59 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/21 01:37:12 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:14:24 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,12 @@ t_vec	vecMul(t_vec v, float f)
 	vec.y = v.y * f;
 	vec.z = v.z * f;
 	return (vec);
+}
+
+t_vec	vecInverse(t_vec v)
+{
+	v.x = -v.x;
+	v.y = -v.y;
+	v.z = -v.z;
+	return (v);
 }

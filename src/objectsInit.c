@@ -9,9 +9,9 @@ void	initVector(t_vec vector, t_vec *objVect)
 
 void	initColor(t_color tint, t_color *ambTint)
 {
-	(*ambTint).r = tint.r;
-	(*ambTint).g = tint.g;
-	(*ambTint).b = tint.b;
+	(*ambTint).r = tint.r / 255;
+	(*ambTint).g = tint.g / 255;
+	(*ambTint).b = tint.b / 255;
 }
 
 t_ambient	*initAmbient(float ratio, t_color tint)

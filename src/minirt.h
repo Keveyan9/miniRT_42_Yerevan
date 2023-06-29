@@ -2,6 +2,8 @@
 # define MINIRT_H
 
 # include <stdio.h>
+# include <stdlib.h>
+# include <stddef.h>
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
@@ -10,11 +12,11 @@
 # include <float.h>
 # include <math.h>
 # include <stdbool.h>
-# include "../lib/minilibx-linux/mlx.h"
+# include "../lib/minilibx_opengl_20191021/mlx.h"
 # include "../lib/libft/libft.h"
 # include "../lib/gnl/get_next_line.h"
 # include "scene.h"
-# include "mlx.h"
+# include "myMlx.h"
 # include "vectorRay.h"
 
 # define WIDTH 1600
@@ -111,6 +113,7 @@ t_vec			sphere_normal(t_vec p, t_vec center);
 t_vec			reflect_vec(t_vec l, t_vec n);
 void			point_calc(t_vec *p, t_ray r, float t);
 t_color			final_color(t_light *light, t_color amb, t_color diff, t_color spec);
+void			render(t_scene scene, t_mlx *mlxData);
 
 //colorOperations.c
 unsigned int	makeIntFromRGB(t_color color);

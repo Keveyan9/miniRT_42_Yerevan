@@ -74,17 +74,24 @@ bool    rayTrace(t_scene scene, t_ray ray, t_cross *finalCross)
     crossCylin = loopCylinList(scene.cylin, ray);
     crossSphere = loopSphereList(scene.sphere, ray);
     tNear = findMin(crossPlane.t, crossSphere.t, crossCylin.t);
+    if (tNear == crossPlane.t)
+        finalCross = &crossPlane;
+    if (tNear == crossSphere.t)
+        finalCross = &crossSphere;
+    if (tNear == crossCylin.t)
+        finalCross = &crossCylin;
     if (tNear != INFINITY)
         return (1);
     return (0);
 }
 
-void    render()//, t_mlx mlxData)
+void    render(t_scene scene, t_mlx *mlxData)
 {
-    int     x;
-    int     y;
-    t_ray   ray;
-    t_cross finalCross;
+    int             x;
+    int             y;
+    unsigned int    color;
+    t_ray           ray;
+    t_cross         finalCross;
 
     x = -1;
     while (++x < WIDTH)
@@ -93,11 +100,10 @@ void    render()//, t_mlx mlxData)
         while (++y < HEIGHT)
         {
             ray = rayGenerate(x, y);
-            //raycast();
-            //final_lightning()
-            //get color
-            //mlx_pixel_put
+            rayTrace(scene, ray, &finalCross);
+            color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
+            // my_mlx_pixel_put(mlxData, x, y, color);
         }
     }
-    //put image to window with mlx_put_image_to_window()
+    // mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }

@@ -11,6 +11,8 @@ int	main(int argc, char **argv)
 
 	init_scene(&scene);
 	parsing(argc, argv, &scene);
+	lookat(&scene);
+	//rayTrace(t_scene scene, t_ray ray);
 	// printf("height == %f\n", scene.cylin->next->height);
 	return (0);
 }

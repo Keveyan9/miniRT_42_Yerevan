@@ -21,6 +21,13 @@ typedef struct s_ray
 	t_vec	orig;
 	t_vec	dir;
 }	t_ray;
+typedef struct	s_lookat
+{
+	t_vec	x;
+	t_vec	y;
+	t_vec	z;
+	t_vec	w;
+}	t_lookat;
 
 t_vec   vecAdd(t_vec a, t_vec b);
 t_vec   vecSub(t_vec a, t_vec b);

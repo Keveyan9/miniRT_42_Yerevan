@@ -111,7 +111,6 @@ void    render(t_scene scene, t_mlx *mlxData)
     t_ray           ray;
     t_cross         *finalCross;
 
-
     finalCross = malloc(sizeof(t_cross));
     x = -1;
     while (++x < WIDTH)
@@ -119,13 +118,15 @@ void    render(t_scene scene, t_mlx *mlxData)
         y = -1;
         while (++y < HEIGHT)
         {
-            ray = rayGenerate(x, y);
+            ray = rayGenerate(x, y, *(scene.cam));
             rayTrace(scene, ray, &finalCross);
             color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
             if (finalCross->t == INFINITY)
                 color = create_rgb(0,0,0);
             else
                 color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
+            my_mlx_pixel_put(mlxData, x, y, color);
         }
     }
+    mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }

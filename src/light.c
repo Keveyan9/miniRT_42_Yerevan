@@ -82,8 +82,6 @@ t_color		final_lighting(t_scene scene, t_cross *cross, float strength, float s)
 		cross->color = final_color(scene.light, amb_factor, diffuse, specular);
 	}
 	else
-	{
 		cross->color = init_color(0, 0, 0);
-	}
 	return (cross->color);
 }

@@ -8,8 +8,8 @@ t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
 
     head = sphere;
     tNear = INFINITY;
-    cross->t = 0;
     cross = malloc(sizeof(t_cross));
+    cross->t = 0;
     if (!cross)
         return (NULL);
     while (head)
@@ -31,8 +31,8 @@ t_cross   *loopPlaneList(t_plane *plane, t_ray ray)
 
     head = plane;
     tNear = INFINITY;
-    cross->t = 0;
     cross = malloc(sizeof(t_cross));
+    cross->t = 0;
     if (!cross)
         return (NULL);
     while (head)
@@ -54,8 +54,8 @@ t_cross   *loopCylinList(t_cylinder *cylin, t_ray ray)
 
     head = cylin;
     tNear = INFINITY;
-    cross->t = 0;
     cross = malloc(sizeof(t_cross));
+    cross->t = 0;
     if (!cross)
         return (NULL);
     while (head)
@@ -122,13 +122,10 @@ void    render(t_scene scene, t_mlx *mlxData)
             ray = rayGenerate(x, y);
             rayTrace(scene, ray, &finalCross);
             color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
-            // my_mlx_pixel_put(mlxData, x, y, color);
             if (finalCross->t == INFINITY)
                 color = create_rgb(0,0,0);
             else
                 color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
-            my_mlx_pixel_put(mlxData, x, y, color);
         }
     }
-    // mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }

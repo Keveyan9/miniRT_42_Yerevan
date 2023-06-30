@@ -14,5 +14,6 @@ int	main(int argc, char **argv)
 	mlxInit(&mlxData);
 	parsing(argc, argv, &scene);
 	render(scene, &mlxData);
+	mlx_loop(mlxData.mlx);
 	return (0);
 }

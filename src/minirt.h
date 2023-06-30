@@ -88,8 +88,8 @@ t_ray		rayGenerate(float x, float y);//t_matrix lookAt
 t_color		ambient_lighting(t_ambient *ambient);
 t_color		diffuse_lighting(t_light *light, t_cross *cross);
 t_color		specular_lightning(t_scene scene, t_cross *cross, float strength, float s);
-bool		shadow(t_cross cross, t_scene scene);
-t_color		final_lighting(t_scene scene, t_cross cross, float strength, float s);
+bool		shadow(t_cross *cross, t_scene scene);
+t_color		final_lighting(t_scene scene, t_cross *cross, float strength, float s);
 
 // light_utils.c
 t_color		colorMul(t_color c, float f);
@@ -106,20 +106,21 @@ t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
 
 
 //rayTrace
-bool    		rayTrace(t_scene scene, t_ray ray, t_cross *finalCross);
+bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
 t_color			colorMul(t_color c, float f);
 t_color			init_color(float r, float g, float b);
 t_vec			sphere_normal(t_vec p, t_vec center);
 t_vec			reflect_vec(t_vec l, t_vec n);
 void			point_calc(t_vec *p, t_ray r, float t);
 t_color			final_color(t_light *light, t_color amb, t_color diff, t_color spec);
+void    		render(t_scene scene, t_mlx *mlxData);
 
 //colorOperations.c
 unsigned int	makeIntFromRGB(t_color color);
 t_color			makeRGBfromInt(unsigned int color);
 
 //mlxFunctions.c
-void	my_mlx_pixel_put(t_mlx *data, double x, double y, unsigned int color);
-void    mlxInit(t_mlx *mlxData);
+void			my_mlx_pixel_put(t_mlx *data, double x, double y, unsigned int color);
+void			mlxInit(t_mlx *mlxData);
 
 #endif

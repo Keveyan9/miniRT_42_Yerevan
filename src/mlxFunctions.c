@@ -12,6 +12,8 @@ void	my_mlx_pixel_put(t_mlx *data, double x, double y, unsigned int color)
 
 void    mlxInit(t_mlx *mlxData)
 {
+	//TODO
+	// here can only add the parts when because of some errors window won't be created or smth like that
     mlxData->mlx = mlx_init();
     mlxData->win = mlx_new_window(mlxData->mlx, WIDTH, HEIGHT, "miniRT");
     mlxData->img = mlx_new_image(mlxData->mlx, WIDTH, HEIGHT);

@@ -54,5 +54,5 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX);
 	checkVector(orientationSplitted, &orientVec, -1, 1);
 	checkColor(tintSplitted, &tint);
-	ft_lstadd_back_pl(&scene->plane, initPlane(orientVec, originVec, tint));
+	ft_lstadd_back_pl(&scene->plane, initPlane(originVec, orientVec, tint));
 }

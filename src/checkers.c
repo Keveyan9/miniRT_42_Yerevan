@@ -67,7 +67,7 @@ void	checker_C(char **splitted_C, t_scene *scene)
 	fov = ft_atof(splitted_C[3]);
 	if (fov < 0.0 || fov > 180.0)
 		exit_code(1, "fov is out of range for C\n");
-	scene->cam = initCam(orientVec, originVec, fov);
+	scene->cam = initCam(originVec, orientVec, fov);
 }
 
 void	checker_L(char **splitted_L, t_scene *scene)

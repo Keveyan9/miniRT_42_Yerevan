@@ -128,4 +128,5 @@ void    render(t_scene scene, t_mlx *mlxData)
                 color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
         }
     }
+    mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }

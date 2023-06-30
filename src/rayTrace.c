@@ -8,8 +8,8 @@ t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
 
     head = sphere;
     tNear = INFINITY;
-    cross->t = 0;
     cross = malloc(sizeof(t_cross));
+    cross->t = 0;
     if (!cross)
         return (NULL);
     while (head)
@@ -31,8 +31,8 @@ t_cross   *loopPlaneList(t_plane *plane, t_ray ray)
 
     head = plane;
     tNear = INFINITY;
-    cross->t = 0;
     cross = malloc(sizeof(t_cross));
+    cross->t = 0;
     if (!cross)
         return (NULL);
     while (head)
@@ -54,8 +54,8 @@ t_cross   *loopCylinList(t_cylinder *cylin, t_ray ray)
 
     head = cylin;
     tNear = INFINITY;
-    cross->t = 0;
     cross = malloc(sizeof(t_cross));
+    cross->t = 0;
     if (!cross)
         return (NULL);
     while (head)

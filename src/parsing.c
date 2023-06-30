@@ -2,10 +2,8 @@
 
 static char	**check_d_line(char *line)
 {
-	int		i;
 	char	**splitted;
 
-	i = -1;
 	splitted = ft_split_m(line);
 	return (splitted);
 }
@@ -37,17 +35,20 @@ static void	reading_file(int fd, t_scene *scene)
 {
 	char	*line;
 	char	**splitted;
+	int		count;
 
 	line = NULL;
+	count = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
-		if (checkerForEachObject(splitted, scene) != 3)
-			exit_code(1, "upper letter objects repeated in file\n");
+		count = checkerForEachObject(splitted, scene);  
 	}
+	if (count != 3)  ///TODO free lcrats objectnery minchev et
+		exit_code(1, "upper letter objects repeated in file\n");
 }
 
 void	parsing(int argc, char **argv, t_scene *var_scene)
@@ -58,9 +59,9 @@ void	parsing(int argc, char **argv, t_scene *var_scene)
 	if (argc != 2)
 	{
 		if (argc == 1)
-			exit_code(1, "Is not argument\n");
+			exit_code(1, "No argument\n");
 		else
-			exit_code(1, "Is more arguments\n");
+			exit_code(1, "More arguments\n");
 	}
 	fd = open(argv[1], O_RDWR);
 	if (fd < 0)

@@ -53,5 +53,4 @@ void	checkerSp(char **splitted_sp, t_scene *scene)
 	checkColor(tint, &tintVec);
 	radius = ft_atof(splitted_sp[2]);
     ft_lstadd_back_sp(&scene->sphere, initSphere(centerVec, tintVec, radius));
-	// scene->sphere = initSphere(centerVec, tintVec, radius);
 }

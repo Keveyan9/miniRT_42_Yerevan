@@ -121,12 +121,11 @@ void    render(t_scene scene, t_mlx *mlxData)
         {
             ray = rayGenerate(x, y);
             rayTrace(scene, ray, &finalCross);
+            color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
             if (finalCross->t == INFINITY)
                 color = create_rgb(0,0,0);
             else
                 color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
-            my_mlx_pixel_put(mlxData, x, y, color);
         }
     }
-    mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }

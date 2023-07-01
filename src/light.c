@@ -59,7 +59,8 @@ bool	shadow(t_cross *cross, t_scene scene)
 	shadow_ray.orig = cross->p;
 	shadow_ray.dir = normalize(vecSub(scene.light->orig, cross->p));
 	point_calc(&shadow_ray.orig, shadow_ray, 1e-4);
-	if (rayTrace(scene, shadow_ray, &sdw_cross) && (distance(cross->p, scene.light->orig) > distance(cross->p, sdw_cross->p)))
+	if (rayTrace(scene, shadow_ray, &sdw_cross) && (distance(cross->p, scene.light->orig)
+		> distance(cross->p, sdw_cross->p)))
 	{
 		free(sdw_cross);
 		return (true);

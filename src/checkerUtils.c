@@ -9,6 +9,16 @@ int vector_range_check(t_vec *vector, float lower_bound, float upper_bound)
 	return (1);
 }
 
+int vector_norm_check(t_vec *vector)
+{
+	float	len;
+
+	len = vecNorm(*vector);
+	if (len > 1 || len < 0)
+		return (0);
+	return (1);
+}
+
 int color_range_check(t_color *tint)
 {
 	if ((tint->r < 0 || tint->r > 255)

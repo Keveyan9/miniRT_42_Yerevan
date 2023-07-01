@@ -6,12 +6,13 @@ t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
     t_cross     *cross;
     float       tNear;
 
+    print_vec(ray.orig, "ray origin is in sphere ");
     head = sphere;
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
-    cross->t = 0;
     if (!cross)
         return (NULL);
+    cross->t = 0;
     while (head)
     {
         if (intersectSphere(ray, *head, cross) && cross->t < tNear)
@@ -32,9 +33,9 @@ t_cross   *loopPlaneList(t_plane *plane, t_ray ray)
     head = plane;
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
-    cross->t = 0;
     if (!cross)
         return (NULL);
+    cross->t = 0;
     while (head)
     {
         if (intersectPlane(ray, *head, cross) && cross->t < tNear)
@@ -55,9 +56,9 @@ t_cross   *loopCylinList(t_cylinder *cylin, t_ray ray)
     head = cylin;
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
-    cross->t = 0;
     if (!cross)
         return (NULL);
+    cross->t = 0;
     while (head)
     {
         if (intersectCylin(ray, *head, cross) && cross->t < tNear)
@@ -82,17 +83,11 @@ bool    rayTrace(t_scene scene, t_ray ray, t_cross **finalCross)
     crossSphere = loopSphereList(scene.sphere, ray);
     tNear = findMin(crossPlane->t, crossSphere->t, crossCylin->t);
     if (tNear == crossPlane->t)
-    {
         *finalCross = crossPlane;
-    }
     else if (tNear == crossSphere->t)
-    {
         *finalCross = crossSphere;
-    }
     else if (tNear == crossCylin->t)
-    {
         *finalCross = crossCylin;
-    }
     if (tNear != INFINITY)
         return (1);
     return (0);
@@ -120,13 +115,13 @@ void    render(t_scene scene, t_mlx *mlxData)
         {
             ray = rayGenerate(x, y, *(scene.cam));
             rayTrace(scene, ray, &finalCross);
-            color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
+            color = makeIntFromRGB(final_lighting(scene, finalCross, INTENSITY, LIGHT_FACTOR));
             if (finalCross->t == INFINITY)
                 color = create_rgb(0,0,0);
             else
                 color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
-            my_mlx_pixel_put(mlxData, x, y, color);
+            // my_mlx_pixel_put(mlxData, x, y, color);
         }
     }
-    mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
+    // mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }

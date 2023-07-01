@@ -1,5 +1,12 @@
 #include "minirt.h"
 
+void    print_vec(t_vec vec, char *msg)
+{
+    printf("%s vec.x == %f\n", msg, vec.x);
+    printf("%s vec.y == %f\n", msg, vec.y);
+    printf("%s vec.z == %f\n", msg, vec.z);
+}
+
 bool    intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross)
 {
     t_vec   V;//vector from ray origin to the cylinder center
@@ -13,13 +20,16 @@ bool    intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross)
     //In short, if the closest point is within the height and radius, there is an intersection with the finite cylinder.
 
     V = vecSub(ray.orig, cylin.center);
+    // print_vec(ray.orig, "ray origin is  ");
+    // print_vec(V, "V is  ");
     t = dotProduct(V, ray.dir) / dotProduct(ray.dir, ray.dir);
     point_calc(&P, ray, t);
     //P = vecAdd(ray.orig, vecScale(t, ray.dir));
     Q = vecSub(P, cylin.center);
     d = dotProduct(Q, cylin.axis);
     U = vecSub(Q, vecScale(d, cylin.axis));
-    if (isInRangeCheck(d, -cylin.height/2, cylin.height/2) && vecNorm(U) <= cylin.radius)
+    // printf("intersect cylin == %f\n", d);
+    if (isInRangeCheck(d, -cylin.height/2, cylin.height/2))// && vecNorm(U) <= cylin.radius)
     {
         cross->t = t;
         cross->p = P;

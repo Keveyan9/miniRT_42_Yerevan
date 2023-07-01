@@ -30,6 +30,13 @@ enum    objectType
     noType
 };
 
+typedef	struct s_matrix
+{
+	t_vec	camX;
+	t_vec	camY;
+	t_vec	camZ;
+}	t_matrix;
+
 typedef struct s_cross
 {
 	t_vec	        n;
@@ -82,7 +89,7 @@ bool		intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
 bool		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
 bool		intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
-t_ray		rayGenerate(float x, float y);//t_matrix lookAt
+t_ray		rayGenerate(float x, float y, t_cam camera);
 
 // light.c
 t_color		ambient_lighting(t_ambient *ambient);
@@ -96,7 +103,7 @@ t_color		colorMul(t_color c, float f);
 t_color		init_color(float r, float g, float b);
 t_vec		reflect_vec(t_vec l, t_vec n);
 void		point_calc(t_vec *p, t_ray r, float t);
-t_color		final_color(t_light *light, t_color amb, t_color diff, t_color spec);
+t_color		final_color(t_cross *cross, t_color amb, t_color diff, t_color spec);
 
 //normal.c
 t_vec		sphere_normal(t_vec p, t_vec center);
@@ -117,4 +124,9 @@ t_color			makeRGBfromInt(unsigned int color);
 void			my_mlx_pixel_put(t_mlx *data, double x, double y, unsigned int color);
 void			mlxInit(t_mlx *mlxData);
 
+//LookAt.c
+void    		LookAt(t_matrix *matrix, t_cam camera, t_vec to);
+
+//rayTrace
+bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
 #endif

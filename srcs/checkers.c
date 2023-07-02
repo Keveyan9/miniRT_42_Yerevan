@@ -13,8 +13,10 @@ void 	checkVector(char **vec_splitted, t_vec *vector, float lower_bound, float u
 	vector->x = ft_atof(vec_splitted[0]);
 	vector->y = ft_atof(vec_splitted[1]);
 	vector->z = ft_atof(vec_splitted[2]);
-	if (vector_range_check(vector, lower_bound, upper_bound) == 0)
+	if (lower_bound != -8 && vector_range_check(vector, lower_bound, upper_bound) == 0)
 		exit_code(1, "Vector coordinates are out of range\n");
+	else if (lower_bound == -8 && vector_norm_check(vector) == 0)
+		exit_code(1, "Vector's norm is out of range\n");
 }
 
 void	checkColor(char **vec_splitted, t_color *tint)
@@ -67,7 +69,7 @@ void	checker_C(char **splitted_C, t_scene *scene)
 	fov = ft_atof(splitted_C[3]);
 	if (fov < 0.0 || fov > 180.0)
 		exit_code(1, "fov is out of range for C\n");
-	scene->cam = initCam(orientVec, originVec, fov);
+	scene->cam = initCam(originVec, orientVec, fov);
 }
 
 void	checker_L(char **splitted_L, t_scene *scene)

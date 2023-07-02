@@ -25,7 +25,6 @@ void	ft_lstadd_back_cy(t_cylinder **lst, t_cylinder *new)
 t_cylinder	*initCylinder(t_vec center, t_vec normal, t_color tint, float radius, float height)
 {
 	t_cylinder *cylinder;
-	
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		exit_code(1, "cylinder malloc failed");
@@ -34,6 +33,8 @@ t_cylinder	*initCylinder(t_vec center, t_vec normal, t_color tint, float radius,
 	initColor(tint, &(cylinder->tint));
 	cylinder->radius = radius;
 	cylinder->height = height;
+
+	cylinder->next = NULL;
 	return (cylinder);
 }
 
@@ -56,7 +57,11 @@ void	checkerCy(char **splitted_cy, t_scene *scene)
 	radius = ft_atof(splitted_cy[3]) / 2;
 	height = ft_atof(splitted_cy[4]);
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX);
-	checkVector(orientationSplitted, &orientVec, -1, 1);
+
+	checkVector(orientationSplitted, &orientVec, -8, 1);
 	checkColor(tint, &tintVec);
-	ft_lstadd_back_cy(&scene->cylin, initCylinder(originVec, orientVec, tintVec, radius, height));
+	if (!scene->cylin)
+		scene->cylin = initCylinder(originVec, orientVec, tintVec, radius, height);
+	else
+		ft_lstadd_back_cy(&scene->cylin, initCylinder(originVec, orientVec, tintVec, radius, height));
 }

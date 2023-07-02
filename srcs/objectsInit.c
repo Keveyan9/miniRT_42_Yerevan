@@ -42,7 +42,7 @@ t_cam	*initCam(t_vec origin, t_vec orient, float fov)
 t_light	*initLight(t_vec orig, float ratio, t_color tint)
 {
 	t_light *light;
-	
+
 	light = malloc(sizeof(t_light));
 	if (!light)
 		exit_code(1, "origin malloc failed");

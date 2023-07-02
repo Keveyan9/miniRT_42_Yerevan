@@ -11,5 +11,4 @@ void    init_scene(t_scene *scene)
     scene->begin_plane = NULL;
     scene->cylin = NULL;
     scene->begin_cylinder = NULL;
-    scene->coefficient = 0;
 }

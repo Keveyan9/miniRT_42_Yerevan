@@ -25,13 +25,15 @@ void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 t_plane	*initPlane(t_vec point, t_vec normal, t_color tint)
 {
 	t_plane *plane;
-	
+
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
 		exit_code(1, "plane malloc failed");
 	initVector(point, &(plane->point));
 	initVector(normal, &(plane->normal));
 	initColor(tint, &(plane->tint));
+
+	plane->next = NULL;
 	return (plane);
 }
 
@@ -50,7 +52,10 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	orientationSplitted = ft_split(splitted_pl[2], ',');
 	tintSplitted = ft_split(splitted_pl[3], ',');
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX);
-	checkVector(orientationSplitted, &orientVec, -1, 1);
+	checkVector(orientationSplitted, &orientVec, -8, 1);
 	checkColor(tintSplitted, &tint);
-	ft_lstadd_back_pl(&scene->plane, initPlane(orientVec, originVec, tint));
+	if (!scene->plane)
+		scene->plane = initPlane(originVec, orientVec, tint);
+	else
+		ft_lstadd_back_pl(&scene->plane, initPlane(originVec, orientVec, tint));
 }

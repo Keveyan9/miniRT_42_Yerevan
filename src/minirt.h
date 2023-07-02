@@ -50,7 +50,6 @@ typedef struct s_cross
 
 void		exit_code(int code, char *msg);
 void		parsing(int argc, char **argv, t_scene *scene);
-int			checker_parsing(char **splitted_line, t_scene *scene);
 void		print_vec(t_vec vec, char *msg);
 //utils1.c
 int			ft_double_len(char **str);

@@ -6,7 +6,6 @@ t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
     t_cross     *cross;
     float       tNear;
 
-    print_vec(ray.orig, "ray origin is in sphere ");
     head = sphere;
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));

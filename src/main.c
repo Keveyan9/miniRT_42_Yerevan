@@ -6,9 +6,9 @@ int	main(int argc, char **argv)
 	t_mlx	mlxData;
 
 	init_scene(&scene);
-	// mlxInit(&mlxData);
+	mlxInit(&mlxData);
 	parsing(argc, argv, &scene);
 	render(scene, &mlxData);
-	// mlx_loop(mlxData.mlx);
+	mlx_loop(mlxData.mlx);
 	return (0);
 }

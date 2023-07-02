@@ -47,7 +47,7 @@ static void	reading_file(int fd, t_scene *scene)
 			count = checkerForEachObject(splitted, scene);  
 	}
 	if (count != 3)  ///TODO free lcrats objectnery minchev et
-		exit_code(1, "upper letter objects repeated in file\n");
+		exit_code(1, "upper letter objects are repeated or absent in file\n");
 }
 
 void	parsing(int argc, char **argv, t_scene *var_scene)

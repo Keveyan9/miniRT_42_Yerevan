@@ -58,7 +58,7 @@ void	checkerCy(char **splitted_cy, t_scene *scene)
 	radius = ft_atof(splitted_cy[3]) / 2;
 	height = ft_atof(splitted_cy[4]);
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX);
-	checkVector(orientationSplitted, &orientVec, -1, 1);
+	checkVector(orientationSplitted, &orientVec, -8, 1);
 	checkColor(tint, &tintVec);
 	ft_lstadd_back_cy(&scene->cylin, initCylinder(originVec, orientVec, tintVec, radius, height));
 }

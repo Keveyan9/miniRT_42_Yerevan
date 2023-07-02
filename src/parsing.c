@@ -12,8 +12,6 @@ int checkerForEachObject(char **splitted_line, t_scene *scene)
 {
 	static int	upperLetters = 0;
 
-	if (splitted_line[0][0] == '\n')
-		return (0);
 	if (ft_strncmp(splitted_line[0], "A", 2) == 0 && ++upperLetters)
 		checker_A(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "C", 2) == 0 && ++upperLetters)
@@ -45,7 +43,8 @@ static void	reading_file(int fd, t_scene *scene)
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
-		count = checkerForEachObject(splitted, scene);  
+		if (splitted[0][0] != '\n')
+			count = checkerForEachObject(splitted, scene);  
 	}
 	if (count != 3)  ///TODO free lcrats objectnery minchev et
 		exit_code(1, "upper letter objects are repeated or absent in file\n");

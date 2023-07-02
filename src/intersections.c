@@ -85,9 +85,6 @@ bool    intersectPlane(t_ray ray, t_plane plane, t_cross *cross)
             / denominator;
     point_calc(&cross->p, ray, cross->t);
     cross->n = plane.normal;
-   // printf("x === %f, y === %f, z === %f\n", cross->n.x, cross->n.y, cross->n.z);
-   //printf("plane r === %f, g === %f, b === %f\n", plane.tint.r,   plane.tint.g, plane.tint.b);
     cross->color = plane.tint;
-  //  printf("crooooosss r === %f, g === %f, b === %f\n", cross->color.r,   cross->color.g, cross->color.b);
     return (true);
 }

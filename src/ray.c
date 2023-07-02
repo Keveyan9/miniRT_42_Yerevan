@@ -46,7 +46,7 @@ t_ray   rayGenerate(float x, float y, t_cam camera)
 
     to.x = 0;
     to.y = 0;
-    to.z = 0;
+    to.z = 20;
     ray.orig = camera.orig;
     LookAt(&lookAt, camera, to);
     ray.dir = rayDirGenerate(lookAt, camera, x, y);

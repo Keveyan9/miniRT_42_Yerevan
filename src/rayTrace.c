@@ -6,7 +6,6 @@ t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
     t_cross     *cross;
     float       tNear;
 
-    print_vec(ray.orig, "ray origin is in sphere ");
     head = sphere;
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
@@ -39,7 +38,9 @@ t_cross   *loopPlaneList(t_plane *plane, t_ray ray)
     while (head)
     {
         if (intersectPlane(ray, *head, cross) && cross->t < tNear)
+        {
             tNear = cross->t;
+        }
         head = head->next;
     }
     cross->t = tNear;
@@ -62,7 +63,9 @@ t_cross   *loopCylinList(t_cylinder *cylin, t_ray ray)
     while (head)
     {
         if (intersectCylin(ray, *head, cross) && cross->t < tNear)
+        {
             tNear = cross->t;
+        }
         head = head->next;
     }
     cross->t = tNear;
@@ -105,6 +108,7 @@ void    render(t_scene scene, t_mlx *mlxData)
     unsigned int    color;
     t_ray           ray;
     t_cross         *finalCross;
+    t_color         col;
 
     finalCross = malloc(sizeof(t_cross));
     x = -1;
@@ -115,13 +119,12 @@ void    render(t_scene scene, t_mlx *mlxData)
         {
             ray = rayGenerate(x, y, *(scene.cam));
             rayTrace(scene, ray, &finalCross);
-            color = makeIntFromRGB(final_lighting(scene, finalCross, INTENSITY, LIGHT_FACTOR));
             if (finalCross->t == INFINITY)
                 color = create_rgb(0,0,0);
             else
-                color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
-            // my_mlx_pixel_put(mlxData, x, y, color);
+                color = makeIntFromRGB(final_lighting(scene, finalCross));
+            my_mlx_pixel_put(mlxData, x, y, color);
         }
     }
-    // mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
+    mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }

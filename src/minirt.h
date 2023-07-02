@@ -21,6 +21,8 @@
 
 # define WIDTH 1600
 # define HEIGHT 900
+# define STRENGTH 0.5
+# define SHININESS 32
 
 enum    objectType
 {
@@ -94,9 +96,9 @@ t_ray		rayGenerate(float x, float y, t_cam camera);
 // light.c
 t_color		ambient_lighting(t_ambient *ambient);
 t_color		diffuse_lighting(t_light *light, t_cross *cross);
-t_color		specular_lightning(t_scene scene, t_cross *cross, float strength, float s);
+t_color		specular_lightning(t_scene scene, t_cross *cross);
 bool		shadow(t_cross *cross, t_scene scene);
-t_color		final_lighting(t_scene scene, t_cross *cross, float strength, float s);
+t_color		final_lighting(t_scene scene, t_cross *cross);
 
 // light_utils.c
 t_color		colorMul(t_color c, float f);

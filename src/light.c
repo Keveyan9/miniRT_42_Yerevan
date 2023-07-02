@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:51:31 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/07/02 01:13:45 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/02 11:08:37 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_color	diffuse_lighting(t_light *light, t_cross *cross)
 	return (color);
 }
 
-t_color	specular_lightning(t_scene scene, t_cross *cross, float strength, float s)
+t_color	specular_lightning(t_scene scene, t_cross *cross)
 {
 	t_vec	light_ray;
 	t_vec	reflect_ray;
@@ -44,8 +44,8 @@ t_color	specular_lightning(t_scene scene, t_cross *cross, float strength, float 
 	dot	= dotProduct(view_ray, reflect_ray);
 	if (dot < 0)
 		dot = 0;
-	dot = pow(dot, s);
-	return (colorMul(scene.light->tint, dot * strength));
+	dot = pow(dot, SHININESS);
+	return (colorMul(scene.light->tint, dot * STRENGTH));
 }
 
 bool	shadow(t_cross *cross, t_scene scene)
@@ -67,7 +67,7 @@ bool	shadow(t_cross *cross, t_scene scene)
 	return (false);
 }
 
-t_color		final_lighting(t_scene scene, t_cross *cross, float strength, float s)
+t_color		final_lighting(t_scene scene, t_cross *cross)
 {
 	t_color	amb_factor;
 	t_color	diffuse;
@@ -77,7 +77,7 @@ t_color		final_lighting(t_scene scene, t_cross *cross, float strength, float s)
 	{
 		amb_factor = ambient_lighting(scene.amb);
 		diffuse = diffuse_lighting(scene.light, cross);
-		specular = specular_lightning(scene, cross, strength, s);
+		specular = specular_lightning(scene, cross);
 		cross->color = final_color(cross, amb_factor, diffuse, specular);
 	}
 	else

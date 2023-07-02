@@ -128,7 +128,7 @@ void    render(t_scene scene, t_mlx *mlxData)
             if (finalCross->t == INFINITY)
                 color = create_rgb(0,0,0);
             else
-                color = makeIntFromRGB(final_lighting(scene, finalCross, 0.5, 32));
+                color = makeIntFromRGB(final_lighting(scene, finalCross));
             my_mlx_pixel_put(mlxData, x, y, color);
         }
     }

@@ -34,6 +34,7 @@ t_sphere	*initSphere(t_vec orig, t_color tint, float radius)
 	initVector(orig, &(sphere->center));
 	initColor(tint, &(sphere->tint));
 	sphere->radius = radius;
+	sphere->next = NULL;
 	return (sphere);
 }
 
@@ -52,5 +53,12 @@ void	checkerSp(char **splitted_sp, t_scene *scene)
 	checkVector(center, &centerVec, INT_MIN, FLT_MAX);
 	checkColor(tint, &tintVec);
 	radius = ft_atof(splitted_sp[2]);
-    ft_lstadd_back_sp(&scene->sphere, initSphere(centerVec, tintVec, radius));
+	//printf("Haloo\n");
+	if (!scene->sphere)
+	{
+		scene->sphere = initSphere(centerVec, tintVec, radius);
+	//	printf("Haloo\n");
+	}
+	else
+    	ft_lstadd_back_sp(&scene->sphere, initSphere(centerVec, tintVec, radius));
 }

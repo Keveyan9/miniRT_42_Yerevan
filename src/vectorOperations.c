@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:20:59 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/21 23:14:24 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/02 16:35:09 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_vec   normalize(t_vec p)
 	float	len;
 
 	len = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+	if (len == 0)
+		return (p);
 	n.x = p.x / len;
 	n.y = p.y / len;
 	n.z = p.z / len;

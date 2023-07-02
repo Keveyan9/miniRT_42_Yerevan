@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 10:39:29 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/07/02 00:51:03 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/02 16:16:15 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_color	final_color(t_cross *cross, t_color amb, t_color diff, t_color spec)
 
 
 	col.r = amb.r + diff.r + spec.r;
-	col.g = amb.g + diff.g  + spec.g;
+	col.g = amb.g + diff.g + spec.g;
 	col.b = amb.b + diff.b + spec.b;
 	if (col.r > 1)
 		col.r = 1;

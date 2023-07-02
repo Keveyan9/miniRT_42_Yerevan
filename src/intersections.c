@@ -78,12 +78,13 @@ bool    intersectPlane(t_ray ray, t_plane plane, t_cross *cross)
 {
     float   denominator;
 
-    denominator = dotProduct(ray.dir, plane.normal);
-    if (denominator < 1e-6)
+    denominator = dotProduct(plane.normal, ray.dir);
+    if (fabs(denominator) < 1e-6)
         return (false);
     cross->t = (dotProduct(vecSub(plane.point, ray.orig), plane.normal))
             / denominator;
     point_calc(&cross->p, ray, cross->t);
+   // printf("cross p == %f, y == %f, z === %f\n", cross->p.x, cross->p.y, cross->p.z);
     cross->n = plane.normal;
     cross->color = plane.tint;
     return (true);

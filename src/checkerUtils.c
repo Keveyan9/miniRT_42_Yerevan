@@ -14,9 +14,9 @@ int vector_norm_check(t_vec *vector)
 	float	len;
 
 	len = vecNorm(*vector);
-	if (len > 1 || len < 0)
-		return (0);
-	return (1);
+	if (len >= 0.95 && len <= 1)
+		return (1);
+	return (0);
 }
 
 int color_range_check(t_color *tint)

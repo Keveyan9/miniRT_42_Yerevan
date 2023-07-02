@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:51:31 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/07/02 11:08:37 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/02 16:37:55 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,21 @@ t_color	specular_lightning(t_scene scene, t_cross *cross)
 	t_vec	reflect_ray;
 	t_vec	view_ray;
 	float	dot;
+	t_color col;
 	
 	light_ray = normalize(vecSub(cross->p, scene.light->orig));
+//	printf("light ray == %f, g == %f, b === %f\n", col.r, col.g, col.b);
 	reflect_ray = reflect_vec(light_ray, cross->n);
 	view_ray = normalize(vecSub(scene.cam->orig, cross->p));
+	//printf("view x == %f, y == %f, z === %f\n", view_ray.x, view_ray.y, view_ray.z);
+//	printf("cross p == %f, y == %f, z === %f\n", cross->p.x, cross->p.y, cross->p.z);
 	dot	= dotProduct(view_ray, reflect_ray);
 	if (dot < 0)
 		dot = 0;
 	dot = pow(dot, SHININESS);
-	return (colorMul(scene.light->tint, dot * STRENGTH));
+	col = colorMul(scene.light->tint, dot * STRENGTH);
+//	printf("col r == %f, g == %f, b === %f\n", col.r, col.g, col.b);
+	return (col);
 }
 
 bool	shadow(t_cross *cross, t_scene scene)

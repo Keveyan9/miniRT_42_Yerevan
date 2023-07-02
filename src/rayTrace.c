@@ -10,7 +10,7 @@ t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
     if (!cross)
-        return (NULL);
+        exit_code(1, "cross malloc failed");
     cross->t = 0;
     while (head)
     {
@@ -33,12 +33,13 @@ t_cross   *loopPlaneList(t_plane *plane, t_ray ray)
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
     if (!cross)
-        return (NULL);
+        exit_code(1, "cross malloc failed");
     cross->t = 0;
     while (head)
     {
         if (intersectPlane(ray, *head, cross) && cross->t < tNear)
         {
+           // printf("Hereeee\n");
             tNear = cross->t;
         }
         head = head->next;
@@ -58,7 +59,7 @@ t_cross   *loopCylinList(t_cylinder *cylin, t_ray ray)
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
     if (!cross)
-        return (NULL);
+        exit_code(1, "cross malloc failed");
     cross->t = 0;
     while (head)
     {
@@ -122,7 +123,12 @@ void    render(t_scene scene, t_mlx *mlxData)
             if (finalCross->t == INFINITY)
                 color = create_rgb(0,0,0);
             else
-                color = makeIntFromRGB(final_lighting(scene, finalCross));
+            {
+               // printf("aaaa here\n");
+                col = final_lighting(scene, finalCross);
+               // printf("col  r == %f, g == %f, b === %f\n", col.r, col.g, col.b);
+                color = makeIntFromRGB(col);
+            }
             my_mlx_pixel_put(mlxData, x, y, color);
         }
     }

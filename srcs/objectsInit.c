@@ -17,9 +17,7 @@ void	initColor(t_color tint, t_color *ambTint)
 t_ambient	*initAmbient(float ratio, t_color tint)
 {
 	t_ambient *amb;
-	int i;
 
-	i = -1;
 	amb = malloc(sizeof(t_ambient));
 	if (!amb)
 		exit_code(1, "ambient malloc failed");
@@ -31,9 +29,7 @@ t_ambient	*initAmbient(float ratio, t_color tint)
 t_cam	*initCam(t_vec origin, t_vec orient, float fov)
 {
 	t_cam *camera;
-	int i;
 
-	i = -1;
 	camera = malloc(sizeof(t_cam));
 	if (!camera)
 		exit_code(1, "camera malloc failed");
@@ -46,9 +42,7 @@ t_cam	*initCam(t_vec origin, t_vec orient, float fov)
 t_light	*initLight(t_vec orig, float ratio, t_color tint)
 {
 	t_light *light;
-	int i;
 
-	i = -1;
 	light = malloc(sizeof(t_light));
 	if (!light)
 		exit_code(1, "origin malloc failed");

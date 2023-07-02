@@ -14,7 +14,7 @@
 # include <stdbool.h>
 # include "../lib/minilibx_opengl_20191021/mlx.h"
 # include "../lib/libft/libft.h"
-# include "../lib/gnl/get_next_line.h"
+# include "get_next_line.h"
 # include "scene.h"
 # include "myMlx.h"
 # include "vectorRay.h"

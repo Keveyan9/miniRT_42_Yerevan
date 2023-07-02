@@ -1,3 +1,4 @@
+
 #include "minirt.h"
 
 t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
@@ -134,3 +135,4 @@ void    render(t_scene scene, t_mlx *mlxData)
     }
     mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }
+

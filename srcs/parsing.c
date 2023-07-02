@@ -33,6 +33,7 @@ static void	reading_file(int fd, t_scene *scene)
 {
 	char	*line;
 	char	**splitted;
+
 	int		count;
 
 	line = NULL;
@@ -43,11 +44,13 @@ static void	reading_file(int fd, t_scene *scene)
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
+
 		if (splitted[0][0] != '\n')
 			count = checkerForEachObject(splitted, scene);  
 	}
 	if (count != 3)  ///TODO free lcrats objectnery minchev et
 		exit_code(1, "upper letter objects are repeated or absent in file\n");
+
 }
 
 void	parsing(int argc, char **argv, t_scene *var_scene)

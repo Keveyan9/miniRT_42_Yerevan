@@ -25,15 +25,14 @@ void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 t_plane	*initPlane(t_vec point, t_vec normal, t_color tint)
 {
 	t_plane *plane;
-	int i;
 
-	i = -1;
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
 		exit_code(1, "plane malloc failed");
 	initVector(point, &(plane->point));
 	initVector(normal, &(plane->normal));
 	initColor(tint, &(plane->tint));
+
 	plane->next = NULL;
 	return (plane);
 }

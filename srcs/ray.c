@@ -1,3 +1,4 @@
+
 #include "minirt.h"
 
 t_ray   createRay(t_vec orig, t_vec dir)

@@ -30,8 +30,8 @@ int color_range_check(t_color *tint)
 
 int	only_digit_in_str(char *s)
 {
-	int	i;
-	int	k;
+	size_t	i;
+	int		k;
 
 	i = 0;
 	k = 0;

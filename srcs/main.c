@@ -8,10 +8,10 @@ void	print_arr(float arr[3])
 int	main(int argc, char **argv)
 {
 	t_scene	scene;
-	//t_mlx	mlxData;
+	t_mlx	mlxData;
 
 	init_scene(&scene);
-	//mlxInit(&mlxData);
+	mlxInit(&mlxData);
 	parsing(argc, argv, &scene);
 	//render(scene, &mlxData);
 ////////////////

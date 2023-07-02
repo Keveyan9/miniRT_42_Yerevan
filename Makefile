@@ -27,7 +27,7 @@ LINUX_MACRO = -D LINUX
 
 MACOS_FLAGS	= -L $(LIB)/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit 
 
-LINUX_FLAGS = -L $(LIB)/mlx_linux -lmlx -lm -lX11 -lXext -lpthread
+LINUX_FLAGS = -L $(LIB)/minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 
 CLEAN_RULE = 
 
@@ -46,8 +46,7 @@ ifeq ($(UNAME),Linux)
 	NUM_THREADS = $(shell nproc --all)
 	CFLAGS += $(LINUX_MACRO)
 	FLAGS += $(LINUX_FLAGS)
-	COMPILE_LIBS += $(LIB)/minilibx-linux/libmlx.a
-	#  $(MAKE) -C $(LIB)/minilibx-linux/libmlx.a
+	COMPILE_LIBS += $(MAKE) -C $(LIB)/minilibx-linux
 endif
 
 .DEFAULT_GOAL = all

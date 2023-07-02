@@ -1,5 +1,5 @@
 
-NAME	= miniRT
+NAME	= rt
 
 HEAD	= includes
 
@@ -17,7 +17,7 @@ CC		= cc
 
 RM		= rm -rf
 
-CFLAGS	= -Wall -Wextra -Werror -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS)
+CFLAGS	= -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS) # -Wall -Wextra -Werror
 
 FLAGS = -L $(LIB)/libft -lft
 

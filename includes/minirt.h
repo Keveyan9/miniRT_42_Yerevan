@@ -48,7 +48,7 @@ typedef struct s_cross
 	enum objectType type;
 }	t_cross;
 
-void		exit_code(int code, char *msg);
+void		exit_code(int code, char *msg,t_scene *scene);
 void		parsing(int argc, char **argv, t_scene *scene);
 void		print_vec(t_vec vec, char *msg);
 //utils1.c
@@ -131,4 +131,8 @@ void    		LookAt(t_matrix *matrix, t_cam camera, t_vec to);
 
 //rayTrace
 bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
+
+///cline
+
+void free_scene(t_scene *s);
 #endif

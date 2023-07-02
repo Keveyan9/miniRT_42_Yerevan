@@ -56,5 +56,5 @@ void		ft_putendl_fd(char *s, int fd);
 char	    **ft_strjoin_double_point(char **split, char *str);
 int	ft_strlen_1(const char *s);
 char	*ft_strjoin_1(char const *s1, char const *s2);
-
+void	frik(char **s1);
 #endif

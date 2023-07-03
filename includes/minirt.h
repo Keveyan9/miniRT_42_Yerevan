@@ -48,7 +48,7 @@ typedef struct s_cross
 	enum objectType type;
 }	t_cross;
 
-void		exit_code(int code, char *msg,t_scene *scene);
+void		exit_code(int code, char *msg,t_scene *scene,char **string);
 void		parsing(int argc, char **argv, t_scene *scene);
 void		print_vec(t_vec vec, char *msg);
 //utils1.c
@@ -62,8 +62,6 @@ int			isInSet(char c);
 int			ft_isspace(char c);
 //main.c
 void		init_scene(t_scene *scene);
-//checker_parsing.c
-void		checkVector(char **vec_splitted, t_vec *vector, float lower_bound, float upper_bound);
 //split_m.c
 char		**ft_split_m(char const *s);
 //checkerUtils.c
@@ -74,12 +72,12 @@ int 		vector_range_check(t_vec *vector, float lower_bound, float upper_bound);
 //objectsInit.c
 void		initVector(t_vec vector, t_vec *objVect);
 void		initColor(t_color tint, t_color *ambTint);
-t_ambient	*initAmbient(float ratio, t_color tint);
-t_cam		*initCam(t_vec origin, t_vec orient, float fov);
-t_light		*initLight(t_vec orig, float ratio, t_color tint);
+t_ambient	*initAmbient(float ratio, t_color tint,t_scene *scene);
+t_cam		*initCam(t_vec origin, t_vec orient, float fov,t_scene *scene);
+t_light		*initLight(t_vec orig, float ratio, t_color tint,t_scene *scene);
 //checkers.c
-void		checkVector(char **vec_splitted, t_vec *vector, float lower_bound, float upper_bound);
-void		checkColor(char **vec_splitted, t_color *tint);
+void		checkVector(char **vec_splitted, t_vec *vector, float lower_bound, float upper_bound,t_scene *scene);
+void		checkColor(char **vec_splitted, t_color *tint,t_scene *scene);
 void		checker_C(char **splitted_C, t_scene *scene);
 void		checker_L(char **splitted_L, t_scene *scene);
 void		checker_A(char **splitted_A, t_scene *scene);
@@ -134,5 +132,5 @@ bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
 
 ///cline
 
-void free_scene(t_scene *s);
+void		free_scene(t_scene *s);
 #endif

@@ -16,19 +16,16 @@ int checkerForEachObject(char **splitted_line, t_scene *scene)
 		checker_A(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "C", 2) == 0 && ++upperLetters)
 		checker_C(splitted_line, scene);
-	// else if (ft_strncmp(splitted_line[0], "L", 2) == 0 && ++upperLetters)
-	// 	checker_L(splitted_line, scene);
-	// else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
-	// 	checkerPl(splitted_line, scene);
-	// else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
-	// 	checkerSp(splitted_line, scene);
-	// else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
-	// 	checkerCy(splitted_line, scene);
-	// else
-	// {
-	// 	frik(splitted_line);
-	// 	exit_code(1, "Invalid argument\n");
-	// }
+	else if (ft_strncmp(splitted_line[0], "L", 2) == 0 && ++upperLetters)
+		checker_L(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
+		checkerPl(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
+		checkerSp(splitted_line, scene);
+	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
+		checkerCy(splitted_line, scene);
+	else
+		exit_code(1, "Invalid argument\n",scene,splitted_line);
 	return (upperLetters);
 }
 
@@ -47,13 +44,15 @@ static void	reading_file(int fd, t_scene *scene)
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
-		free(line);
+		if(line)
+			free(line);
 		if (splitted[0][0] != '\n')
 			count = checkerForEachObject(splitted, scene);
-		frik(splitted);
+		if(splitted)
+			frik(splitted);
 	}
 	if (count != 3)///TODO free lcrats objectnery minchev et
-		exit_code(1, "upper letter objects are repeated or absent in file\n",scene);
+		exit_code(1, "upper letter objects are repeated or absent in file\n",scene,splitted);
 }
 
 void	parsing(int argc, char **argv, t_scene *var_scene)
@@ -64,12 +63,12 @@ void	parsing(int argc, char **argv, t_scene *var_scene)
 	if (argc != 2)
 	{
 		if (argc == 1)
-			exit_code(1, "No argument\n",NULL);
+			exit_code(1, "No argument\n",NULL,NULL);
 		else
-			exit_code(1, "More arguments\n",NULL);
+			exit_code(1, "More arguments\n",NULL,NULL);
 	}
 	fd = open(argv[1], O_RDWR);
 	if (fd < 0)
-		exit_code(1, "error opening the file\n",NULL);
+		exit_code(1, "error opening the file\n",NULL,NULL);
 	reading_file(fd, var_scene);
 }

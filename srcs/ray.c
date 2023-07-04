@@ -1,14 +1,4 @@
-
 #include "minirt.h"
-
-t_ray   createRay(t_vec orig, t_vec dir)
-{
-    t_ray ray;
-
-    ray.dir = dir;
-    ray.orig = orig;
-    return (ray);
-}
 
 t_vec   gettingWPrime(t_matrix lookAt, t_cam camera)
 {
@@ -41,15 +31,11 @@ t_vec   rayDirGenerate(t_matrix lookAt, t_cam camera, float x, float y)
 
 t_ray   rayGenerate(float x, float y, t_cam camera)
 {
-    t_ray   ray;
-    t_vec   to;
-    t_matrix lookAt;
+    t_ray       ray;
+    t_matrix    lookAt;
 
-    to.x = 0;
-    to.y = 0;
-    to.z = 20;
     ray.orig = camera.orig;
-    LookAt(&lookAt, camera, to);
+    LookAt(&lookAt, camera);
     ray.dir = rayDirGenerate(lookAt, camera, x, y);
     return (ray);
 }

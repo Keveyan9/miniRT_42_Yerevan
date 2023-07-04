@@ -1,13 +1,14 @@
-
 #include "minirt.h"
 
-t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
+t_cross *loopSphereList(t_sphere *sphere, t_ray ray)
 {
-    t_sphere    *head;
-    t_cross     *cross;
-    float       tNear;
+    t_sphere *head;
+    t_cross *cross;
+    float tNear;
 
     head = sphere;
+    if (!head)
+        return (NULL);
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
     if (!cross)
@@ -24,11 +25,11 @@ t_cross   *loopSphereList(t_sphere *sphere, t_ray ray)
     return (cross);
 }
 
-t_cross   *loopPlaneList(t_plane *plane, t_ray ray)
+t_cross *loopPlaneList(t_plane *plane, t_ray ray)
 {
-    t_plane    *head;
-    t_cross     *cross;
-    float       tNear;
+    t_plane *head;
+    t_cross *cross;
+    float tNear;
 
     head = plane;
     tNear = INFINITY;
@@ -39,10 +40,7 @@ t_cross   *loopPlaneList(t_plane *plane, t_ray ray)
     while (head)
     {
         if (intersectPlane(ray, *head, cross) && cross->t < tNear)
-        {
-           // printf("Hereeee\n");
             tNear = cross->t;
-        }
         head = head->next;
     }
     cross->t = tNear;
@@ -50,11 +48,11 @@ t_cross   *loopPlaneList(t_plane *plane, t_ray ray)
     return (cross);
 }
 
-t_cross   *loopCylinList(t_cylinder *cylin, t_ray ray)
+t_cross *loopCylinList(t_cylinder *cylin, t_ray ray)
 {
-    t_cylinder  *head;
-    t_cross     *cross;
-    float       tNear;
+    t_cylinder *head;
+    t_cross *cross;
+    float tNear;
 
     head = cylin;
     tNear = INFINITY;
@@ -65,9 +63,7 @@ t_cross   *loopCylinList(t_cylinder *cylin, t_ray ray)
     while (head)
     {
         if (intersectCylin(ray, *head, cross) && cross->t < tNear)
-        {
             tNear = cross->t;
-        }
         head = head->next;
     }
     cross->t = tNear;
@@ -75,42 +71,42 @@ t_cross   *loopCylinList(t_cylinder *cylin, t_ray ray)
     return (cross);
 }
 
-bool    rayTrace(t_scene scene, t_ray ray, t_cross **finalCross)
+bool rayTrace(t_scene scene, t_ray ray, t_cross *finalCross)
 {
-    float   tNear;
+    float tNear;
     t_cross *crossPlane;
     t_cross *crossSphere;
     t_cross *crossCylin;
-    
+
     tNear = INFINITY;
     crossPlane = loopPlaneList(scene.plane, ray);
     crossCylin = loopCylinList(scene.cylin, ray);
     crossSphere = loopSphereList(scene.sphere, ray);
     tNear = findMin(crossPlane->t, crossSphere->t, crossCylin->t);
     if (tNear == crossPlane->t)
-        *finalCross = crossPlane;
-    else if (tNear == crossSphere->t)
-        *finalCross = crossSphere;
+        finalCross = crossPlane;
+    if (tNear == crossSphere->t)
+        finalCross = crossSphere;
     else if (tNear == crossCylin->t)
-        *finalCross = crossCylin;
+        finalCross = crossCylin;
     if (tNear != INFINITY)
         return (1);
     return (0);
 }
 
-int	create_rgb(int r, int g, int b)
+int create_rgb(int r, int g, int b)
 {
-	return (r << 16 | g << 8 | b);
+    return (r << 16 | g << 8 | b);
 }
 
-void    render(t_scene scene, t_mlx *mlxData)
+void render(t_scene scene, t_mlx *mlxData)
 {
     int             x;
     int             y;
     unsigned int    color;
     t_ray           ray;
     t_cross         *finalCross;
-    t_color         col;
+    t_color      col;
 
     finalCross = malloc(sizeof(t_cross));
     x = -1;
@@ -120,19 +116,17 @@ void    render(t_scene scene, t_mlx *mlxData)
         while (++y < HEIGHT)
         {
             ray = rayGenerate(x, y, *(scene.cam));
-            rayTrace(scene, ray, &finalCross);
+            rayTrace(scene, ray, finalCross);
             if (finalCross->t == INFINITY)
-                color = create_rgb(0,0,0);
+                color = create_rgb(0, 0, 0);
             else
             {
-               // printf("aaaa here\n");
                 col = final_lighting(scene, finalCross);
-               // printf("col  r == %f, g == %f, b === %f\n", col.r, col.g, col.b);
                 color = makeIntFromRGB(col);
+                // color = create_rgb(255, 0, 0);
             }
             my_mlx_pixel_put(mlxData, x, y, color);
         }
     }
     mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 }
-

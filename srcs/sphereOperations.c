@@ -32,7 +32,7 @@ t_sphere	*initSphere(t_vec orig, t_color tint, float radius)
 	initVector(orig, &(sphere->center));
 	initColor(tint, &(sphere->tint));
 	sphere->radius = radius;
-
+	sphere->next = NULL;
 	return (sphere);
 }
 
@@ -43,21 +43,19 @@ void	checkerSp(char **splitted_sp, t_scene *scene)
 	t_vec	centerVec;
 	t_color	tintVec;
 	float	radius;
+	int		len;
 
-	if (ft_double_len(splitted_sp) != 4)
-		exit_code(1, "Invalid number of parameters for sp\n");
+	len = ft_double_len(splitted_sp);
+	if (len != 4)
+		if (!(len == 5 && splitted_sp[4][0] == '\n'))
+			exit_code(1, "Invalid number of parameters for sp\n");
 	center = ft_split(splitted_sp[1], ',');
 	tint = ft_split(splitted_sp[3], ',');
 	checkVector(center, &centerVec, INT_MIN, FLT_MAX);
 	checkColor(tint, &tintVec);
 	radius = ft_atof(splitted_sp[2]);
-
-	//printf("Haloo\n");
 	if (!scene->sphere)
-	{
 		scene->sphere = initSphere(centerVec, tintVec, radius);
-	//	printf("Haloo\n");
-	}
 	else
     	ft_lstadd_back_sp(&scene->sphere, initSphere(centerVec, tintVec, radius));
 

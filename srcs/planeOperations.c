@@ -32,7 +32,6 @@ t_plane	*initPlane(t_vec point, t_vec normal, t_color tint)
 	initVector(point, &(plane->point));
 	initVector(normal, &(plane->normal));
 	initColor(tint, &(plane->tint));
-
 	plane->next = NULL;
 	return (plane);
 }
@@ -45,9 +44,12 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	t_vec	originVec;
 	t_vec	orientVec;
 	t_color	tint;
+	int		len;
 
-	if (ft_double_len(splitted_pl) != 4)
-		exit_code(1, "Invalid number of parameters for pl\n");
+	len = ft_double_len(splitted_pl);
+	if (len != 4)
+		if (!(len == 5 && splitted_pl[4][0] == '\n'))
+			exit_code(1, "Invalid number of parameters for pl\n");
 	origin = ft_split(splitted_pl[1], ',');
 	orientationSplitted = ft_split(splitted_pl[2], ',');
 	tintSplitted = ft_split(splitted_pl[3], ',');

@@ -17,7 +17,7 @@ CC		= cc
 
 RM		= rm -rf
 
-CFLAGS	= -Wall -Wextra -Werror -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS)
+CFLAGS	= -Wall -Wextra -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS)
 
 FLAGS = -L $(LIB)/libft -lft
 
@@ -25,7 +25,7 @@ MACOS_MACRO = -D MACOS
 
 LINUX_MACRO = -D LINUX
 
-MACOS_FLAGS	= -L $(LIB)/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit 
+MACOS_FLAGS	= -L $(LIB)/minilibx_opengl_20191021 -g -ggdb3 -lmlx -framework OpenGL -framework AppKit #-fsanitize=address -g
 
 LINUX_FLAGS = -L $(LIB)/minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 

@@ -16,7 +16,7 @@
 # include "../lib/libft/libft.h"
 # include "get_next_line.h"
 # include "scene.h"
-# include "myMlx.h"
+# include "mymlx.h"
 # include "vectorRay.h"
 
 # define WIDTH 1600
@@ -90,6 +90,7 @@ void		checkerCy(char **splitted_cy, t_scene *scene);
 bool		intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
 bool		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
 bool		intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
+bool		intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
 t_ray		rayGenerate(float x, float y, t_cam camera);
 
@@ -109,13 +110,13 @@ t_color		final_color(t_cross *cross, t_color amb, t_color diff, t_color spec);
 
 //normal.c
 t_vec		sphere_normal(t_vec p, t_vec center);
-void		topCapCenter(t_vec *top, t_cylinder cyl);
-void		bottomCapCenter(t_vec *bottom, t_cylinder cyl);
+t_vec		topCapCenter(t_cylinder cyl);
+t_vec		bottomCapCenter(t_cylinder cyl);
 t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
 
 
 //rayTrace
-bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
+bool    		rayTrace(t_scene scene, t_ray ray, t_cross *finalCross);
 void    		render(t_scene scene, t_mlx *mlxData);
 
 //colorOperations.c
@@ -127,8 +128,8 @@ void			my_mlx_pixel_put(t_mlx *data, double x, double y, unsigned int color);
 void			mlxInit(t_mlx *mlxData);
 
 //LookAt.c
-void    		LookAt(t_matrix *matrix, t_cam camera, t_vec to);
+void    		LookAt(t_matrix *matrix, t_cam camera);
 
 //rayTrace
-bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
+bool			intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross);
 #endif

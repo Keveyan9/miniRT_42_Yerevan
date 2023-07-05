@@ -19,24 +19,17 @@
 # include "mymlx.h"
 # include "vectorRay.h"
 
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 1280
+# define HEIGHT 720
+# define FOCAL_DIST 0.5
 # define STRENGTH 0.5
 # define SHININESS 32
 
-enum    objectType
-{
-    SPHERE,
-    PLANE,
-    CYLIN,
-    noType
-};
-
 typedef	struct s_matrix
 {
-	t_vec	camX;
-	t_vec	camY;
-	t_vec	camZ;
+	t_vec	right;
+	t_vec	up;
+	t_vec	forward;
 }	t_matrix;
 
 typedef struct s_cross
@@ -45,7 +38,6 @@ typedef struct s_cross
 	t_vec	        p;
 	float           t;
 	t_color         color;
-	enum objectType type;
 }	t_cross;
 
 void		exit_code(int code, char *msg);
@@ -88,7 +80,8 @@ void		checkerSp(char **splitted_sp, t_scene *scene);
 void		checkerCy(char **splitted_cy, t_scene *scene);
 //intersections
 bool		intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
-bool		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
+bool 		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross, float x, float y);
+// bool		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
 bool		intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
 bool		intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
@@ -116,7 +109,7 @@ t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
 
 
 //rayTrace
-bool    		rayTrace(t_scene scene, t_ray ray, t_cross *finalCross);
+bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross, float x, float y);
 void    		render(t_scene scene, t_mlx *mlxData);
 
 //colorOperations.c

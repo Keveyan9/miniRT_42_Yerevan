@@ -35,7 +35,12 @@ bool intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross)
     return (false);
 }
 
-bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross)
+void    print_vec(t_vec vec, char *msg)
+{
+    printf("%s vec x == %f,y == %f,z == %f\n", msg, vec.x, vec.y, vec.z);
+}
+
+bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross, float x, float y)
 {
     float tOHdot;
     float tHC;
@@ -44,13 +49,25 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross)
     float t1;
     t_vec L;
 
-    L = vecSub(sphere.center, ray.orig);
+    L = vecSub(ray.orig, sphere.center);
+    // print_vec(ray.dir, "ray dir is");
+    // printf("x == %f, y == %f\n", x, y);
     tOHdot = dotProduct(L, ray.dir);
+    // printf("tOHdot == %f\n", tOHdot);
     if (tOHdot < 0)
+    {
+        printf("I am falseeeee   111\n");
         return (false);
-    dSquare = vecNorm(L) * vecNorm(L) - tOHdot * tOHdot;
+    }
+    //   return (false);
+    dSquare = vecNorm(L) - tOHdot * tOHdot;
+    // printf("dSquare == %f\n", vecNorm(L));
+    // printf("dSquare == %f\n", dSquare);
     if (dSquare > sphere.radius * sphere.radius)
+    {
+        // printf("I am falseeeee   222\n");
         return (false);
+    }
     tHC = sqrt(sphere.radius * sphere.radius - dSquare);
     t0 = tOHdot - tHC;
     t1 = tOHdot + tHC;

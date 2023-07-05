@@ -53,13 +53,13 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	tintSplitted = ft_split(splitted_pl[3], ',');
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX,scene);
 	if(origin)
-		frik(origin);
+		double_free(origin);
 	checkVector(orientationSplitted, &orientVec, -8, 1,scene);
 	if(orientationSplitted)
-		frik(orientationSplitted);
+		double_free(orientationSplitted);
 	checkColor(tintSplitted, &tint,scene);
 	if(tintSplitted)
-		frik(tintSplitted);
+		double_free(tintSplitted);
 	if (!scene->plane)
 		scene->plane = initPlane(originVec, orientVec, tint,scene);
 	else

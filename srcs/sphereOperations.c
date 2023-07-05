@@ -1,13 +1,13 @@
 #include "minirt.h"
 
-t_sphere	*ft_lstlast_sp(t_sphere *lst)
+static t_sphere	*ft_lstlast_sp(t_sphere *lst)
 {
 	while (lst && lst->next)
 		lst = lst->next;
 	return (lst);
 }
 
-void	ft_lstadd_back_sp(t_sphere **lst, t_sphere *new)
+static void	ft_lstadd_back_sp(t_sphere **lst, t_sphere *new)
 {
 	t_sphere *position;
 
@@ -32,7 +32,7 @@ static t_sphere	*initSphere(t_vec orig, t_color tint, float radius,t_scene *scen
 	initVector(orig, &(sphere->center));
 	initColor(tint, &(sphere->tint));
 	sphere->radius = radius;
-
+	sphere->next = NULL;
 	return (sphere);
 }
 
@@ -50,10 +50,10 @@ void	checkerSp(char **splitted_sp, t_scene *scene)
 	tint = ft_split(splitted_sp[3], ',');
 	checkVector(center, &centerVec, INT_MIN, FLT_MAX,scene);
 	if(center)
-		frik(center);
+		double_free(center);
 	checkColor(tint, &tintVec,scene);
 	if(tint)
-		frik(tint);
+		double_free(tint);
 	radius = ft_atof(splitted_sp[2]);
 	if (!scene->sphere)
 	{

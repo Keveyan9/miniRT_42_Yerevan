@@ -58,13 +58,13 @@ void	checkerCy(char **splitted_cy, t_scene *scene)
 	height = ft_atof(splitted_cy[4]);
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX,scene);
 	if(origin)
-		frik(origin);
+		double_free(origin);
 	checkVector(orientationSplitted, &orientVec, -8, 1,scene);
 	if(orientationSplitted)
-		frik(orientationSplitted);
+		double_free(orientationSplitted);
 	checkColor(tint, &tintVec,scene);
 	if (tint)
-		frik(tint);
+		double_free(tint);
 	if (!scene->cylin)
 		scene->cylin = initCylinder(originVec, orientVec, tintVec, radius, height);
 	else

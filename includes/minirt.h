@@ -94,9 +94,9 @@ t_ray		rayGenerate(float x, float y, t_cam camera);
 // light.c
 t_color		ambient_lighting(t_ambient *ambient);
 t_color		diffuse_lighting(t_light *light, t_cross *cross);
-t_color		specular_lightning(t_scene scene, t_cross *cross);
-bool		shadow(t_cross *cross, t_scene scene);
-t_color		final_lighting(t_scene scene, t_cross *cross);
+t_color		specular_lightning(t_scene *scene, t_cross *cross);
+bool		shadow(t_cross *cross, t_scene *scene);
+t_color		final_lighting(t_scene *scene, t_cross *cross);
 
 // light_utils.c
 t_color		colorMul(t_color c, float f);
@@ -112,9 +112,7 @@ void		bottomCapCenter(t_vec *bottom, t_cylinder cyl);
 t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
 
 
-//rayTrace
-bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
-void    		render(t_scene scene, t_mlx *mlxData);
+void    		render(t_scene *scene, t_mlx *mlxData);
 
 //colorOperations.c
 unsigned int	makeIntFromRGB(t_color color);
@@ -128,7 +126,7 @@ void			mlxInit(t_mlx *mlxData);
 void    		LookAt(t_matrix *matrix, t_cam camera, t_vec to);
 
 //rayTrace
-bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
+bool    		rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross);
 
 ///cline
 

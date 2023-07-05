@@ -53,8 +53,9 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_putendl_fd(char *s, int fd);
-char	    **ft_strjoin_double_point(char **split, char *str);
-int	ft_strlen_1(const char *s);
-char	*ft_strjoin_1(char const *s1, char const *s2);
-void	frik(char **s1);
+char		**ft_strjoin_double_point(char **split, char *str);
+int			ft_strlen_1(const char *s);
+char		*ft_strjoin_1(char const *s1, char const *s2);
+void		double_free(char **s1);
+void		free_null(void *s);
 #endif

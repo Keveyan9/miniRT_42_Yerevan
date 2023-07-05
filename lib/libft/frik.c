@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-void	frik(char **s1)
+void	double_free(char **s1)
 {
 	int	i;
 
@@ -26,4 +26,11 @@ void	frik(char **s1)
 		free(s1);
 		s1 = NULL;
 	}
+}
+
+void	free_null(void *s)
+{
+	if(s)
+		free(s);
+	s = NULL;
 }

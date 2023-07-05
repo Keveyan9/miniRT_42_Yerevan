@@ -55,8 +55,8 @@ static int	ft_check_alloc(char **split, char *str, int index)
 	if (str)
 		return (0);
 	while (index >= 0)
-		free(split[index--]);
-	free(split);
+		free_null(split[index--]);
+	free_null(split);
 	return (1);
 }
 

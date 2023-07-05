@@ -31,7 +31,6 @@ typedef struct s_sphere
 	t_color			tint;
 	float			radius;
 	int				size;
-	struct s_sphere	*prev;
 	struct s_sphere	*next;
 }	t_sphere;
 
@@ -40,7 +39,6 @@ typedef struct s_plane
 	t_vec	point;
 	t_vec	normal;
 	t_color	tint;
-	struct s_plane	*prev;
 	struct s_plane	*next;
 }	t_plane;
 
@@ -51,7 +49,6 @@ typedef struct s_cylinder
 	t_color				tint;
 	float				radius;
 	float				height;
-	struct s_cylinder	*prev;
 	struct s_cylinder	*next;
 }	t_cylinder;
 
@@ -66,7 +63,6 @@ typedef struct s_scene
 	t_plane		*begin_plane;
 	t_cylinder	*cylin;
 	t_cylinder	*begin_cylinder;
-	int			coefficient;
 }	t_scene;
 
 #endif

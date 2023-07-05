@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-
 int vector_range_check(t_vec *vector, float lower_bound, float upper_bound)
 {
 	if ((vector->x < lower_bound || vector->x > upper_bound)
@@ -8,6 +7,16 @@ int vector_range_check(t_vec *vector, float lower_bound, float upper_bound)
 		|| (vector->z < lower_bound || vector->z > upper_bound))
 		return (0);
 	return (1);
+}
+
+int vector_norm_check(t_vec *vector)
+{
+	float	len;
+
+	len = vecNorm(*vector);
+	if (len >= 0.95 && len <= 1)
+		return (1);
+	return (0);
 }
 
 int color_range_check(t_color *tint)
@@ -22,7 +31,7 @@ int color_range_check(t_color *tint)
 int	only_digit_in_str(char *s)
 {
 	size_t	i;
-	int	k;
+	int		k;
 
 	i = 0;
 	k = 0;

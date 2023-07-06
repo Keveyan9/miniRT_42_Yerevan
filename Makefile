@@ -25,7 +25,7 @@ MACOS_MACRO = -D MACOS
 
 LINUX_MACRO = -D LINUX
 
-MACOS_FLAGS	= -L $(LIB)/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit 
+MACOS_FLAGS	= -L $(LIB)/minilibx_opengl -lmlx -framework OpenGL -framework AppKit 
 
 LINUX_FLAGS = -L $(LIB)/minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 

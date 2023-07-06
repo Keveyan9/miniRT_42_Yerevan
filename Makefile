@@ -18,7 +18,7 @@ CC		= cc
 RM		= rm -rf
 
 
-CFLAGS	= -Wall -Wextra -Werror -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS)
+CFLAGS	= -Wall -Wextra -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS)
 
 FLAGS = -L $(LIB)/libft -lft
 

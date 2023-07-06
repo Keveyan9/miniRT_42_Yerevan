@@ -7,8 +7,6 @@ t_cross	*loopSphereList(t_sphere *sphere, t_ray ray,t_scene *scene)
 	float		tNear;
 
 	head = sphere;
-	if (!head)
-		return (NULL);
  	tNear = INFINITY;
 	cross = malloc(sizeof(t_cross));
 	if (!cross)
@@ -21,7 +19,6 @@ t_cross	*loopSphereList(t_sphere *sphere, t_ray ray,t_scene *scene)
 		head = head->next;
 	}
 	cross->t = tNear;
-//	cross->type = SPHERE;
 	return (cross);
 }
 
@@ -44,7 +41,6 @@ t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
 		head = head->next;
 	}
 	cross->t = tNear;
-	//cross->type = PLANE;
 	return (cross);
 }
 
@@ -84,20 +80,20 @@ bool	rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross)
 	if (tNear == crossPlane->t)
 	{
 		*finalCross = crossPlane;
-		free_null(crossSphere);
-		free_null(crossCylin);
+		// free_null(crossSphere);
+		// free_null(crossCylin);
 	}
 	else if (tNear == crossSphere->t)
 	{
 		*finalCross = crossSphere;
-		free_null(crossPlane);
-		free_null(crossCylin);
+		// free_null(crossPlane);
+		// free_null(crossCylin);
 	}
 	else if (tNear == crossCylin->t)
 	{
 		*finalCross = crossCylin;
-		free_null(crossPlane);
-		free_null(crossSphere);
+		// free_null(crossPlane);
+		// free_null(crossSphere);
 	}
 	if (tNear != INFINITY)
 		return (1);
@@ -109,6 +105,38 @@ int create_rgb(int r, int g, int b)
     return (r << 16 | g << 8 | b);
 }
 
+// void	render(t_scene *scene, t_mlx *mlxData)
+// {
+// 	int				x = -1;
+// 	int				y = -1;
+// 	unsigned int	color;
+// 	t_ray			ray;
+// 	t_cross			*finalCross;
+// 	// t_color			col;
+
+// 	finalCross = NULL;
+// 	while (++y < HEIGHT)
+// 	{
+// 		x = -1;
+// 		while (++x < WIDTH)
+// 		{
+// 			ray = rayGenerate(x, y, *(scene->cam));
+// 			if(!rayTrace(scene, ray, &finalCross))
+// 				color = create_rgb (0, 0, 0);
+// 			else
+// 			{
+// 				// col = final_lighting(scene, finalCross);
+// 				// color = makeIntFromRGB(col);
+// 				color = create_rgb(255, 0, 0);
+// 				// printf("color == %d\n", color);
+// 			}
+// 			// free_null(finalCross);
+// 			my_mlx_pixel_put(mlxData, x, y, color);
+// 		}
+// 	}
+// 	mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
+// }
+
 void	render(t_scene *scene, t_mlx *mlxData)
 {
 	int				xy[2];
@@ -118,11 +146,11 @@ void	render(t_scene *scene, t_mlx *mlxData)
 	// t_color			col;
 
 	finalCross = NULL;
-	xy[0] = -1;
-	while (++xy[0] < WIDTH)
+	//xy[0] = -1;
+	while (++xy[1] < HEIGHT)
 	{
 		xy[1] = -1;
-		while (++xy[1] < HEIGHT)
+		while (++xy[0] < WIDTH)
 		{
 			ray = rayGenerate(xy[0], xy[1], *(scene->cam));
 			if(!rayTrace(scene, ray, &finalCross))
@@ -132,9 +160,9 @@ void	render(t_scene *scene, t_mlx *mlxData)
 				// col = final_lighting(scene, finalCross);
 				// color = makeIntFromRGB(col);
 				color = create_rgb(255, 0, 0);
-				// printf("colour == %d\n", color);
+				// printf("color == %d\n", color);
 			}
-			free_null(finalCross);
+			// free_null(finalCross);
 			my_mlx_pixel_put(mlxData, xy[0], xy[1], color);
 		}
 	}

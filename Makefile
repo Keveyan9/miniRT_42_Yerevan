@@ -1,139 +1,79 @@
 
-# NAME			=	minishell
+NAME	= miniRT
 
-# CC				=	cc
+HEAD	= includes
 
-# LIBFT_DIR		=	libft
+SRCDIR	= srcs
 
-# LIBFT			=	$(LIBFT_DIR)/libft.a
+OBJS_DIR = obj
 
-# PREFIX			=	$(shell find ${PWD} -type d -name readline_out)
+LIB		= lib
 
-# INC				=	-Iinc -I$(LIBFT_DIR)
+FILES	=	$(wildcard $(SRCDIR)/*.c)
 
-# READLINE_DIR	=	readline
+OBJS			=	$(patsubst $(SRCDIR)/%.c, $(OBJS_DIR)/%.o, $(FILES))
+MK	=	mkdir -p
+CC		= cc
 
-# READLINE_OUT	=	"${PWD}/readline_out/"
-
-# READLINE_INC	=	-I$(READLINE_OUT)/include
-
-# READLINE_LIB	=	$(READLINE_OUT)lib
-
-# INCLUDES		=	$(INC) $(READLINE)
-
-# LINKERS			=	-L$(READLINE_LIB) -lreadline -L$(LIBFT_DIR) -lft
-
-# CFLAGS			=	-Wall -Wextra -Werror #-fsanitize=address -g
-
-# OBJS_DIR		=	objs
-
-# SRCS			=	$(wildcard src/*.c)
-
-# OBJS			=	$(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
-
-# MKDIR			=	mkdir -p
-
-# RM				=	rm -rf
-
-# .DEFAULT_GOAL	=	all
-
-# $(OBJS_DIR)/%.o: src/%.c | $(OBJS_DIR)
-# 	$(CC) $(CFLAGS) $(INCLUDES) $(READLINE_INC) -c $< -o $@
-
-# all: $(NAME)
-# $(OBJS_DIR):
-# 	$(MKDIR) $(OBJS_DIR)
-
-# $(LIBFT):
-# 	$(MAKE) -C $(LIBFT_DIR)
-
-# $(NAME): $(LIBFT) $(OBJS) | $(OBJS_DIR)
-# 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LINKERS)
-
-# $(READLINE_OUT):
-# 	mkdir -p $(READLINE_OUT)
-
-# clean:
-# 	$(RM) $(OBJS_DIR)
-# 	$(MAKE) clean -C $(LIBFT_DIR)
-
-# fclean: clean
-# 	$(RM) $(NAME)
-# 	$(MAKE) fclean -C $(LIBFT_DIR)
-
-# re: fclean all
-
-# readline: $(READLINE_OUT)
-# 	@cd readline && ./configure --prefix=$(PREFIX) && make clean && make && make install
-
-# .PHONY: all clean fclean re readline
+RM		= rm -rf
 
 
-NAME			=	minishell
+CFLAGS	= -Wall -Wextra -Werror -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS)
 
-CC				=	cc
+FLAGS = -L $(LIB)/libft -lft
 
-LIBFT_DIR		=	libft
+MACOS_MACRO = -D MACOS
 
-LIBFT			=	$(LIBFT_DIR)/libft.a
+LINUX_MACRO = -D LINUX
 
-PREFIX			=	$(shell find ${HOME} -type d -name readline_out)
 
-INC				=	-Iinc -I$(LIBFT_DIR)
+MACOS_FLAGS	= -L $(LIB)/minilibx_opengl -lmlx -framework OpenGL -framework AppKit 
 
-READLINE_DIR	=	readline
+LINUX_FLAGS = -L $(LIB)/minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 
-READLINE_OUT	=	"${HOME}/readline_out/"
+CLEAN_RULE = 
 
-READLINE_INC	=	-I$(READLINE_OUT)/include
+COMPILE_LIBS = 
 
-READLINE_LIB	=	$(READLINE_OUT)lib
+UNAME := $(shell uname)
 
-INCLUDES		=	$(INC) $(READLINE)
+ifeq ($(UNAME),Darwin)
+	NUM_THREADS = $(shell sysctl -n hw.ncpu)
+	CFLAGS += $(MACOS_MACRO)
+	FLAGS += $(MACOS_FLAGS)
+	CLEAN_RULE += clean
+endif
+ifeq ($(UNAME),Linux)
+	NUM_THREADS = $(shell nproc --all)
+	CFLAGS += $(LINUX_MACRO)
+	FLAGS += $(LINUX_FLAGS)
+	COMPILE_LIBS += $(MAKE) -C $(LIB)/minilibx-linux
+endif
 
-LINKERS			=	-L$(READLINE_LIB) -lreadline -L$(LIBFT_DIR) -lft
+.DEFAULT_GOAL = all
 
-CFLAGS			=	-Wall -Wextra -Werror #-fsanitize=address -g
+$(OBJS_DIR): $(SRCDIR)
+	$(MK) $@
 
-OBJS_DIR		=	objs
+$(OBJS_DIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-SRCS			=	$(wildcard src/*.c)
+${NAME}:	${OBJS}
+			$(COMPILE_LIBS)
+			$(MAKE) -C $(LIB)/libft
+			${CC} ${CFLAGS} $(OBJS) $(FLAGS) -o ${NAME} 
 
-OBJS			=	$(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
-
-MKDIR			=	mkdir -p
-
-RM				=	rm -rf
-
-.DEFAULT_GOAL	=	all
-
-$(OBJS_DIR)/%.o: src/%.c | $(OBJS_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) $(READLINE_INC) -c $< -o $@
-
-all: $(NAME)
-$(OBJS_DIR):
-	$(MKDIR) $(OBJS_DIR)
-
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
-
-$(NAME): $(LIBFT) $(OBJS) | $(OBJS_DIR)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LINKERS)
-
-$(READLINE_OUT):
-	mkdir -p $(READLINE_OUT)
+all:		$(OBJS_DIR) ${NAME}
 
 clean:
-	$(RM) $(OBJS_DIR)
-	$(MAKE) clean -C $(LIBFT_DIR)
+			$(MAKE) clean -C $(LIB)/libft
+			${RM} ${OBJS_DIR}
 
-fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
+fclean:		clean
+			$(COMPILE_LIBS) $(CLEAN_RULE)
+			$(MAKE) fclean -C $(LIB)/libft
+			${RM} ${NAME}
 
-re: fclean all
+re:			fclean all
 
-readline: $(READLINE_OUT)
-	@cd readline && ./configure --prefix=$(PREFIX) && make clean && make && make install
-
-.PHONY: all clean fclean re readline
+PHONY:		all clean fclean re

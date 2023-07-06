@@ -49,7 +49,7 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross, float x, float 
     float t1;
     t_vec L;
 
-    L = vecSub(ray.orig, sphere.center);
+    L = vecSub(sphere.center, ray.orig);
     // printf("x == %f, y == %f\n", x, y);
     tOHdot = dotProduct(L, ray.dir);
     // print_vec(ray.dir, "ray dir is");
@@ -84,7 +84,7 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross, float x, float 
     //         return (false);
     // }
     // cross->t = t0;
-    printf("cross->t isssss == %f\n", cross->t);
+    // printf("cross->t isssss == %f\n", cross->t);
     point_calc(&cross->p, ray, cross->t);
     cross->n = sphere_normal(cross->p, sphere.center);
     cross->color = sphere.tint;

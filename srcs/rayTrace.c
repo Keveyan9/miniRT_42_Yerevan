@@ -133,10 +133,10 @@ void render(t_scene scene, t_mlx *mlxData)
             // }
             else
             {
-                // col = final_lighting(scene, finalCross);
-                // color = makeIntFromRGB(col);
+                col = final_lighting(scene, finalCross);
+                color = makeIntFromRGB(col);
                 // printf("RED ONEEE\n");
-                color = create_rgb(255, 0, 0);
+                // color = create_rgb(255, 0, 0);
             }
             my_mlx_pixel_put(mlxData, x, y, color);
         }

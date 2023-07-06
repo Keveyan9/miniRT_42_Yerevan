@@ -17,7 +17,7 @@ CC		= cc
 
 RM		= rm -rf
 
-CFLAGS	= -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS) # -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS)
 
 FLAGS = -L $(LIB)/libft -lft
 
@@ -39,8 +39,7 @@ ifeq ($(UNAME),Darwin)
 	NUM_THREADS = $(shell sysctl -n hw.ncpu)
 	CFLAGS += $(MACOS_MACRO)
 	FLAGS += $(MACOS_FLAGS)
-	COMPILE_LIBS += $(MAKE) -C $(LIB)/minilibx_opengl_20191021
-	CLEAN_RULE += clean
+	COMPILE_LIBS += $(MAKE) -C $(LIB)/minilibx_opengl
 endif
 ifeq ($(UNAME),Linux)
 	NUM_THREADS = $(shell nproc --all)

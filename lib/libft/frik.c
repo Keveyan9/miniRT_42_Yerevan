@@ -30,7 +30,7 @@ void	double_free(char **s1)
 
 void	free_null(void *s)
 {
-	if(s)
+	if (s)
 		free(s);
 	s = NULL;
 }

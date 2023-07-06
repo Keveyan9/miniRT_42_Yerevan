@@ -1,9 +1,9 @@
 #include "minirt.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_scene scene;
-	t_mlx mlxData;
+	t_scene	scene;
+	t_mlx	mlxData;
 
 	init_scene(&scene);
 	parsing(argc, argv, &scene);

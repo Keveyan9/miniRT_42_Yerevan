@@ -59,7 +59,7 @@ t_vec   rayDirGenerate(t_matrix lookAt, t_cam camera, float x, float y)
     rayDir.x = (2.0 * (x + 0.5) / (float)WIDTH - 1.0) * scale * aspectRatio;
     // printf("rayDir.x == %f\n", rayDir.x);
     rayDir.y = (1.0 - 2.0 * (y + 0.5) / (float)HEIGHT) * scale;
-    printf("rayDir.y == %f\n", rayDir.y);
+    // printf("rayDir.y == %f\n", rayDir.y);
     rayDir.z = FOCAL_DIST;
     rayDir = vecMultMatrix(lookAt, rayDir);
     rayDir = normalize(rayDir);

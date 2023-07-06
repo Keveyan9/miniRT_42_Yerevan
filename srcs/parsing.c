@@ -1,4 +1,4 @@
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
 static char	**check_d_line(char *line)
 {

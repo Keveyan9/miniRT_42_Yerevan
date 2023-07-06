@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
 t_vec	sphere_normal(t_vec p, t_vec center)
 {
@@ -21,7 +21,7 @@ t_vec topCapCenter(t_cylinder cyl)
 {
     t_vec top;
 
-    top = vecScale(-0.5 * cyl.height / 2, cyl.axis);
+    top = vecScale(-0.5 * cyl.height, cyl.axis);
     top = vecAdd(cyl.center, top);
     return (top);
 }
@@ -30,8 +30,8 @@ t_vec bottomCapCenter(t_cylinder cyl)
 {
     t_vec btm;
 
-    btm = vecScale(0.5 * cyl.height / 2, cyl.axis);
-    btm = vecAdd(cyl.center, btm);
+    btm = vecScale(0.5 * cyl.height, cyl.axis);
+    btm = vecAdd(btm, cyl.center);
     return (btm);
 }
 

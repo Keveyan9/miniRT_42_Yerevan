@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
 static int	ft_count(char const *s)
 {

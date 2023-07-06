@@ -24,7 +24,7 @@
 # define EPSILON 0.0001
 # define FOCAL_DIST 0.5
 # define STRENGTH 0.5
-# define SHININESS 32
+# define SHINNESS 32
 
 typedef	struct s_matrix
 {
@@ -41,6 +41,17 @@ typedef struct s_cross
 	t_color         color;
 }	t_cross;
 
+typedef struct s_quadratic
+{
+	float	a;
+	float	b;
+	float	c;
+	float	D;
+	float	t1;
+	float	t2;
+}	t_quadratic;
+
+t_color	colorToColor(t_color c1, t_color c2);
 void		exit_code(int code, char *msg);
 void		parsing(int argc, char **argv, t_scene *scene);
 void		print_vec(t_vec vec, char *msg);
@@ -81,7 +92,7 @@ void		checkerSp(char **splitted_sp, t_scene *scene);
 void		checkerCy(char **splitted_cy, t_scene *scene);
 //intersections
 bool		intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
-bool 		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross, float x, float y);
+bool 		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
 // bool		intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
 bool		intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
 bool		intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross);
@@ -110,7 +121,7 @@ t_vec		cylinder_normal(t_cylinder cyl, t_vec p);
 
 
 //rayTrace
-bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross, float x, float y);
+bool    		rayTrace(t_scene scene, t_ray ray, t_cross **finalCross);
 void    		render(t_scene scene, t_mlx *mlxData);
 
 //colorOperations.c

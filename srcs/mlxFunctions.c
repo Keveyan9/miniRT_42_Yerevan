@@ -1,4 +1,4 @@
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
 void	my_mlx_pixel_put(t_mlx *data, double x, double y, unsigned int color)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
 t_color	ambient_lighting(t_ambient *ambient)
 {
@@ -39,7 +39,7 @@ t_color	specular_lightning(t_scene scene, t_cross *cross)
 	float	dot;
 	t_color col;
 	
-	light_ray = normalize(vecSub(cross->p, scene.light->orig));
+	light_ray = normalize(vecSub(scene.light->orig, cross->p));
 //	printf("light ray == %f, g == %f, b === %f\n", col.r, col.g, col.b);
 	reflect_ray = reflect_vec(light_ray, cross->n);
 	view_ray = normalize(vecSub(scene.cam->orig, cross->p));
@@ -48,7 +48,7 @@ t_color	specular_lightning(t_scene scene, t_cross *cross)
 	dot	= dotProduct(view_ray, reflect_ray);
 	if (dot < 0)
 		dot = 0;
-	dot = pow(dot, SHININESS);
+	dot = pow(dot, SHINNESS);
 	col = colorMul(scene.light->tint, dot * STRENGTH);
 //	printf("col r == %f, g == %f, b === %f\n", col.r, col.g, col.b);
 	return (col);
@@ -72,6 +72,11 @@ t_color	specular_lightning(t_scene scene, t_cross *cross)
 // 	free(sdw_cross);
 // 	return (false);
 // }
+
+void    print_col(t_color vec, char *msg)
+{
+    printf("%s vec r == %f,g == %f,b == %f\n", msg, vec.r, vec.g, vec.b);
+}
 
 t_color		final_lighting(t_scene scene, t_cross *cross)
 {

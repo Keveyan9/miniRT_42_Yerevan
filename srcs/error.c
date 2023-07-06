@@ -1,4 +1,4 @@
-#include	"/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include	"minirt.h"
 
 void	exit_code(int code, char *msg)
 {

@@ -1,4 +1,4 @@
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
 t_cylinder *ft_lstlast_cylin(t_cylinder *lst)
 {
@@ -25,6 +25,7 @@ void ft_lstadd_back_cy(t_cylinder **lst, t_cylinder *new)
 t_cylinder *initCylinder(t_vec center, t_vec normal, t_color tint, float radius, float height)
 {
 	t_cylinder *cylinder;
+
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		exit_code(1, "cylinder malloc failed");
@@ -33,6 +34,8 @@ t_cylinder *initCylinder(t_vec center, t_vec normal, t_color tint, float radius,
 	initColor(tint, &(cylinder->tint));
 	cylinder->radius = radius;
 	cylinder->height = height;
+	cylinder->topCapCent = topCapCenter(*cylinder);
+	// cylinder->bottomCapCent = bottomCapCenter(*cylinder);
 	cylinder->next = NULL;
 	return (cylinder);
 }

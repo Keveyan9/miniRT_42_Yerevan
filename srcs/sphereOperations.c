@@ -1,4 +1,4 @@
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
 t_sphere	*ft_lstlast_sp(t_sphere *lst)
 {

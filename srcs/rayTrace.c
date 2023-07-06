@@ -1,14 +1,12 @@
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
-t_cross *loopSphereList(t_sphere *sphere, t_ray ray, float x, float y)
+t_cross *loopSphereList(t_sphere *sphere, t_ray ray)
 {
     t_sphere *head;
     t_cross *cross;
     float tNear;
 
     head = sphere;
-    if (!head)
-        return (NULL);
     tNear = INFINITY;
     cross = malloc(sizeof(t_cross));
     if (!cross)
@@ -16,18 +14,11 @@ t_cross *loopSphereList(t_sphere *sphere, t_ray ray, float x, float y)
     cross->t = 0;
     while (head)
     {
-        if (intersectSphere(ray, *head, cross, x, y) && cross->t < tNear)
-        {
-            // printf("sphere intersected\n");
+        if (intersectSphere(ray, *head, cross) && cross->t < tNear)
             tNear = cross->t;
-        }
         head = head->next;
     }
     cross->t = tNear;
-    // if (isinf(tNear))
-    //     printf("inifnity\n");
-    // else
-    //     printf("tNear == %f\n", tNear);
     return (cross);
 }
 
@@ -67,7 +58,7 @@ t_cross *loopCylinList(t_cylinder *cylin, t_ray ray)
     cross->t = 0;
     while (head)
     {
-        if (intersectCylin(ray, *head, cross) && cross->t < tNear)
+        if (intersectCylin2(ray, *head, cross) && cross->t < tNear)
             tNear = cross->t;
         head = head->next;
     }
@@ -75,7 +66,7 @@ t_cross *loopCylinList(t_cylinder *cylin, t_ray ray)
     return (cross);
 }
 
-bool rayTrace(t_scene scene, t_ray ray, t_cross **finalCross, float x, float y)
+bool rayTrace(t_scene scene, t_ray ray, t_cross **finalCross)
 {
     float tNear;
     t_cross *crossPlane;
@@ -85,9 +76,8 @@ bool rayTrace(t_scene scene, t_ray ray, t_cross **finalCross, float x, float y)
     tNear = INFINITY;
     crossPlane = loopPlaneList(scene.plane, ray);
     crossCylin = loopCylinList(scene.cylin, ray);
-    crossSphere = loopSphereList(scene.sphere, ray, x, y);
+    crossSphere = loopSphereList(scene.sphere, ray);
     tNear = findMin(crossPlane->t, crossSphere->t, crossCylin->t);
-    // printf("infinity tNear == %f\n", tNear);
     if (tNear == crossPlane->t)
         *finalCross = crossPlane;
     if (tNear == crossSphere->t)
@@ -121,7 +111,7 @@ void render(t_scene scene, t_mlx *mlxData)
         while (++x < WIDTH)
         {
             ray = rayGenerate(x, y, *(scene.cam));
-            if (!rayTrace(scene, ray, &finalCross, x, y))
+            if (!rayTrace(scene, ray, &finalCross))
             {
                 // printf("I am hereeee black oneeeeeee\n");
                 color = create_rgb(0, 0, 0);
@@ -133,10 +123,10 @@ void render(t_scene scene, t_mlx *mlxData)
             // }
             else
             {
-                // col = final_lighting(scene, finalCross);
-                // color = makeIntFromRGB(col);
+                col = final_lighting(scene, finalCross);
+                color = makeIntFromRGB(col);
                 // printf("RED ONEEE\n");
-               	color = create_rgb(255, 0, 0);
+               	// color = create_rgb(255, 0, 0);
             }
             my_mlx_pixel_put(mlxData, x, y, color);
         }

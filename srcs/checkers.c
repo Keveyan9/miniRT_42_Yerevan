@@ -1,4 +1,4 @@
-#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
+#include "minirt.h"
 
 void checkVector(char **vec_splitted, t_vec *vector, float lower_bound, float upper_bound)
 {

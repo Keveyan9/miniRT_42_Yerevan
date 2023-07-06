@@ -8,7 +8,7 @@ static char	**check_d_line(char *line)
 	return (splitted);
 }
 
-int	checkerForEachObject(char **splitted_line, t_scene *scene)
+int checkerForEachObject(char **splitted_line, t_scene *scene)
 {
 	static int	upperLetters = 0;
 
@@ -25,7 +25,7 @@ int	checkerForEachObject(char **splitted_line, t_scene *scene)
 	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
 		checkerCy(splitted_line, scene);
 	else
-		exit_code(1, "Invalid argument\n", scene, NULL);
+		exit_code(1, "Invalid argument\n",scene,NULL);
 	return (upperLetters);
 }
 
@@ -45,16 +45,15 @@ static void	reading_file(int fd, t_scene *scene)
 		if (line == NULL)
 			break ;
 		splitted = check_d_line(line);
-		if (line)
+		if(line)
 			free_null(line);
 		if (splitted && splitted[0][0] != '\n')
 			count = checkerForEachObject(splitted, scene);
-		if (splitted)
+		if(splitted)
 			double_free(splitted);
 	}
 	if (count != 3)///TODO free lcrats objectnery minchev et
-		exit_code(1, "upper letter objects are repeated or absent in file\n", \
-			scene, NULL);
+		exit_code(1, "upper letter objects are repeated or absent in file\n",scene,NULL);
 }
 
 void	parsing(int argc, char **argv, t_scene *var_scene)
@@ -65,12 +64,12 @@ void	parsing(int argc, char **argv, t_scene *var_scene)
 	if (argc != 2)
 	{
 		if (argc == 1)
-			exit_code(1, "No argument\n", NULL , NULL);
+			exit_code(1, "No argument\n",NULL,NULL);
 		else
-			exit_code(1, "More arguments\n", NULL, NULL);
+			exit_code(1, "More arguments\n",NULL,NULL);
 	}
 	fd = open(argv[1], O_RDWR);
 	if (fd < 0)
-		exit_code(1, "error opening the file\n", NULL, NULL);
+		exit_code(1, "error opening the file\n",NULL,NULL);
 	reading_file(fd, var_scene);
 }

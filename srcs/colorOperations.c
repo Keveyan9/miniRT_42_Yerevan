@@ -1,15 +1,15 @@
 #include "minirt.h"
 
-unsigned int	makeIntFromRGB(t_color color)
+unsigned int    makeIntFromRGB(t_color color)
 {
-	int	r;
-	int	g;
-	int	b;
+    int r;
+    int g;
+    int b;
 
-	r = (double)(color.r * 255);
-	g = (double)(color.g * 255);
-	b = (double)(color.b * 255);
-	return (r << 16 | g << 8 | b);
+    r = (double)(color.r * 255);
+    g = (double)(color.g * 255);
+    b = (double)(color.b * 255);
+    return (r << 16 | g << 8 | b);
 }
 
 t_color	makeRGBfromInt(unsigned int color)

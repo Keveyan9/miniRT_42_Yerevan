@@ -20,15 +20,15 @@ t_vec	sphere_normal(t_vec p, t_vec center)
 void	topCapCenter(t_vec *top, t_cylinder cyl)
 {
 	top->x = cyl.center.x;
-	top->y = cyl.center.y + cyl.height / 2;
-	top->z = cyl.center.z;
+    top->y = cyl.center.y + cyl.height / 2;
+    top->z = cyl.center.z;
 }
 
 void	bottomCapCenter(t_vec *bottom, t_cylinder cyl)
 {
 	bottom->x = cyl.center.x;
-	bottom->y = cyl.center.y - cyl.height / 2;
-	bottom->z = cyl.center.z;
+    bottom->y = cyl.center.y - cyl.height / 2;
+    bottom->z = cyl.center.z;
 }
 
 t_vec	cylinder_normal(t_cylinder cyl, t_vec p)

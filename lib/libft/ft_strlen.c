@@ -9,6 +9,7 @@
 /*   Updated: 2023/03/05 14:12:27 by artadevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 size_t	ft_strlen(const char *s)
@@ -22,6 +23,7 @@ size_t	ft_strlen(const char *s)
 		n++;
 	return (n);
 }
+
 
 int	ft_strlen_1(const char *s)
 {

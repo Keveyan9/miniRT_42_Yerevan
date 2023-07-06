@@ -24,11 +24,11 @@ static void	ft_lstadd_back_sp(t_sphere **lst, t_sphere *new)
 
 static t_sphere	*initSphere(t_vec orig, t_color tint, float radius,t_scene *scene)
 {
-	t_sphere	*sphere;
+	t_sphere *sphere;
 
 	sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
-		exit_code(1, "sphere malloc failed", scene, NULL);
+		exit_code(1, "sphere malloc failed",scene,NULL);
 	initVector(orig, &(sphere->center));
 	initColor(tint, &(sphere->tint));
 	sphere->radius = radius;

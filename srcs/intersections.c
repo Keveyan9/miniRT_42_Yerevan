@@ -56,7 +56,7 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross)
     // printf("tOHdot == %f\n", tOHdot);
     if (tOHdot < 0)
     {
-        printf("I am falseeeee   111\n");
+        // printf("I am falseeeee   111\n");
         return (false);
     }
     //   return (false);

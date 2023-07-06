@@ -115,6 +115,7 @@ void	render(t_scene *scene, t_mlx *mlxData)
 	unsigned int	color;
 	t_ray			ray;
 	t_cross			*finalCross;
+	// t_color			col;
 
 	finalCross = NULL;
 	xy[0] = -1;
@@ -131,6 +132,7 @@ void	render(t_scene *scene, t_mlx *mlxData)
 				// col = final_lighting(scene, finalCross);
 				// color = makeIntFromRGB(col);
 				color = create_rgb(255, 0, 0);
+				// printf("colour == %d\n", color);
 			}
 			free_null(finalCross);
 			my_mlx_pixel_put(mlxData, xy[0], xy[1], color);

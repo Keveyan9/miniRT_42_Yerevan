@@ -21,10 +21,7 @@ int checkerForEachObject(char **splitted_line, t_scene *scene)
 	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
 		checkerPl(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
-	{
-		// printlen(splitted_line);
 		checkerSp(splitted_line, scene);
-	}
 	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
 		checkerCy(splitted_line, scene);
 	else

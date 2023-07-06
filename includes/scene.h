@@ -3,7 +3,7 @@
 
 #include "vectorRay.h"
 
-# define SPLIT_SET	"\t\v\b"
+# define SPLIT_SET	" \t\v\b"
 
 typedef struct s_ambient
 {

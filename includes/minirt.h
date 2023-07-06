@@ -16,7 +16,7 @@
 # include "../lib/libft/libft.h"
 # include "get_next_line.h"
 # include "scene.h"
-# include "myMlx.h"
+# include "mymlx.h"
 # include "vectorRay.h"
 
 # define WIDTH 1280

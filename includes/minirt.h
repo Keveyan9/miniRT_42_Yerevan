@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -9,6 +10,7 @@
 /*   Updated: 2023/07/05 19:12:16 by skeveyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -30,24 +32,17 @@
 # include "mymlx.h"
 # include "vectorRay.h"
 
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 1280
+# define HEIGHT 720
+# define FOCAL_DIST 0.5
 # define STRENGTH 0.5
 # define SHININESS 32
 
-enum	objectType
+typedef	struct s_matrix
 {
-	SPHERE,
-	PLANE,
-	CYLIN,
-	noType
-};
-
-typedef struct s_matrix
-{
-	t_vec	camX;
-	t_vec	camY;
-	t_vec	camZ;
+	t_vec	right;
+	t_vec	up;
+	t_vec	forward;
 }	t_matrix;
 
 typedef struct s_cross
@@ -56,7 +51,6 @@ typedef struct s_cross
 	t_vec				p;
 	float				t;
 	t_color				color;
-	enum objectType		type;
 }	t_cross;
 
 void			exit_code(int code, char *msg, t_scene *scene, char **string);
@@ -122,8 +116,8 @@ t_color			final_color(t_cross *cross, t_color amb, \
 
 //normal.c
 t_vec			sphere_normal(t_vec p, t_vec center);
-void			topCapCenter(t_vec *top, t_cylinder cyl);
-void			bottomCapCenter(t_vec *bottom, t_cylinder cyl);
+t_vec			topCapCenter(t_cylinder cyl);
+t_vec			bottomCapCenter(t_cylinder cyl);
 t_vec			cylinder_normal(t_cylinder cyl, t_vec p);
 
 
@@ -139,7 +133,7 @@ void			my_mlx_pixel_put(t_mlx *data, \
 void			mlxInit(t_mlx *mlxData);
 
 //LookAt.c
-void			LookAt(t_matrix *matrix, t_cam camera, t_vec to);
+void			LookAt(t_matrix *matrix, t_cam camera);
 
 //rayTrace
 bool			rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross);

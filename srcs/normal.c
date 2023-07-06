@@ -17,18 +17,23 @@ t_vec	sphere_normal(t_vec p, t_vec center)
 	return (normalize(vecSub(p, center)));
 }
 
-void	topCapCenter(t_vec *top, t_cylinder cyl)
+t_vec topCapCenter(t_cylinder cyl)
 {
-	top->x = cyl.center.x;
-	top->y = cyl.center.y + cyl.height / 2;
-	top->z = cyl.center.z;
+    t_vec top;
+
+    top = vecScale(-0.5 * cyl.height / 2, cyl.axis);
+    top = vecAdd(cyl.center, top);
+    return (top);
 }
 
-void	bottomCapCenter(t_vec *bottom, t_cylinder cyl)
+t_vec bottomCapCenter(t_cylinder cyl)
 {
-	bottom->x = cyl.center.x;
-	bottom->y = cyl.center.y - cyl.height / 2;
-	bottom->z = cyl.center.z;
+
+    t_vec btm;
+
+    btm = vecScale(0.5 * cyl.height / 2, cyl.axis);
+    btm = vecAdd(cyl.center, btm);
+    return (btm);
 }
 
 t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
@@ -39,9 +44,8 @@ t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
 	t_vec	pt;
 	float	t;
 
-	bottomCapCenter(&bottom_center, cyl);
-	topCapCenter(&top_center, cyl);
-
+	bottom_center = bottomCapCenter(cyl);
+	top_center = topCapCenter(cyl);
 	if (distance(p, top_center) < cyl.radius)
 		return (cyl.axis);
 	if (distance(p, bottom_center) < cyl.radius)

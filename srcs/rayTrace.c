@@ -7,6 +7,8 @@ t_cross	*loopSphereList(t_sphere *sphere, t_ray ray,t_scene *scene)
 	float		tNear;
 
 	head = sphere;
+	if (!head)
+		return (NULL);
  	tNear = INFINITY;
 	cross = malloc(sizeof(t_cross));
 	if (!cross)
@@ -19,7 +21,7 @@ t_cross	*loopSphereList(t_sphere *sphere, t_ray ray,t_scene *scene)
 		head = head->next;
 	}
 	cross->t = tNear;
-	cross->type = SPHERE;
+//	cross->type = SPHERE;
 	return (cross);
 }
 
@@ -38,13 +40,11 @@ t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
 	while (head)
 	{
 		if (intersectPlane(ray, *head, cross) && cross->t < tNear)
-		{
 			tNear = cross->t;
-		}
 		head = head->next;
 	}
 	cross->t = tNear;
-	cross->type = PLANE;
+	//cross->type = PLANE;
 	return (cross);
 }
 
@@ -63,9 +63,7 @@ t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
 	while (head)
 	{
 		if (intersectCylin(ray, *head, cross) && cross->t < tNear)
-		{
 			tNear = cross->t;
-		}
 		head = head->next;
 	}
 	return (cross);
@@ -106,9 +104,9 @@ bool	rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross)
 	return (0);
 }
 
-int	create_rgb(int r, int g, int b)
+int create_rgb(int r, int g, int b)
 {
-	return (r << 16 | g << 8 | b);
+    return (r << 16 | g << 8 | b);
 }
 
 void	render(t_scene *scene, t_mlx *mlxData)
@@ -117,7 +115,6 @@ void	render(t_scene *scene, t_mlx *mlxData)
 	unsigned int	color;
 	t_ray			ray;
 	t_cross			*finalCross;
-	t_color			col;
 
 	finalCross = NULL;
 	xy[0] = -1;
@@ -127,13 +124,13 @@ void	render(t_scene *scene, t_mlx *mlxData)
 		while (++xy[1] < HEIGHT)
 		{
 			ray = rayGenerate(xy[0], xy[1], *(scene->cam));
-			rayTrace(scene, ray, &finalCross);
-			if (finalCross->t == INFINITY)
+			if(!rayTrace(scene, ray, &finalCross))
 				color = create_rgb (0, 0, 0);
 			else
 			{
-				col = final_lighting(scene, finalCross);
-				color = makeIntFromRGB(col);
+				// col = final_lighting(scene, finalCross);
+				// color = makeIntFromRGB(col);
+				color = create_rgb(255, 0, 0);
 			}
 			free_null(finalCross);
 			my_mlx_pixel_put(mlxData, xy[0], xy[1], color);

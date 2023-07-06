@@ -1,5 +1,5 @@
 
-NAME	= rt
+NAME	= miniRT
 
 HEAD	= includes
 
@@ -17,6 +17,7 @@ CC		= cc
 
 RM		= rm -rf
 
+
 CFLAGS	= -Wall -Wextra -Werror -I $(HEAD) -D NUM_THREADS=$(NUM_THREADS)
 
 FLAGS = -L $(LIB)/libft -lft
@@ -24,6 +25,7 @@ FLAGS = -L $(LIB)/libft -lft
 MACOS_MACRO = -D MACOS
 
 LINUX_MACRO = -D LINUX
+
 
 MACOS_FLAGS	= -L $(LIB)/minilibx_opengl -lmlx -framework OpenGL -framework AppKit 
 
@@ -39,7 +41,7 @@ ifeq ($(UNAME),Darwin)
 	NUM_THREADS = $(shell sysctl -n hw.ncpu)
 	CFLAGS += $(MACOS_MACRO)
 	FLAGS += $(MACOS_FLAGS)
-	COMPILE_LIBS += $(MAKE) -C $(LIB)/minilibx_opengl
+	CLEAN_RULE += clean
 endif
 ifeq ($(UNAME),Linux)
 	NUM_THREADS = $(shell nproc --all)

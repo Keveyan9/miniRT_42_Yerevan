@@ -14,4 +14,5 @@ typedef struct s_mlx
 	int		endian;
 }	t_mlx;
 
+
 #endif

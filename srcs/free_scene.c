@@ -53,7 +53,6 @@ static void	free_cylin(t_cylinder *cylin)
 
 void	free_scene(t_scene *s)
 {
-	void	*boxs;
 
 	if (s->amb)
 		free_null(s->amb);

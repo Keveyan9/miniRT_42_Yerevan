@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin_double_point.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/05 21:33:15 by skeveyan          #+#    #+#             */
+/*   Updated: 2023/07/05 21:33:25 by skeveyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 
 char	**norm_strjoin_double(char **new_split, char **split, char *str)
@@ -21,7 +32,7 @@ char	**ft_strjoin_double_point(char **split, char *str)
 {
 	char	**new_split;
 	int		n;
-	
+
 	n = 0;
 	new_split = 0;
 	if (str)

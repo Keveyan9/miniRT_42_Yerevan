@@ -34,7 +34,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (nowstring);
 }
 
-
 char	*ft_strjoin_1(char const *s1, char const *s2)
 {
 	char	*nowstring;

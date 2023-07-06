@@ -1,6 +1,4 @@
-
-# include "minirt.h"
-# include <math.h>
+# include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 t_vec   vecAdd(t_vec a, t_vec b)
 {

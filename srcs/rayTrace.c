@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 t_cross *loopSphereList(t_sphere *sphere, t_ray ray, float x, float y)
 {
@@ -35,7 +35,7 @@ t_cross *loopPlaneList(t_plane *plane, t_ray ray)
 {
     t_plane *head;
     t_cross *cross;
-    float tNear;
+    float   tNear;
 
     head = plane;
     tNear = INFINITY;
@@ -55,9 +55,9 @@ t_cross *loopPlaneList(t_plane *plane, t_ray ray)
 
 t_cross *loopCylinList(t_cylinder *cylin, t_ray ray)
 {
-    t_cylinder *head;
-    t_cross *cross;
-    float tNear;
+    t_cylinder  *head;
+    t_cross     *cross;
+    float       tNear;
 
     head = cylin;
     tNear = INFINITY;
@@ -87,6 +87,7 @@ bool rayTrace(t_scene scene, t_ray ray, t_cross **finalCross, float x, float y)
     crossCylin = loopCylinList(scene.cylin, ray);
     crossSphere = loopSphereList(scene.sphere, ray, x, y);
     tNear = findMin(crossPlane->t, crossSphere->t, crossCylin->t);
+    // printf("infinity tNear == %f\n", tNear);
     if (tNear == crossPlane->t)
         *finalCross = crossPlane;
     if (tNear == crossSphere->t)

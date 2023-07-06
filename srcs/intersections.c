@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 bool intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross)
 {
@@ -50,17 +50,17 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross, float x, float 
     t_vec L;
 
     L = vecSub(ray.orig, sphere.center);
-    // print_vec(ray.dir, "ray dir is");
     // printf("x == %f, y == %f\n", x, y);
     tOHdot = dotProduct(L, ray.dir);
+    // print_vec(ray.dir, "ray dir is");
     // printf("tOHdot == %f\n", tOHdot);
     if (tOHdot < 0)
     {
-        printf("I am falseeeee   111\n");
+        // printf("I am falseeeee   111\n");
         return (false);
     }
     //   return (false);
-    dSquare = vecNorm(L) - tOHdot * tOHdot;
+    dSquare = dotProduct(L, L) - tOHdot * tOHdot;
     // printf("dSquare == %f\n", vecNorm(L));
     // printf("dSquare == %f\n", dSquare);
     if (dSquare > sphere.radius * sphere.radius)
@@ -69,17 +69,22 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross, float x, float 
         return (false);
     }
     tHC = sqrt(sphere.radius * sphere.radius - dSquare);
-    t0 = tOHdot - tHC;
+    cross->t = tOHdot - tHC;
     t1 = tOHdot + tHC;
-    if (t0 > t1)
-        swap(&t0, &t1);
-    if (t0 < 0)
-    {
-        t0 = t1;
-        if (t0 < 0)
-            return (false);
-    }
-    cross->t = t0;
+    if (cross->t < EPSILON && t1 < EPSILON)
+        return (false);
+    if (cross->t < EPSILON || t1 < cross->t)
+        cross->t = t1;
+    // if (t0 > t1)
+    //     swap(&t0, &t1);
+    // if (t0 < 0)
+    // {
+    //     t0 = t1;
+    //     if (t0 < 0)
+    //         return (false);
+    // }
+    // cross->t = t0;
+    printf("cross->t isssss == %f\n", cross->t);
     point_calc(&cross->p, ray, cross->t);
     cross->n = sphere_normal(cross->p, sphere.center);
     cross->color = sphere.tint;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 t_vec	sphere_normal(t_vec p, t_vec center)
 {

@@ -21,6 +21,7 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define EPSILON 0.0001
 # define FOCAL_DIST 0.5
 # define STRENGTH 0.5
 # define SHININESS 32

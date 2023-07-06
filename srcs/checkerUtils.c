@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 int vector_range_check(t_vec *vector, float lower_bound, float upper_bound)
 {

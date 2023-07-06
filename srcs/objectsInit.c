@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 void	initVector(t_vec vector, t_vec *objVect)
 {

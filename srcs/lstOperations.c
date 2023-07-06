@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 void    init_scene(t_scene *scene)
 {

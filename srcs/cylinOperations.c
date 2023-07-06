@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 t_cylinder *ft_lstlast_cylin(t_cylinder *lst)
 {

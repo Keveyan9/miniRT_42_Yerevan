@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 // t_vec   gettingWPrime(t_matrix lookAt, t_cam camera)
 // {
@@ -34,6 +34,9 @@ t_vec   vecMultMatrix(t_matrix m, t_vec v)
 {
     t_vec   dest;
 
+    // print_vec(m.forward, "forward isss\n");
+    // print_vec(m.up, "up isss\n");
+    // print_vec(m.right, "right isss\n");
     dest.x = v.x * m.right.x + v.y * m.up.x + v.z * m.forward.x;
     dest.y = v.x * m.right.y + v.y * m.up.y + v.z * m.forward.y;
     dest.z = v.x * m.right.z + v.y * m.up.z + v.z * m.forward.z;
@@ -47,12 +50,16 @@ t_vec   rayDirGenerate(t_matrix lookAt, t_cam camera, float x, float y)
     float   aspectRatio;
 
     if (HEIGHT < WIDTH)
-        aspectRatio = WIDTH / HEIGHT;
+        aspectRatio = (float)WIDTH / (float)HEIGHT;
     else
-        aspectRatio = HEIGHT / WIDTH;
+        aspectRatio = (float)HEIGHT / (float)WIDTH;
+    // printf("aspectratio == %f\n", aspectRatio);
     scale = tan((camera.fov * 0.5 * M_PI) / 180);
+    // printf("scale == %f\n", scale);
     rayDir.x = (2.0 * (x + 0.5) / (float)WIDTH - 1.0) * scale * aspectRatio;
+    // printf("rayDir.x == %f\n", rayDir.x);
     rayDir.y = (1.0 - 2.0 * (y + 0.5) / (float)HEIGHT) * scale;
+    printf("rayDir.y == %f\n", rayDir.y);
     rayDir.z = FOCAL_DIST;
     rayDir = vecMultMatrix(lookAt, rayDir);
     rayDir = normalize(rayDir);

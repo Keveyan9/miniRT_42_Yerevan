@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 t_color	ambient_lighting(t_ambient *ambient)
 {
@@ -54,24 +54,24 @@ t_color	specular_lightning(t_scene scene, t_cross *cross)
 	return (col);
 }
 
-bool	shadow(t_cross *cross, t_scene scene)
-{
-	t_ray	shadow_ray;
-	t_cross	*sdw_cross;
+// bool	shadow(t_cross *cross, t_scene scene)
+// {
+// 	t_ray	shadow_ray;
+// 	t_cross	*sdw_cross;
 
-	sdw_cross = malloc(sizeof(t_cross));
-	shadow_ray.orig = cross->p;
-	shadow_ray.dir = normalize(vecSub(scene.light->orig, cross->p));
-	point_calc(&shadow_ray.orig, shadow_ray, 1e-4);
-	if (rayTrace(scene, shadow_ray, sdw_cross) && (distance(cross->p, scene.light->orig)
-		> distance(cross->p, sdw_cross->p)))
-	{
-		free(sdw_cross);
-		return (true);
-	}
-	free(sdw_cross);
-	return (false);
-}
+// 	sdw_cross = malloc(sizeof(t_cross));
+// 	shadow_ray.orig = cross->p;
+// 	shadow_ray.dir = normalize(vecSub(scene.light->orig, cross->p));
+// 	point_calc(&shadow_ray.orig, shadow_ray, 1e-4);
+// 	if (rayTrace(scene, shadow_ray, sdw_cross) && (distance(cross->p, scene.light->orig)
+// 		> distance(cross->p, sdw_cross->p)))
+// 	{
+// 		free(sdw_cross);
+// 		return (true);
+// 	}
+// 	free(sdw_cross);
+// 	return (false);
+// }
 
 t_color		final_lighting(t_scene scene, t_cross *cross)
 {
@@ -79,14 +79,14 @@ t_color		final_lighting(t_scene scene, t_cross *cross)
 	t_color	diffuse;
 	t_color	specular;
 
-	if (!shadow(cross, scene))
-	{
+	// if (!shadow(cross, scene))
+	// {
 		amb_factor = ambient_lighting(scene.amb);
 		diffuse = diffuse_lighting(scene.light, cross);
 		specular = specular_lightning(scene, cross);
 		cross->color = final_color(cross, amb_factor, diffuse, specular);
-	}
-	else
-		cross->color = init_color(0, 0, 0);
+	// }
+	// else
+	// 	cross->color = init_color(0, 0, 0);
 	return (cross->color);
 }

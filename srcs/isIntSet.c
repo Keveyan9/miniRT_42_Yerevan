@@ -1,4 +1,4 @@
-#include "scene.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/scene.h"
 
 int	isInSet(char c)
 {

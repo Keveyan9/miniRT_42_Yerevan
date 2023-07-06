@@ -1,5 +1,5 @@
 
-#include "minirt.h"
+#include "/Users/zkarapet/Desktop/newminirt/includes/minirt.h"
 
 t_color	colorMul(t_color c, float f)
 {

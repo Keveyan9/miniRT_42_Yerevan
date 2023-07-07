@@ -33,7 +33,7 @@ t_cam	*initCam(t_vec origin, t_vec orient, float fov, t_scene *scene)
 
 	camera = malloc(sizeof(t_cam));
 	if (!camera)
-		exit_code(1, "camera malloc failed", scene, NULL);
+	 	exit_code(1, "camera malloc failed", scene, NULL);
 	initVector(origin, &(camera->orig));
 	initVector(orient, &(camera->orientation));
 	camera->fov = fov;
@@ -47,7 +47,7 @@ t_light	*initLight(t_vec orig, float ratio, t_color tint,t_scene *scene)
 
 	light = malloc(sizeof(t_light));
 	if (!light)
-		exit_code(1, "origin malloc failed", scene, NULL);
+	 	exit_code(1, "origin malloc failed", scene, NULL);
 	initVector(orig, &(light->orig));
 	initColor(tint, &(light->tint));
 	light->ratio = ratio;

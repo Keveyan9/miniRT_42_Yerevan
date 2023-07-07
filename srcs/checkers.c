@@ -1,10 +1,10 @@
 #include "minirt.h"
 
-void	checkVector(char **vec_splitted, t_vec *vector, \
+void	checkVector(char **vec_splitted, t_vec *vector,
 		float lower_bound, float upper_bound, t_scene *scene)
 {
 	if (ft_double_len(vec_splitted) != 3)
-		exit_code(1, "Invalid number of parameters for vector\n", \
+		exit_code(1, "Invalid number of parameters for vector\n",
 			scene, vec_splitted);
 	if (!only_digit_in_str(vec_splitted[0]))
 		exit_code(1, "X coordinate of vector is invalid\n", scene, vec_splitted);
@@ -15,9 +15,9 @@ void	checkVector(char **vec_splitted, t_vec *vector, \
 	vector->x = ft_atof(vec_splitted[0]);
 	vector->y = ft_atof(vec_splitted[1]);
 	vector->z = ft_atof(vec_splitted[2]);
-	if (lower_bound != -8 && vector_range_check(vector, \
+	if (lower_bound != -8 && vector_range_check(vector,
 		lower_bound, upper_bound) == 0)
-		exit_code(1, "Vector coordinates are out of range\n", \
+		exit_code(1, "Vector coordinates are out of range\n",
 			scene, vec_splitted);
 	else if (lower_bound == -8 && vector_norm_check(vector) == 0)
 		exit_code(1, "Vector's norm is out of range\n", scene, vec_splitted);
@@ -27,19 +27,19 @@ void	checkColor(char **vec_splitted, t_color *tint, t_scene *scene)
 
 {
 	if (ft_double_len(vec_splitted) != 3)
-		exit_code(1, "Invalid number of parameters for color\n", \
+		exit_code(1, "Invalid number of parameters for color\n",
 			scene, vec_splitted);
 	if (!only_digit_in_str(vec_splitted[0]))
 		exit_code(1, "R of color is invalid\n", scene, vec_splitted);
 	if (!only_digit_in_str(vec_splitted[1]))
 		exit_code(1, "G of color is invalid\n", scene, vec_splitted);
-	if (!only_digit_in_str(vec_splitted[2]))
+	if (!only_digit_in_str(vec_splitted[2])) 
 		exit_code(1, "B of color is invalid\n", scene, vec_splitted);
 	tint->r = ft_atof(vec_splitted[0]);
 	tint->g = ft_atof(vec_splitted[1]);
 	tint->b = ft_atof(vec_splitted[2]);
 	if (color_range_check(tint) == 0)
-		exit_code(1, "Color coordinates are out of range\n", \
+		exit_code(1, "Color coordinates are out of range\n",
 			scene, vec_splitted);
 }
 
@@ -49,10 +49,13 @@ void checker_A(char **splitted_A, t_scene *scene)
 	float	ratio;
 	char	**rgb_splitted;
 	t_color	color;
+	int		len;
 
 	ratio = 1;
-	if (ft_double_len(splitted_A) != 3)
-		exit_code(1, "Invalid number of parameters for A\n", \
+	len = ft_double_len(splitted_A);
+	if (len != 3)
+		if (!(len == 4 && splitted_A[3][0] == '\n'))
+			exit_code(1, "Invalid number of parameters for A\n",
 			scene, splitted_A);
 	ratio = ft_atof(splitted_A[1]);
 	if (ratio < 0.0 || ratio > 1.0)

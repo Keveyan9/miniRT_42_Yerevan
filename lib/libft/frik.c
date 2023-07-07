@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   frik.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:41:56 by skeveyan          #+#    #+#             */
-/*   Updated: 2023/02/28 16:42:00 by skeveyan         ###   ########.fr       */
+/*   Updated: 2023/07/07 02:27:38 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	double_free(char **s1)

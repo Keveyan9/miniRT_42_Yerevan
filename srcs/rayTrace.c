@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_cross	*loopSphereList(t_sphere *sphere, t_ray ray,t_scene *scene)
+t_cross	*loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
 {
 	t_sphere	*head;
 	t_cross		*cross;
@@ -10,7 +10,7 @@ t_cross	*loopSphereList(t_sphere *sphere, t_ray ray,t_scene *scene)
  	tNear = INFINITY;
 	cross = malloc(sizeof(t_cross));
 	if (!cross)
-		exit_code(1, "cross malloc failed", scene, NULL);
+	 	exit_code(1, "cross malloc failed", scene, NULL);
 	cross->t = 0;
 	while (head)
 	{
@@ -32,7 +32,7 @@ t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
 	tNear = INFINITY;
 	cross = malloc(sizeof(t_cross));
 	if (!cross)
-		exit_code(1, "cross malloc failed", scene, NULL);
+	 	exit_code(1, "cross malloc failed", scene, NULL);
 	cross->t = 0;
 	while (head)
 	{
@@ -54,7 +54,7 @@ t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
 	tNear = INFINITY;
 	cross = malloc(sizeof(t_cross));
 	if (!cross)
-		exit_code(1, "cross malloc failed", scene, NULL);
+	 	exit_code(1, "cross malloc failed", scene, NULL);
 	cross->t = 0;
 	while (head)
 	{
@@ -62,6 +62,7 @@ t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
 			tNear = cross->t;
 		head = head->next;
 	}
+	cross->t = tNear;
 	return (cross);
 }
 
@@ -80,20 +81,20 @@ bool	rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross)
 	if (tNear == crossPlane->t)
 	{
 		*finalCross = crossPlane;
-		// free_null(crossSphere);
-		// free_null(crossCylin);
+		free_null(crossSphere);
+		free_null(crossCylin);
 	}
 	else if (tNear == crossSphere->t)
 	{
 		*finalCross = crossSphere;
-		// free_null(crossPlane);
-		// free_null(crossCylin);
+		free_null(crossPlane);
+		free_null(crossCylin);
 	}
 	else if (tNear == crossCylin->t)
 	{
 		*finalCross = crossCylin;
-		// free_null(crossPlane);
-		// free_null(crossSphere);
+		free_null(crossPlane);
+		free_null(crossSphere);
 	}
 	if (tNear != INFINITY)
 		return (1);
@@ -136,33 +137,31 @@ int create_rgb(int r, int g, int b)
 // 	}
 // 	mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
 // }
-
 void	render(t_scene *scene, t_mlx *mlxData)
 {
 	int				xy[2];
 	unsigned int	color;
 	t_ray			ray;
 	t_cross			*finalCross;
-	// t_color			col;
+	t_color			col;
 
 	finalCross = NULL;
-	//xy[0] = -1;
-	while (++xy[1] < HEIGHT)
+	xy[0] = -1;
+	while (++xy[0] < WIDTH)
 	{
 		xy[1] = -1;
-		while (++xy[0] < WIDTH)
+		while (++xy[1] < HEIGHT)
 		{
 			ray = rayGenerate(xy[0], xy[1], *(scene->cam));
-			if(!rayTrace(scene, ray, &finalCross))
+			rayTrace(scene, ray, &finalCross);
+			if (finalCross->t == INFINITY)
 				color = create_rgb (0, 0, 0);
 			else
 			{
-				// col = final_lighting(scene, finalCross);
-				// color = makeIntFromRGB(col);
-				color = create_rgb(255, 0, 0);
-				// printf("color == %d\n", color);
+				col = final_lighting(*scene, finalCross);
+				color = makeIntFromRGB(col);
 			}
-			// free_null(finalCross);
+			free_null(finalCross);
 			my_mlx_pixel_put(mlxData, xy[0], xy[1], color);
 		}
 	}

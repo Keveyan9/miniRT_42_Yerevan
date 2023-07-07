@@ -45,6 +45,7 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross)
     float tOHdot;
     float tHC;
     float dSquare;
+    float t0;
     float t1;
     t_vec L;
 

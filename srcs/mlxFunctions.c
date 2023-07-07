@@ -16,7 +16,7 @@ void	mlxInit(t_mlx *mlxData)
 	mlxData->mlx = mlx_init();
 	mlxData->win = mlx_new_window(mlxData->mlx, WIDTH, HEIGHT, "miniRT");
 	mlxData->img = mlx_new_image(mlxData->mlx, WIDTH, HEIGHT);
-	mlxData->addr = mlx_get_data_addr(mlxData->img, &mlxData->bpp, \
+	mlxData->addr = mlx_get_data_addr(mlxData->img, &mlxData->bpp,
 		&mlxData->line_length, &mlxData->endian);
 
 }

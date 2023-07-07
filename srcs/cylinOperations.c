@@ -35,7 +35,6 @@ t_cylinder *initCylinder(t_vec center, t_vec normal, t_color tint, float radius,
 	initColor(tint, &(cylinder->tint));
 	cylinder->radius = radius;
 	cylinder->height = height;
-
 	cylinder->next = NULL;
 	return (cylinder);
 }
@@ -71,9 +70,9 @@ void checkerCy(char **splitted_cy, t_scene *scene)
 	if (tint)
 		double_free(tint);
 	if (!scene->cylin)
-		scene->cylin = initCylinder(originVec, orientVec, \
+		scene->cylin = initCylinder(originVec, orientVec,
 			tintVec, radius, height);
 	else
-		ft_lstadd_back_cy(&scene->cylin, \
+		ft_lstadd_back_cy(&scene->cylin,
 			initCylinder(originVec, orientVec, tintVec, radius, height));
 }

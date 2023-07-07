@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 19:12:09 by skeveyan          #+#    #+#             */
-/*   Updated: 2023/07/05 19:12:16 by skeveyan         ###   ########.fr       */
+/*   Updated: 2023/07/07 03:41:27 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ t_ray			rayGenerate(float x, float y, t_cam camera);
 // light.c
 t_color			ambient_lighting(t_ambient *ambient);
 t_color			diffuse_lighting(t_light *light, t_cross *cross);
-t_color			specular_lightning(t_scene *scene, t_cross *cross);
-bool			shadow(t_cross *cross, t_scene *scene);
-t_color			final_lighting(t_scene *scene, t_cross *cross);
+t_color			specular_lightning(t_scene scene, t_cross *cross);
+bool			shadow(t_cross cross, t_scene *scene);
+t_color			final_lighting(t_scene scene, t_cross *cross);
 
 // light_utils.c
 t_color			colorMul(t_color c, float f);

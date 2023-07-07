@@ -15,7 +15,7 @@ void    LookAt(t_matrix *matrix, t_cam camera)
     t_vec       arbitrary;
 
     arbitrary = vecInit(0, 1, 0);
-    matrix->forward = normalize(vecInverse(camera.orientation));
+    matrix->forward = normalize(camera.orientation);
     matrix->right = normalize(cross(arbitrary, matrix->forward));
     matrix->up = normalize(cross(matrix->forward, matrix->right));
 }

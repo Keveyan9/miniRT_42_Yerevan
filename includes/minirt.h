@@ -95,16 +95,17 @@ void			checkerCy(char **splitted_cy, t_scene *scene);
 //intersections
 bool			intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
 bool			intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
-bool			intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
+// bool			intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
+bool 			intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
 t_ray			rayGenerate(float x, float y, t_cam camera);
 
 // light.c
 t_color			ambient_lighting(t_ambient *ambient);
 t_color			diffuse_lighting(t_light *light, t_cross *cross);
-t_color			specular_lightning(t_scene scene, t_cross *cross);
-bool			shadow(t_cross cross, t_scene *scene);
-t_color			final_lighting(t_scene scene, t_cross *cross);
+t_color			specular_lightning(t_scene *scene, t_cross *cross);
+bool			shadow(t_cross *cross, t_scene *scene);
+t_color			final_lighting(t_scene *scene, t_cross *cross);
 
 // light_utils.c
 t_color			colorMul(t_color c, float f);

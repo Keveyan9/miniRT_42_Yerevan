@@ -1,69 +1,135 @@
 #include "minirt.h"
 
+// t_cross	*loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
+// {
+// 	t_sphere	*head;
+// 	t_cross		*cross;
+// 	float		tNear;
+
+// 	head = sphere;
+//  	tNear = INFINITY;
+// 	cross = malloc(sizeof(t_cross));
+// 	if (!cross)
+// 	 	exit_code(1, "cross malloc failed", scene, NULL);
+// 	cross->t = 0;
+// 	while (head)
+// 	{
+// 		if (intersectSphere(ray, *head, cross) && cross->t < tNear)
+// 			tNear = cross->t;
+// 		head = head->next;
+// 	}
+// 	cross->t = tNear;
+// 	return (cross);
+// }
+
+// t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
+// {
+// 	t_plane	*head;
+// 	t_cross	*cross;
+// 	float	tNear;
+
+// 	head = plane;
+// 	tNear = INFINITY;
+// 	cross = malloc(sizeof(t_cross));
+// 	if (!cross)
+// 	 	exit_code(1, "cross malloc failed", scene, NULL);
+// 	cross->t = 0;
+// 	while (head)
+// 	{
+// 		if (intersectPlane(ray, *head, cross) && cross->t < tNear)
+// 			tNear = cross->t;
+// 		head = head->next;
+// 	}
+// 	cross->t = tNear;
+// 	return (cross);
+// }
+
+// t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
+// {
+// 	t_cylinder	*head;
+// 	t_cross		*cross;
+// 	float		tNear;
+
+// 	head = cylin;
+// 	tNear = INFINITY;
+// 	cross = malloc(sizeof(t_cross));
+// 	if (!cross)
+// 	 	exit_code(1, "cross malloc failed", scene, NULL);
+// 	cross->t = 0;
+// 	while (head)
+// 	{
+// 		if (intersectCylin2(ray, *head, cross) && cross->t < tNear)
+// 			tNear = cross->t;
+// 		head = head->next;
+// 	}
+// 	cross->t = tNear;
+// 	return (cross);
+// }
+
 t_cross	*loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
 {
-	t_sphere	*head;
-	t_cross		*cross;
-	float		tNear;
+    t_sphere *head;
+    t_cross *cross;
+    t_cross tmpCross;
+    // float tNear;
 
-	head = sphere;
- 	tNear = INFINITY;
-	cross = malloc(sizeof(t_cross));
-	if (!cross)
-	 	exit_code(1, "cross malloc failed", scene, NULL);
-	cross->t = 0;
-	while (head)
-	{
-		if (intersectSphere(ray, *head, cross) && cross->t < tNear)
-			tNear = cross->t;
-		head = head->next;
-	}
-	cross->t = tNear;
-	return (cross);
+    head = sphere;
+    cross = malloc(sizeof(t_cross));
+    if (!cross)
+        exit_code(1, "cross malloc failed", scene, NULL);
+    tmpCross.t = INFINITY;
+    while (head)
+    {
+        if (intersectSphere(ray, *head, cross) && cross->t < tmpCross.t)
+            tmpCross = *cross;
+        head = head->next;
+    }
+    *cross = tmpCross;
+    return (cross);
 }
 
 t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
 {
-	t_plane	*head;
-	t_cross	*cross;
-	float	tNear;
+    t_plane *head;
+    t_cross *cross;
+    t_cross tmpCross;
+    // float tNear;
 
-	head = plane;
-	tNear = INFINITY;
-	cross = malloc(sizeof(t_cross));
-	if (!cross)
-	 	exit_code(1, "cross malloc failed", scene, NULL);
-	cross->t = 0;
-	while (head)
-	{
-		if (intersectPlane(ray, *head, cross) && cross->t < tNear)
-			tNear = cross->t;
-		head = head->next;
-	}
-	cross->t = tNear;
-	return (cross);
+    head = plane;
+    cross = malloc(sizeof(t_cross));
+    if (!cross)
+        exit_code(1, "cross malloc failed", scene, NULL);
+    tmpCross.t = INFINITY;
+    while (head)
+    {
+        if (intersectPlane(ray, *head, cross) && cross->t < tmpCross.t)
+            tmpCross = *cross;
+        head = head->next;
+    }
+    *cross = tmpCross;
+    return (cross);
 }
 
 t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
 {
-	t_cylinder	*head;
-	t_cross		*cross;
-	float		tNear;
+    t_cylinder  *head;
+    t_cross     *cross;
+    t_cross tmpCross;
+    // float tNear;
 
-	head = cylin;
-	tNear = INFINITY;
-	cross = malloc(sizeof(t_cross));
-	if (!cross)
-	 	exit_code(1, "cross malloc failed", scene, NULL);
-	cross->t = 0;
-	while (head)
-	{
-		if (intersectCylin2(ray, *head, cross) && cross->t < tNear)
-			tNear = cross->t;
-		head = head->next;
-	}
-	cross->t = tNear;
-	return (cross);
+    head = cylin;
+    cross = malloc(sizeof(t_cross));
+    if (!cross)
+        exit_code(1, "cross malloc failed", scene, NULL);
+    tmpCross.t = INFINITY;
+    while (head)
+    {
+        if (intersectCylin2(ray, *head, cross) && cross->t < tmpCross.t)
+            tmpCross = *cross;
+        head = head->next;
+    }
+    *cross = tmpCross;
+    return (cross);
 }
 
 bool	rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross)
@@ -158,7 +224,7 @@ void	render(t_scene *scene, t_mlx *mlxData)
 				color = create_rgb (0, 0, 0);
 			else
 			{
-				col = final_lighting(*scene, finalCross);
+				col = final_lighting(scene, finalCross);
 				color = makeIntFromRGB(col);
 			}
 			free_null(finalCross);

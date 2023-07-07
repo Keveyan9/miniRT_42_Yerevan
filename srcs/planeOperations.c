@@ -33,7 +33,6 @@ static t_plane	*initPlane(t_vec point, t_vec normal, t_color tint, t_scene *scen
 	initVector(point, &(plane->point));
 	initVector(normal, &(plane->normal));
 	initColor(tint, &(plane->tint));
-
 	plane->next = NULL;
 	return (plane);
 }
@@ -57,17 +56,11 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	orientationSplitted = ft_split(splitted_pl[2], ',');
 	tintSplitted = ft_split(splitted_pl[3], ',');
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX, scene);
-	if (origin)
-		double_free(origin);
 	checkVector(orientationSplitted, &orientVec, -8, 1, scene);
-	if (orientationSplitted)
-		double_free(orientationSplitted);
 	checkColor(tintSplitted, &tint, scene);
-	if (tintSplitted)
-		double_free(tintSplitted);
 	if (!scene->plane)
 		scene->plane = initPlane(originVec, orientVec, tint, scene);
 	else
-		ft_lstadd_back_pl(&scene->plane, \
+		ft_lstadd_back_pl(&scene->plane,
 			initPlane(originVec, orientVec, tint, scene));
 }

@@ -6,12 +6,11 @@ int	main(int argc, char **argv)
 	t_mlx	mlxData;
 
 	init_scene(&scene);
-	parsing(argc, argv, &scene);
-
 	mlxInit(&mlxData);
+	parsing(argc, argv, &scene);
 	render(&scene, &mlxData);
 	free_scene(&scene);
 	mlx_loop(mlxData.mlx);
-	// while (1);
+	while (1);
 	return (0);
 }

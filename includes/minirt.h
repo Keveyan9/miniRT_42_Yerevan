@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 19:12:09 by skeveyan          #+#    #+#             */
-/*   Updated: 2023/07/05 19:12:16 by skeveyan         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:24:04 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define EPSILON 0.0001
 # define FOCAL_DIST 0.5
 # define STRENGTH 0.5
 # define SHININESS 32
@@ -101,16 +102,16 @@ t_ray			rayGenerate(float x, float y, t_cam camera);
 // light.c
 t_color			ambient_lighting(t_ambient *ambient);
 t_color			diffuse_lighting(t_light *light, t_cross *cross);
-t_color			specular_lightning(t_scene *scene, t_cross *cross);
-bool			shadow(t_cross *cross, t_scene *scene);
-t_color			final_lighting(t_scene *scene, t_cross *cross);
+t_color			specular_lightning(t_scene scene, t_cross *cross);
+bool			shadow(t_cross cross, t_scene *scene);
+t_color			final_lighting(t_scene scene, t_cross *cross);
 
 // light_utils.c
 t_color			colorMul(t_color c, float f);
 t_color			init_color(float r, float g, float b);
 t_vec			reflect_vec(t_vec l, t_vec n);
 void			point_calc(t_vec *p, t_ray r, float t);
-t_color			final_color(t_cross *cross, t_color amb, \
+t_color			final_color(t_cross *cross, t_color amb,
 					t_color diff, t_color spec);
 
 //normal.c
@@ -125,7 +126,7 @@ unsigned int	makeIntFromRGB(t_color color);
 t_color			makeRGBfromInt(unsigned int color);
 
 //mlxFunctions.c
-void			my_mlx_pixel_put(t_mlx *data, \
+void			my_mlx_pixel_put(t_mlx *data,
 					double x, double y, unsigned int color);
 void			mlxInit(t_mlx *mlxData);
 

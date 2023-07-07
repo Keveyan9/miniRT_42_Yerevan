@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:54:27 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/21 23:42:21 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:28:24 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ t_vec topCapCenter(t_cylinder cyl)
 {
     t_vec top;
 
-    top = vecScale(-0.5 * cyl.height / 2, cyl.axis);
+    top = vecScale(-0.5 * cyl.height, cyl.axis);
     top = vecAdd(cyl.center, top);
     return (top);
 }
 
 t_vec bottomCapCenter(t_cylinder cyl)
 {
-
     t_vec btm;
 
-    btm = vecScale(0.5 * cyl.height / 2, cyl.axis);
-    btm = vecAdd(cyl.center, btm);
+    btm = vecScale(0.5 * cyl.height, cyl.axis);
+    btm = vecAdd(btm, cyl.center);
     return (btm);
 }
 
@@ -58,3 +57,4 @@ t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
 		return (normalize(vecSub(p, pt)));
 	}
 }
+

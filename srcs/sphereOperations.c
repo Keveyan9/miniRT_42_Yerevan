@@ -52,11 +52,7 @@ void	checkerSp(char **splitted_sp, t_scene *scene)
 	center = ft_split(splitted_sp[1], ',');
 	tint = ft_split(splitted_sp[3], ',');
 	checkVector(center, &centerVec, INT_MIN, FLT_MAX,scene);
-	if(center)
-		double_free(center);
 	checkColor(tint, &tintVec,scene);
-	if(tint)
-		double_free(tint);
 	radius = ft_atof(splitted_sp[2]);
 	if (!scene->sphere)
 		scene->sphere = initSphere(centerVec, tintVec, radius,scene);

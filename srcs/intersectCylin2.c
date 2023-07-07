@@ -60,12 +60,75 @@ bool intersectInfiniteCylin(t_ray ray, t_cylinder cylin, t_cross *cross)
     return (true);
 }
 
+// bool solve_quadratic(t_quadratic *q)
+// {
+//     q->D = q->b * q->b - 4 * q->a * q->c;
+//     if (q->D < 0)
+//         return (false);
+//     q->t1 = (-q->b - sqrt(q->D)) / (q->a * 2);
+//     q->t2 = (-q->b + sqrt(q->D)) / (q->a * 2);
+//     return (true);
+// }
+
+// bool intersectInfiniteCylin(t_ray ray, t_cylinder cylin, t_cross *cylinCross)
+// {
+//     t_quadratic q;
+//     t_vec u;
+//     t_vec v;
+
+//     u = cross(ray.dir, cylin.axis);
+//     v = vecSub(cylin.axis, ray.orig);
+//     v = cross(v, cylin.axis);
+//     q.a = dotProduct(u, u);
+//     q.b = 2 * dotProduct(u, v);
+//     q.c = dotProduct(v, v) - cylin.radius * cylin.radius;
+//     if (!solve_quadratic(&q) || (q.t2 <= EPSILON && q.t1 <= EPSILON))
+//         return (false);
+//     if (q.t1 <= EPSILON || (q.t2 > EPSILON && (q.t2 < q.t1)))
+//         q.t1 = q.t2;
+//     cylinCross->t = q.t1;
+//     point_calc(&cylinCross->p, ray, q.t1);
+//     v = vecSub(cylin.center, cylinCross->p);
+//     cylinCross->n = cross(v, cylin.axis);
+//     cylinCross->n = cross(cylinCross->n, cylin.axis);
+//     cylinCross->n = normalize(cylinCross->n);
+//     if (dotProduct(cylinCross->n, ray.dir))
+//         cylinCross->n = vecInverse(cylinCross->n);
+//     return (true);
+// }
+
+// bool intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross)
+// {
+//     t_plane pl;
+//     t_cross c;
+
+//     cross->t = INFINITY;
+//     pl.point = cylin.topCapCent;
+//     pl.normal = cylin.axis;
+//     if (intersectPlane(ray, pl, &c)
+//         && distance(c.p, cylin.topCapCent) <= cylin.radius
+//         && cross->t > c.t)
+//         *cross = c;
+//     pl.point = bottomCapCenter(cylin);
+//     // print_vec(pl.point, "bottomcap == ");
+//     if (intersectPlane(ray, pl, &c)
+//         && distance(c.p, cylin.topCapCent) <= cylin.radius
+//         && cross->t > c.t)
+//         *cross = c;
+//     if (intersectInfiniteCylin(ray, cylin, &c)
+//         && pow(distance(cylin.center, c.p), 2)
+//         <= pow(cylin.height, 2) + cylin.radius * cylin.radius
+//         && cross->t > c.t)
+//         *cross = c;
+//     return (cross->t < INFINITY && cross->t > EPSILON);
+// }
+
 bool intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross)
 {
     t_plane plane;
     t_cross crossPlane;
-    t_vec   hitPoint;
-    float   t;
+    t_vec hitPoint;
+    float t;
 
     t = INFINITY;
     plane.point = cylin.topCapCent;
@@ -74,7 +137,7 @@ bool intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross)
     {
         // printf("intersect plane 111111\n");
         point_calc(&hitPoint, ray, crossPlane.t);
-        if (vecNorm(vecSub(hitPoint, cylin.topCapCent)) <= cylin.radius * cylin.radius && crossPlane.t < t)
+        if (vecNorm(vecSub(hitPoint, cylin.topCapCent)) <= cylin.radius && crossPlane.t < t)
             t = crossPlane.t;
     }
     plane.point = bottomCapCenter(cylin);
@@ -82,7 +145,7 @@ bool intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross)
     {
         // printf("intersect plane 222222\n");
         point_calc(&hitPoint, ray, crossPlane.t);
-        if (vecNorm(vecSub(hitPoint, cylin.topCapCent)) <= cylin.radius * cylin.radius && crossPlane.t < t)
+        if (vecNorm(vecSub(hitPoint, cylin.topCapCent)) <= cylin.radius && crossPlane.t < t)
             t = crossPlane.t;
     }
     if (intersectInfiniteCylin(ray, cylin, cross) && cross->t < t)

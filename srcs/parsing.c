@@ -21,10 +21,7 @@ int checkerForEachObject(char **splitted_line, t_scene *scene)
 	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
 		checkerPl(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
-	{
-		// printlen(splitted_line);
 		checkerSp(splitted_line, scene);
-	}
 	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
 		checkerCy(splitted_line, scene);
 	else
@@ -55,7 +52,7 @@ static void	reading_file(int fd, t_scene *scene)
 		if (splitted)
 			double_free(splitted);
 	}
-	if (count != 3)///TODO free lcrats objectnery minchev et
+	if (count != 3)
 		exit_code(1, "upper letter objects are repeated or absent in file\n", \
 			scene, NULL);
 

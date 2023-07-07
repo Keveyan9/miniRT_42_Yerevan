@@ -35,7 +35,7 @@ t_cylinder *initCylinder(t_vec center, t_vec normal, t_color tint, float radius,
 	initColor(tint, &(cylinder->tint));
 	cylinder->radius = radius;
 	cylinder->height = height;
-
+	cylinder->topCapCent = topCapCenter(*cylinder);
 	cylinder->next = NULL;
 	return (cylinder);
 }
@@ -62,18 +62,12 @@ void checkerCy(char **splitted_cy, t_scene *scene)
 	radius = ft_atof(splitted_cy[3]) / 2;
 	height = ft_atof(splitted_cy[4]);
 	checkVector(origin, &originVec, INT_MIN, FLT_MAX, scene);
-	if (origin)
-		double_free(origin);
 	checkVector(orientationSplitted, &orientVec, -8, 1, scene);
-	if (orientationSplitted)
-		double_free(orientationSplitted);
 	checkColor(tint, &tintVec, scene);
-	if (tint)
-		double_free(tint);
 	if (!scene->cylin)
-		scene->cylin = initCylinder(originVec, orientVec, \
+		scene->cylin = initCylinder(originVec, orientVec,
 			tintVec, radius, height);
 	else
-		ft_lstadd_back_cy(&scene->cylin, \
+		ft_lstadd_back_cy(&scene->cylin,
 			initCylinder(originVec, orientVec, tintVec, radius, height));
 }

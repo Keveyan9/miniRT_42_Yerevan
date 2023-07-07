@@ -29,7 +29,7 @@ t_ambient	*initAmbient(float ratio, t_color tint,t_scene *scene)
 
 t_cam	*initCam(t_vec origin, t_vec orient, float fov, t_scene *scene)
 {
-	t_cam	*camera;
+	t_cam *camera;
 
 	camera = malloc(sizeof(t_cam));
 	if (!camera)
@@ -42,8 +42,7 @@ t_cam	*initCam(t_vec origin, t_vec orient, float fov, t_scene *scene)
 
 t_light	*initLight(t_vec orig, float ratio, t_color tint,t_scene *scene)
 {
-	t_light	*light;
-
+	t_light *light;
 
 	light = malloc(sizeof(t_light));
 	if (!light)

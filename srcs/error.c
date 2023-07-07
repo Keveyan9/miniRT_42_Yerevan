@@ -9,3 +9,10 @@ void	exit_code(int code, char *msg, t_scene *scene, char **string)
 		free_scene(scene);
 	exit(code);
 }
+#include	"minirt.h"
+
+void	exit_code(int code, char *msg)
+{
+	write(2, msg, ft_strlen(msg));
+	exit(code);
+}

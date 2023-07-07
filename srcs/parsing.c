@@ -8,6 +8,15 @@ static char	**check_d_line(char *line)
 	return (splitted);
 }
 
+void	printlen(char **s)
+{
+	int i = -1;
+	while (s[++i])
+	{
+		printf("s[i] == %s\n", s[i]);
+	}
+}
+
 int checkerForEachObject(char **splitted_line, t_scene *scene)
 {
 	static int	upperLetters = 0;
@@ -21,7 +30,10 @@ int checkerForEachObject(char **splitted_line, t_scene *scene)
 	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
 		checkerPl(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
+	{
+		// printlen(splitted_line);
 		checkerSp(splitted_line, scene);
+	}
 	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
 		checkerCy(splitted_line, scene);
 	else

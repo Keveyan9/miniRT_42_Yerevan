@@ -9,8 +9,7 @@ t_vec   gettingWPrime(t_matrix lookAt, t_cam camera)
 
     uCoeff = vecScale((-WIDTH/2), lookAt.right);
     vCoeff = vecScale((HEIGHT/2), lookAt.up);
-    wCoeff = vecScale(((-HEIGHT/2)/tan((camera.fov * 0.5 * M_PI) / 180)), lookAt.forward);
-    // print_vec(wCoeff, "Z is ::: ");
+    wCoeff = vecScale((-HEIGHT/2)/tan((camera.fov * 0.5 * M_PI) / 180), lookAt.forward);
     wPrime = vecAdd(vecAdd(uCoeff, vCoeff), wCoeff);
     return(wPrime);
 }

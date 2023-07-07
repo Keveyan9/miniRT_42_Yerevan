@@ -9,7 +9,7 @@ t_plane	*ft_lstlast_pl(t_plane *lst)
 
 void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 {
-	t_plane	*position;
+	t_plane *position;
 
 	if (!lst || !new)
 		return ;
@@ -22,14 +22,13 @@ void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 	}
 }
 
-static t_plane	*initPlane(t_vec point, t_vec normal, t_color tint, t_scene *scene)
+t_plane	*initPlane(t_vec point, t_vec normal, t_color tint)
 {
-
 	t_plane *plane;
 
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
-		exit_code(1, "plane malloc failed", scene, NULL);
+		exit_code(1, "plane malloc failed");
 	initVector(point, &(plane->point));
 	initVector(normal, &(plane->normal));
 	initColor(tint, &(plane->tint));
@@ -50,23 +49,15 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	len = ft_double_len(splitted_pl);
 	if (len != 4)
 		if (!(len == 5 && splitted_pl[4][0] == '\n'))
-			exit_code(1, "Invalid number of parameters for pl\n",scene, NULL);
-
+			exit_code(1, "Invalid number of parameters for pl\n");
 	origin = ft_split(splitted_pl[1], ',');
 	orientationSplitted = ft_split(splitted_pl[2], ',');
 	tintSplitted = ft_split(splitted_pl[3], ',');
-	checkVector(origin, &originVec, INT_MIN, FLT_MAX, scene);
-	if (origin)
-		double_free(origin);
-	checkVector(orientationSplitted, &orientVec, -8, 1, scene);
-	if (orientationSplitted)
-		double_free(orientationSplitted);
-	checkColor(tintSplitted, &tint, scene);
-	if (tintSplitted)
-		double_free(tintSplitted);
+	checkVector(origin, &originVec, INT_MIN, FLT_MAX);
+	checkVector(orientationSplitted, &orientVec, -8, 1);
+	checkColor(tintSplitted, &tint);
 	if (!scene->plane)
-		scene->plane = initPlane(originVec, orientVec, tint, scene);
+		scene->plane = initPlane(originVec, orientVec, tint);
 	else
-		ft_lstadd_back_pl(&scene->plane,
-			initPlane(originVec, orientVec, tint, scene));
+		ft_lstadd_back_pl(&scene->plane, initPlane(originVec, orientVec, tint));
 }

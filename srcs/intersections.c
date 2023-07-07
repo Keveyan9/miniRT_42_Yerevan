@@ -50,41 +50,23 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross)
     t_vec L;
 
     L = vecSub(sphere.center, ray.orig);
-    // printf("x == %f, y == %f\n", x, y);
     tOHdot = dotProduct(L, ray.dir);
-    // print_vec(ray.dir, "ray dir is");
-    // printf("tOHdot == %f\n", tOHdot);
     if (tOHdot < 0)
-    {
-        // printf("I am falseeeee   111\n");
         return (false);
-    }
-    //   return (false);
     dSquare = dotProduct(L, L) - tOHdot * tOHdot;
-    // printf("dSquare == %f\n", vecNorm(L));
-    // printf("dSquare == %f\n", dSquare);
     if (dSquare > sphere.radius * sphere.radius)
-    {
-        // printf("I am falseeeee   222\n");
         return (false);
-    }
     tHC = sqrt(sphere.radius * sphere.radius - dSquare);
     cross->t = tOHdot - tHC;
     t1 = tOHdot + tHC;
-    if (cross->t < EPSILON && t1 < EPSILON)
-        return (false);
-    if (cross->t < EPSILON || t1 < cross->t)
+    if (cross->t > t1)
+        swap(&cross->t, &t1);
+    if (cross->t < 0)
+    {
         cross->t = t1;
-    // if (t0 > t1)
-    //     swap(&t0, &t1);
-    // if (t0 < 0)
-    // {
-    //     t0 = t1;
-    //     if (t0 < 0)
-    //         return (false);
-    // }
-    // cross->t = t0;
-    // printf("cross->t isssss == %f\n", cross->t);
+        if (cross->t < 0)
+            return (false);
+    }
     point_calc(&cross->p, ray, cross->t);
     cross->n = sphere_normal(cross->p, sphere.center);
     cross->color = sphere.tint;
@@ -94,17 +76,15 @@ bool intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross)
 bool intersectPlane(t_ray ray, t_plane plane, t_cross *cross)
 {
     float denominator;
-    float t;
 
-    t = -1;
     denominator = dotProduct(plane.normal, ray.dir);
-    if (fabs(denominator) > 1e-6)
-        t = (dotProduct(vecSub(plane.point, ray.orig), plane.normal)) / denominator;
-    if (t < 0)
+    if (denominator == 0)
         return (false);
-    cross->t = t;
+    cross->t = (dotProduct(vecSub(plane.point, ray.orig), plane.normal)) / denominator;
+    if (cross->t < EPSILON)
+        return (false);
     cross->n = plane.normal;
-    if (dotProduct(ray.dir, plane.normal) > 0)
+    if (dotProduct(plane.normal, ray.dir) > 0)
         cross->n = vecInverse(cross->n);
     point_calc(&cross->p, ray, cross->t);
     cross->color = plane.tint;

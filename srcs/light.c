@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:51:31 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/07/07 00:10:50 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/07 04:09:35 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,20 @@ t_color	specular_lightning(t_scene scene, t_cross *cross)
 	t_vec	reflect_ray;
 	t_vec	view_ray;
 	float	dot;
-	t_color	col;
-
-	light_ray = normalize(vecSub(cross->p, scene.light->orig));
+	t_color col;
+	
+	light_ray = normalize(vecSub(scene.light->orig, cross->p));
+//	printf("light ray == %f, g == %f, b === %f\n", col.r, col.g, col.b);
 	reflect_ray = reflect_vec(light_ray, cross->n);
 	view_ray = normalize(vecSub(scene.cam->orig, cross->p));
-	dot = dotProduct(view_ray, reflect_ray);
+	//printf("view x == %f, y == %f, z === %f\n", view_ray.x, view_ray.y, view_ray.z);
+//	printf("cross p == %f, y == %f, z === %f\n", cross->p.x, cross->p.y, cross->p.z);
+	dot	= dotProduct(view_ray, reflect_ray);
 	if (dot < 0)
 		dot = 0;
-	dot = pow(dot, SHININESS);
+	dot = pow(dot, SHINNESS);
 	col = colorMul(scene.light->tint, dot * STRENGTH);
+//	printf("col r == %f, g == %f, b === %f\n", col.r, col.g, col.b);
 	return (col);
 }
 
@@ -68,6 +72,11 @@ t_color	specular_lightning(t_scene scene, t_cross *cross)
 // 	free(sdw_cross);
 // 	return (false);
 // }
+
+void    print_col(t_color vec, char *msg)
+{
+    printf("%s vec r == %f,g == %f,b == %f\n", msg, vec.r, vec.g, vec.b);
+}
 
 t_color		final_lighting(t_scene scene, t_cross *cross)
 {

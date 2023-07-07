@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-static t_vec   vecInit(float x, float y, float z)
+t_vec   vecInit(float x, float y, float z)
 {
     t_vec tmp;
 

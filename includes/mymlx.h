@@ -13,6 +13,11 @@ typedef struct s_mlx
 	int		line_length;
 	int		endian;
 }	t_mlx;
+typedef struct s_oll
+{
+    t_mlx    *mlxdata;
+    t_scene *scene;
 
+}   t_oll;
 
 #endif

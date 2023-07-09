@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphereOperations.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 00:37:35 by skeveyan          #+#    #+#             */
+/*   Updated: 2023/07/10 00:37:38 by skeveyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minirt.h"
 
 static t_sphere	*ft_lstlast_sp(t_sphere *lst)
@@ -9,7 +20,7 @@ static t_sphere	*ft_lstlast_sp(t_sphere *lst)
 
 static void	ft_lstadd_back_sp(t_sphere **lst, t_sphere *new)
 {
-	t_sphere *position;
+	t_sphere	*position;
 
 	if (!lst || !new)
 		return ;
@@ -48,14 +59,15 @@ void	checkerSp(char **splitted_sp, t_scene *scene)
 	len = ft_double_len(splitted_sp);
 	if (len != 4)
 		if (!(len == 5 && splitted_sp[4][0] == '\n'))
-			exit_code(1, "Invalid number of parameters for sp\n",scene,NULL);
+			exit_code(1, "Invalid number of parameters for sp\n", scene, NULL);
 	center = ft_split(splitted_sp[1], ',');
 	tint = ft_split(splitted_sp[3], ',');
-	checkVector(center, &centerVec, INT_MIN, FLT_MAX,scene);
-	checkColor(tint, &tintVec,scene);
+	checkVector(center, &centerVec, INT_MIN, FLT_MAX, scene);
+	checkColor(tint, &tintVec, scene);
 	radius = ft_atof(splitted_sp[2]);
 	if (!scene->sphere)
-		scene->sphere = initSphere(centerVec, tintVec, radius,scene);
+		scene->sphere = initSphere(centerVec, tintVec, radius, scene);
 	else
-		ft_lstadd_back_sp(&scene->sphere, initSphere(centerVec, tintVec, radius,scene));
+		ft_lstadd_back_sp(&scene->sphere,
+			initSphere(centerVec, tintVec, radius, scene));
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   planeOperations.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 00:28:54 by skeveyan          #+#    #+#             */
+/*   Updated: 2023/07/10 00:28:58 by skeveyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minirt.h"
 
 t_plane	*ft_lstlast_pl(t_plane *lst)
@@ -24,8 +35,7 @@ void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 
 static t_plane	*initPlane(t_vec point, t_vec normal, t_color tint, t_scene *scene)
 {
-
-	t_plane *plane;
+	t_plane	*plane;
 
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
@@ -50,8 +60,7 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	len = ft_double_len(splitted_pl);
 	if (len != 4)
 		if (!(len == 5 && splitted_pl[4][0] == '\n'))
-			exit_code(1, "Invalid number of parameters for pl\n",scene, NULL);
-
+			exit_code(1, "Invalid number of parameters for pl\n", scene, NULL);
 	origin = ft_split(splitted_pl[1], ',');
 	orientationSplitted = ft_split(splitted_pl[2], ',');
 	tintSplitted = ft_split(splitted_pl[3], ',');

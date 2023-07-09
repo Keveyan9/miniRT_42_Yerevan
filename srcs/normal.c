@@ -9,7 +9,6 @@
 /*   Updated: 2023/07/07 13:28:24 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minirt.h"
 
 t_vec	sphere_normal(t_vec p, t_vec center)
@@ -17,22 +16,22 @@ t_vec	sphere_normal(t_vec p, t_vec center)
 	return (normalize(vecSub(p, center)));
 }
 
-t_vec topCapCenter(t_cylinder cyl)
+t_vec	topCapCenter(t_cylinder cyl)
 {
-    t_vec top;
+	t_vec	top;
 
-    top = vecScale(-0.5 * cyl.height, cyl.axis);
-    top = vecAdd(cyl.center, top);
-    return (top);
+	top = vecScale(-0.5 * cyl.height, cyl.axis);
+	top = vecAdd(cyl.center, top);
+	return (top);
 }
 
-t_vec bottomCapCenter(t_cylinder cyl)
+t_vec	bottomCapCenter(t_cylinder cyl)
 {
-    t_vec btm;
+	t_vec	btm;
 
-    btm = vecScale(0.5 * cyl.height, cyl.axis);
-    btm = vecAdd(btm, cyl.center);
-    return (btm);
+	btm = vecScale(0.5 * cyl.height, cyl.axis);
+	btm = vecAdd(btm, cyl.center);
+	return (btm);
 }
 
 t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
@@ -57,4 +56,3 @@ t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
 		return (normalize(vecSub(p, pt)));
 	}
 }
-

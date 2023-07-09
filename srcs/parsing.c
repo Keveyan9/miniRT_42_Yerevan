@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 00:27:23 by skeveyan          #+#    #+#             */
+/*   Updated: 2023/07/10 00:27:29 by skeveyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minirt.h"
 
 static char	**check_d_line(char *line)
@@ -8,10 +19,11 @@ static char	**check_d_line(char *line)
 	return (splitted);
 }
 
-int checkerForEachObject(char **splitted_line, t_scene *scene)
+int	checkerForEachObject(char **splitted_line, t_scene *scene)
 {
-	static int	upperLetters = 0;
+	static int	upperLetters;
 
+	upperLetters = 0;
 	if (ft_strncmp(splitted_line[0], "A", 2) == 0 && ++upperLetters)
 		checker_A(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "C", 2) == 0 && ++upperLetters)
@@ -33,7 +45,6 @@ static void	reading_file(int fd, t_scene *scene)
 {
 	char	*line;
 	char	**splitted;
-
 	int		count;
 
 	line = NULL;
@@ -55,7 +66,6 @@ static void	reading_file(int fd, t_scene *scene)
 	if (count != 3)
 		exit_code(1, "upper letter objects are repeated or absent in file\n", \
 			scene, NULL);
-
 }
 
 void	parsing(int argc, char **argv, t_scene *var_scene)
@@ -66,7 +76,7 @@ void	parsing(int argc, char **argv, t_scene *var_scene)
 	if (argc != 2)
 	{
 		if (argc == 1)
-			exit_code(1, "No argument\n", NULL , NULL);
+			exit_code(1, "No argument\n", NULL, NULL);
 		else
 			exit_code(1, "More arguments\n", NULL, NULL);
 	}

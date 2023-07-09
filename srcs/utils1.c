@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 00:39:41 by skeveyan          #+#    #+#             */
+/*   Updated: 2023/07/10 00:39:44 by skeveyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minirt.h"
 
 float ft_atof(char *str)
 {
-	float result = 0.0;
-	float sign = 1.0;
-	float fraction = 0.1;
+	float	result = 0.0;
+	float	sign = 1.0;
+	float	fraction = 0.1;
 
 	while (ft_isspace(*str))
 		str++;
@@ -63,10 +74,10 @@ float	findMin(float a, float b, float c)
 {
 	if (a < b && a < c)
 		return (a);
-	else if (b < a && b <=c)
+	else if (b < a && b <= c)
 		return (b);
 	else if (c < a && c < b)
 		return (c);
-	else 
+	else
 		return (INFINITY);
 }

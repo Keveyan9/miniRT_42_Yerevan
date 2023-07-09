@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 00:19:39 by skeveyan          #+#    #+#             */
+/*   Updated: 2023/07/10 00:19:43 by skeveyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minirt.h"
 
 t_color	colorMul(t_color c, float f)
@@ -40,7 +50,6 @@ void	point_calc(t_vec *p, t_ray r, float t)
 t_color	final_color(t_cross *cross, t_color amb, t_color diff, t_color spec)
 {
 	t_color	col;
-
 
 	col.r = amb.r + diff.r + spec.r;
 	col.g = amb.g + diff.g + spec.g;

@@ -103,7 +103,8 @@ int create_rgb(int r, int g, int b)
     return (r << 16 | g << 8 | b);
 }
 
-static void calculate(t_oll *oll , int *xy)
+
+static void calculate(t_oll *oll , int x, int y)
 {
 	t_cross			*finalCross;
 	t_ray			ray;
@@ -111,7 +112,7 @@ static void calculate(t_oll *oll , int *xy)
 	unsigned int	color;
 	
 	finalCross = NULL;
-	ray = rayGenerate(xy[0], xy[1], *(oll->scene->cam));
+	ray = rayGenerate(x, y, *(oll->scene->cam));
 	rayTrace(oll->scene, ray, &finalCross);
 	if (finalCross->t == INFINITY)
 		color = create_rgb (0, 0, 0);
@@ -121,53 +122,44 @@ static void calculate(t_oll *oll , int *xy)
 			color = makeIntFromRGB(col);
 		}
 	free_null(finalCross);
-	my_mlx_pixel_put(oll->mlxData, xy[0], xy[1], color);
+	my_mlx_pixel_put(oll->mlxData, x, y, color);
 }
 
-
-void *thread_function(void *data)
+void *thread_width_function(void *data)
 {
-	t_oll 	*oll;
-	int		xy[2];
-	
+	t_oll 		*oll;
+	int			xy[2];
 	oll = data;
 	xy[0] =	oll->x;
 	xy[1] = -1;
 	while (++(xy[1]) < HEIGHT)
-	{
-		calculate(oll, xy);
-	}
+		calculate(oll,xy[0],xy[1]);
 	return (NULL);
 }
 
 void	render(t_oll *oll)
 {
-	int	result;
+	int	result_w;
 	int	count_treads;
 	int	cycle;
-	int x;
 	pthread_t threads[WIDTH];
 
-	result = 0;
+	result_w = 0;
 	cycle = 0;
-	x = 0;
 	count_treads = 0;
 	
 	oll->x = -1;
 	while (++(oll->x) <  WIDTH)
 	{
-
-		// thread_function(oll);
-		x = oll->x;
-		result = pthread_create(&threads[count_treads++], NULL, thread_function, oll);
-		if (result != 0) 
+		result_w = pthread_create(&threads[count_treads++], NULL, thread_width_function, oll);
+		if (result_w != 0) 
 		{
 			perror("Thread creation failed");
 			exit(EXIT_FAILURE);
 		}
-		usleep (200);
+		usleep (250);
 	}
-	while(cycle < count_treads)
+	while(cycle < WIDTH)
 		 pthread_join(threads[cycle++], NULL);
 	mlx_put_image_to_window(oll->mlxData->mlx, oll->mlxData->win,oll->mlxData->img, 0, 0);
 	return;

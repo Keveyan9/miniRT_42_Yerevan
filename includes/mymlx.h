@@ -18,6 +18,7 @@ typedef struct s_oll
     t_mlx    *mlxData;
     t_scene *scene;
 	int		x;
+	int		y;
 
 }   t_oll;
 

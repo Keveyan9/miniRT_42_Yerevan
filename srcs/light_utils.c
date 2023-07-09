@@ -5,22 +5,10 @@ t_color	colorMul(t_color c, float f)
 {
 	t_color	col;
 
-	if (f > 1)
-		f = 1;
-	else if (f < 0)
-		f = 0;
 	col.r = c.r * f;
 	col.g = c.g * f;
 	col.b = c.b * f;
 	return (col);
-}
-
-t_color	colorToColor(t_color c1, t_color c2)
-{
-	c1.r *= c2.r;
-	c1.g *= c2.g;
-	c1.b *= c2.b;
-	return (c1);
 }
 
 t_color	init_color(float r, float g, float b)
@@ -52,6 +40,7 @@ void	point_calc(t_vec *p, t_ray r, float t)
 t_color	final_color(t_cross *cross, t_color amb, t_color diff, t_color spec)
 {
 	t_color	col;
+
 
 	col.r = amb.r + diff.r + spec.r;
 	col.g = amb.g + diff.g + spec.g;

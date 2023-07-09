@@ -17,7 +17,7 @@ void	double_free(char **s1)
 	int	i;
 
 	i = 0;
-	if (s1)
+	if (s1 && s1 != NULL)
 	{
 		while (s1[i])
 		{

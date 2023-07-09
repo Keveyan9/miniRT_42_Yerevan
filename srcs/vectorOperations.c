@@ -1,8 +1,6 @@
-<<<<<<< HEAD:srcs/vectorOperations.c
 
-=======
->>>>>>> newAni:srcs/vectorOperations.c
 # include "minirt.h"
+# include <math.h>
 
 t_vec   vecAdd(t_vec a, t_vec b)
 {

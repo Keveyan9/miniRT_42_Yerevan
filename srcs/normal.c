@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:54:27 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/07/07 04:10:27 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:28:24 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,4 @@ t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
 		return (normalize(vecSub(p, pt)));
 	}
 }
+

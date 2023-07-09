@@ -62,7 +62,7 @@ bool	shadow(t_cross *cross, t_scene *scene)
 	sdw_cross = malloc(sizeof(t_cross));
 	shadow_ray.orig = cross->p;
 	shadow_ray.dir = normalize(vecSub(scene->light->orig, cross->p));
-	point_calc(&shadow_ray.orig, shadow_ray, 1e-4);
+	point_calc(&shadow_ray.orig, shadow_ray, 0.1);
 	if (rayTrace(scene, shadow_ray, &sdw_cross) && (distance(cross->p, scene->light->orig)
 		> distance(cross->p, sdw_cross->p)))
 	{
@@ -73,25 +73,32 @@ bool	shadow(t_cross *cross, t_scene *scene)
 	return (false);
 }
 
-// void    print_col(t_color vec, char *msg)
-// {
-//     printf("%s vec r == %f,g == %f,b == %f\n", msg, vec.r, vec.g, vec.b);
-// }
 
-// t_color		final_lighting(t_scene *scene, t_cross *cross)
-// {
-// 	t_color	amb_factor;
-// 	t_color	diffuse;
-// 	t_color	specular;
+t_color  col_mul(t_color a, t_color b)
+{
+	t_color c;
 
-// 	if (!shadow(cross, scene))
-// 	{
-// 		amb_factor = ambient_lighting(scene->amb);
-// 		diffuse = diffuse_lighting(scene->light, cross);
-// 		specular = specular_lightning(scene ,cross);
-// 		cross->color = final_color(cross, amb_factor, diffuse, specular);
-// 	}
-// 	else
-// 		cross->color = init_color(0, 0, 0);
-// 	return (cross->color);
-// }
+	c.r = a.r * b.r;
+	c.g = a.g * b.g;
+	c.b = a.b * b.b;
+	return (c);
+}
+
+t_color		final_lighting(t_scene *scene, t_cross *cross)
+{
+	t_color	amb_factor;
+	t_color	diffuse;
+	t_color	specular;
+
+
+	amb_factor = ambient_lighting(scene->amb);
+	if (!shadow(cross, scene))
+	{
+		diffuse = diffuse_lighting(scene->light, cross);
+		specular = specular_lightning(scene ,cross);
+		cross->color = final_color(cross, amb_factor, diffuse, specular);
+	}
+	else
+		cross->color = col_mul(amb_factor, cross->color);
+	return (cross->color);
+}

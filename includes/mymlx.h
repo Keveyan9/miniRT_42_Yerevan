@@ -15,8 +15,9 @@ typedef struct s_mlx
 }	t_mlx;
 typedef struct s_oll
 {
-    t_mlx    *mlxdata;
+    t_mlx    *mlxData;
     t_scene *scene;
+	int		x;
 
 }   t_oll;
 

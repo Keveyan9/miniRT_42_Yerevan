@@ -73,25 +73,25 @@ bool	shadow(t_cross *cross, t_scene *scene)
 	return (false);
 }
 
-void    print_col(t_color vec, char *msg)
-{
-    printf("%s vec r == %f,g == %f,b == %f\n", msg, vec.r, vec.g, vec.b);
-}
+// void    print_col(t_color vec, char *msg)
+// {
+//     printf("%s vec r == %f,g == %f,b == %f\n", msg, vec.r, vec.g, vec.b);
+// }
 
-t_color		final_lighting(t_scene *scene, t_cross *cross)
-{
-	t_color	amb_factor;
-	t_color	diffuse;
-	t_color	specular;
+// t_color		final_lighting(t_scene *scene, t_cross *cross)
+// {
+// 	t_color	amb_factor;
+// 	t_color	diffuse;
+// 	t_color	specular;
 
-	if (!shadow(cross, scene))
-	{
-		amb_factor = ambient_lighting(scene->amb);
-		diffuse = diffuse_lighting(scene->light, cross);
-		specular = specular_lightning(scene ,cross);
-		cross->color = final_color(cross, amb_factor, diffuse, specular);
-	}
-	else
-		cross->color = init_color(0, 0, 0);
-	return (cross->color);
-}
+// 	if (!shadow(cross, scene))
+// 	{
+// 		amb_factor = ambient_lighting(scene->amb);
+// 		diffuse = diffuse_lighting(scene->light, cross);
+// 		specular = specular_lightning(scene ,cross);
+// 		cross->color = final_color(cross, amb_factor, diffuse, specular);
+// 	}
+// 	else
+// 		cross->color = init_color(0, 0, 0);
+// 	return (cross->color);
+// }

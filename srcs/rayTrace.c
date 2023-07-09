@@ -1,77 +1,10 @@
 #include "minirt.h"
 
-// t_cross	*loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
-// {
-// 	t_sphere	*head;
-// 	t_cross		*cross;
-// 	float		tNear;
-
-// 	head = sphere;
-//  	tNear = INFINITY;
-// 	cross = malloc(sizeof(t_cross));
-// 	if (!cross)
-// 	 	exit_code(1, "cross malloc failed", scene, NULL);
-// 	cross->t = 0;
-// 	while (head)
-// 	{
-// 		if (intersectSphere(ray, *head, cross) && cross->t < tNear)
-// 			tNear = cross->t;
-// 		head = head->next;
-// 	}
-// 	cross->t = tNear;
-// 	return (cross);
-// }
-
-// t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
-// {
-// 	t_plane	*head;
-// 	t_cross	*cross;
-// 	float	tNear;
-
-// 	head = plane;
-// 	tNear = INFINITY;
-// 	cross = malloc(sizeof(t_cross));
-// 	if (!cross)
-// 	 	exit_code(1, "cross malloc failed", scene, NULL);
-// 	cross->t = 0;
-// 	while (head)
-// 	{
-// 		if (intersectPlane(ray, *head, cross) && cross->t < tNear)
-// 			tNear = cross->t;
-// 		head = head->next;
-// 	}
-// 	cross->t = tNear;
-// 	return (cross);
-// }
-
-// t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
-// {
-// 	t_cylinder	*head;
-// 	t_cross		*cross;
-// 	float		tNear;
-
-// 	head = cylin;
-// 	tNear = INFINITY;
-// 	cross = malloc(sizeof(t_cross));
-// 	if (!cross)
-// 	 	exit_code(1, "cross malloc failed", scene, NULL);
-// 	cross->t = 0;
-// 	while (head)
-// 	{
-// 		if (intersectCylin2(ray, *head, cross) && cross->t < tNear)
-// 			tNear = cross->t;
-// 		head = head->next;
-// 	}
-// 	cross->t = tNear;
-// 	return (cross);
-// }
-
 t_cross	*loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
 {
     t_sphere *head;
     t_cross *cross;
     t_cross tmpCross;
-    // float tNear;
 
     head = sphere;
     cross = malloc(sizeof(t_cross));
@@ -93,8 +26,7 @@ t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
     t_plane *head;
     t_cross *cross;
     t_cross tmpCross;
-    // float tNear;
-
+ 
     head = plane;
     cross = malloc(sizeof(t_cross));
     if (!cross)
@@ -115,7 +47,6 @@ t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
     t_cylinder  *head;
     t_cross     *cross;
     t_cross tmpCross;
-    // float tNear;
 
     head = cylin;
     cross = malloc(sizeof(t_cross));
@@ -172,64 +103,72 @@ int create_rgb(int r, int g, int b)
     return (r << 16 | g << 8 | b);
 }
 
-// void	render(t_scene *scene, t_mlx *mlxData)
-// {
-// 	int				x = -1;
-// 	int				y = -1;
-// 	unsigned int	color;
-// 	t_ray			ray;
-// 	t_cross			*finalCross;
-// 	// t_color			col;
-
-// 	finalCross = NULL;
-// 	while (++y < HEIGHT)
-// 	{
-// 		x = -1;
-// 		while (++x < WIDTH)
-// 		{
-// 			ray = rayGenerate(x, y, *(scene->cam));
-// 			if(!rayTrace(scene, ray, &finalCross))
-// 				color = create_rgb (0, 0, 0);
-// 			else
-// 			{
-// 				// col = final_lighting(scene, finalCross);
-// 				// color = makeIntFromRGB(col);
-// 				color = create_rgb(255, 0, 0);
-// 				// printf("color == %d\n", color);
-// 			}
-// 			// free_null(finalCross);
-// 			my_mlx_pixel_put(mlxData, x, y, color);
-// 		}
-// 	}
-// 	mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
-// }
-void	render(t_scene *scene, t_mlx *mlxData)
+static void calculate(t_oll *oll , int *xy)
 {
-	int				xy[2];
-	unsigned int	color;
-	t_ray			ray;
 	t_cross			*finalCross;
+	t_ray			ray;
 	t_color			col;
-
+	unsigned int	color;
+	
 	finalCross = NULL;
-	xy[1] = -1;
-	while (++xy[1] < HEIGHT)
-	{
-		xy[0] = -1;
-		while (++xy[0] < WIDTH)
+	ray = rayGenerate(xy[0], xy[1], *(oll->scene->cam));
+	rayTrace(oll->scene, ray, &finalCross);
+	if (finalCross->t == INFINITY)
+		color = create_rgb (0, 0, 0);
+		else
 		{
-			ray = rayGenerate(xy[0], xy[1], *(scene->cam));
-			rayTrace(scene, ray, &finalCross);
-			if (finalCross->t == INFINITY)
-				color = create_rgb (0, 0, 0);
-			else
-			{
-				col = final_lighting(scene, finalCross);
-				color = makeIntFromRGB(col);
-			}
-			free_null(finalCross);
-			my_mlx_pixel_put(mlxData, xy[0], xy[1], color);
+			col = final_lighting(oll->scene, finalCross);
+			color = makeIntFromRGB(col);
 		}
+	free_null(finalCross);
+	my_mlx_pixel_put(oll->mlxData, xy[0], xy[1], color);
+}
+
+
+void *thread_function(void *data)
+{
+	t_oll 	*oll;
+	int		xy[2];
+	
+	oll = data;
+	xy[0] =	oll->x;
+	xy[1] = -1;
+	while (++(xy[1]) < HEIGHT)
+	{
+		calculate(oll, xy);
 	}
-	mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
+	return (NULL);
+}
+
+void	render(t_oll *oll)
+{
+	int	result;
+	int	count_treads;
+	int	cycle;
+	int x;
+	pthread_t threads[WIDTH];
+
+	result = 0;
+	cycle = 0;
+	x = 0;
+	count_treads = 0;
+	
+	oll->x = -1;
+	while (++(oll->x) <  WIDTH)
+	{
+
+		// thread_function(oll);
+		x = oll->x;
+		result = pthread_create(&threads[count_treads++], NULL, thread_function, oll);
+		if (result != 0) 
+		{
+			perror("Thread creation failed");
+			exit(EXIT_FAILURE);
+		}
+		usleep (200);
+	}
+	while(cycle < count_treads)
+		 pthread_join(threads[cycle++], NULL);
+	mlx_put_image_to_window(oll->mlxData->mlx, oll->mlxData->win,oll->mlxData->img, 0, 0);
+	return;
 }

@@ -1,8 +1,6 @@
 #ifndef	MYMLX_H
 # define MYMLX_H
 
-# include "minirt.h"
-
 typedef struct s_mlx
 {
 	void	*win;

@@ -57,4 +57,3 @@ t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
 		return (normalize(vecSub(p, pt)));
 	}
 }
-

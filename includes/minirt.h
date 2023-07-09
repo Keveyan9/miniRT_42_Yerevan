@@ -53,6 +53,16 @@ typedef struct s_cross
 	t_color				color;
 }	t_cross;
 
+typedef struct s_quadratic
+{
+	float	a;
+	float	b;
+	float	c;
+	float	D;
+	float	t1;
+	float	t2;
+}	t_quadratic;
+
 void			exit_code(int code, char *msg, t_scene *scene, char **string);
 void			parsing(int argc, char **argv, t_scene *scene);
 void			print_vec(t_vec vec, char *msg);

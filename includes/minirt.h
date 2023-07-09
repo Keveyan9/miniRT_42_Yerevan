@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 19:12:09 by skeveyan          #+#    #+#             */
-/*   Updated: 2023/07/05 19:12:16 by skeveyan         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:24:04 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,20 @@
 # include "scene.h"
 # include "mymlx.h"
 # include "vectorRay.h"
+#include <pthread.h>
 
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 1280
+# define HEIGHT 720
+# define EPSILON 0.0001
+# define FOCAL_DIST 0.5
 # define STRENGTH 0.5
 # define SHININESS 32
 
-enum	objectType
+typedef	struct s_matrix
 {
-	SPHERE,
-	PLANE,
-	CYLIN,
-	noType
-};
-
-typedef struct s_matrix
-{
-	t_vec	camX;
-	t_vec	camY;
-	t_vec	camZ;
+	t_vec	right;
+	t_vec	up;
+	t_vec	forward;
 }	t_matrix;
 
 typedef struct s_cross
@@ -57,7 +52,6 @@ typedef struct s_cross
 	t_vec				p;
 	float				t;
 	t_color				color;
-	enum objectType		type;
 }	t_cross;
 
 void			exit_code(int code, char *msg, t_scene *scene, char **string);
@@ -102,7 +96,8 @@ void			checkerCy(char **splitted_cy, t_scene *scene);
 //intersections
 bool			intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
 bool			intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
-bool			intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
+// bool			intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
+bool 			intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
 t_ray			rayGenerate(float x, float y, t_cam camera);
 
@@ -118,29 +113,27 @@ t_color			colorMul(t_color c, float f);
 t_color			init_color(float r, float g, float b);
 t_vec			reflect_vec(t_vec l, t_vec n);
 void			point_calc(t_vec *p, t_ray r, float t);
-t_color			final_color(t_cross *cross, t_color amb, \
+t_color			final_color(t_cross *cross, t_color amb,
 					t_color diff, t_color spec);
 
 //normal.c
 t_vec			sphere_normal(t_vec p, t_vec center);
-void			topCapCenter(t_vec *top, t_cylinder cyl);
-void			bottomCapCenter(t_vec *bottom, t_cylinder cyl);
+t_vec			topCapCenter(t_cylinder cyl);
+t_vec			bottomCapCenter(t_cylinder cyl);
 t_vec			cylinder_normal(t_cylinder cyl, t_vec p);
-
-
-void			render(t_scene *scene, t_mlx *mlxData);
+void			render(t_oll *oll);
 
 //colorOperations.c
 unsigned int	makeIntFromRGB(t_color color);
 t_color			makeRGBfromInt(unsigned int color);
 
 //mlxFunctions.c
-void			my_mlx_pixel_put(t_mlx *data, \
+void			my_mlx_pixel_put(t_mlx *data,
 					double x, double y, unsigned int color);
 void			mlxInit(t_mlx *mlxData);
 
 //LookAt.c
-void			LookAt(t_matrix *matrix, t_cam camera, t_vec to);
+void			LookAt(t_matrix *matrix, t_cam camera);
 
 //rayTrace
 bool			rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross);

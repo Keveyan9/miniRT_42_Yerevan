@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_m.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:31:44 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/06/03 03:14:38 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/07 01:06:18 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ static int	ft_check_alloc(char **split, char *str, int index)
 	if (str)
 		return (0);
 	while (index >= 0)
-		free_null(split[index--]);
-	free_null(split);
+		free(split[index--]);
+	free(split);
 	return (1);
 }
 

@@ -25,7 +25,7 @@ t_vec	reflect_vec(t_vec l, t_vec n)
 {
 	t_vec	r;
 
-	r = vecMul(n, 2 * dotProduct(n, l));
+	r = vecMul(n, 2 * dotProduct(l, n));
 	r = vecSub(l, r);
 	return (r);
 }

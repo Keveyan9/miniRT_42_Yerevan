@@ -8,7 +8,7 @@ static char	**check_d_line(char *line)
 	return (splitted);
 }
 
-int	checkerForEachObject(char **splitted_line, t_scene *scene)
+int checkerForEachObject(char **splitted_line, t_scene *scene)
 {
 	static int	upperLetters = 0;
 
@@ -52,9 +52,10 @@ static void	reading_file(int fd, t_scene *scene)
 		if (splitted)
 			double_free(splitted);
 	}
-	if (count != 3)///TODO free lcrats objectnery minchev et
+	if (count != 3)
 		exit_code(1, "upper letter objects are repeated or absent in file\n", \
 			scene, NULL);
+
 }
 
 void	parsing(int argc, char **argv, t_scene *var_scene)

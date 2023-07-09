@@ -47,6 +47,8 @@ typedef struct s_cylinder
 	t_vec				center;
 	t_vec				axis;
 	t_color				tint;
+	t_vec				topCapCent;
+	t_vec				bottomCapCent;
 	float				radius;
 	float				height;
 	struct s_cylinder	*next;

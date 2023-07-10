@@ -30,6 +30,7 @@
 # include "scene.h"
 # include "mymlx.h"
 # include "vectorRay.h"
+# include <pthread.h>
 
 # define WIDTH 1600
 # define HEIGHT 900
@@ -128,7 +129,7 @@ t_vec			sphere_normal(t_vec p, t_vec center);
 t_vec			top_cap_center(t_cylinder cyl);
 t_vec			bottom_cap_center(t_cylinder cyl);
 t_vec			cylinder_normal(t_cylinder cylin, t_cross cross, float m);
-void			render(t_scene *scene, t_mlx *mlx_data);
+void			render(t_all *all);
 
 //colorOperations.c
 unsigned int	make_int_from_rgb(t_color color);

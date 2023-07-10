@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   rayTrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 18:15:22 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/07/10 18:15:23 by zkarapet         ###   ########.fr       */
+/*   Created: 2023/07/10 00:30:11 by skeveyan          #+#    #+#             */
+/*   Updated: 2023/07/10 00:30:13 by skeveyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minirt.h"
 
 t_cross	*loop_sphere_list(t_sphere *sphere, t_ray ray, t_scene *scene)
@@ -110,37 +109,23 @@ bool	ray_trace(t_scene *scene, t_ray ray, t_cross **final_cross)
 	return (0);
 }
 
-int	create_rgb(int r, int g, int b)
+void	calculate(t_all *all, int x, int y)
 {
-	return (r << 16 | g << 8 | b);
-}
-
-void	render(t_scene *scene, t_mlx *mlx_data)
-{
-	int				xy[2];
-	unsigned int	color;
-	t_ray			ray;
 	t_cross			*final_cross;
+	t_ray			ray;
 	t_color			col;
+	unsigned int	color;
 
 	final_cross = NULL;
-	xy[1] = -1;
-	while (++xy[1] < HEIGHT)
+	ray = ray_generate(x, y, *(all->scene->cam));
+	ray_trace(all->scene, ray, &final_cross);
+	if (final_cross->t == INFINITY)
+		color = (0 << 16 | 0 << 8 | 0);
+	else
 	{
-		xy[0] = -1;
-		while (++xy[0] < WIDTH)
-		{
-			ray = ray_generate(xy[0], xy[1], *(scene->cam));
-			if (!ray_trace(scene, ray, &final_cross))
-				color = create_rgb(0, 0, 0);
-			else
-			{
-				col = final_lighting(scene, final_cross);
-				color = make_int_from_rgb(col);
-			}
-			free_null(final_cross);
-			my_mlx_pixel_put(mlx_data, xy[0], xy[1], color);
-		}
+		col = final_lighting(all->scene, final_cross);
+		color = make_int_from_rgb(col);
 	}
-	mlx_put_image_to_window(mlx_data->mlx, mlx_data->win, mlx_data->img, 0, 0);
+	free_null(final_cross);
+	my_mlx_pixel_put(all->mlx_data, x, y, color);
 }

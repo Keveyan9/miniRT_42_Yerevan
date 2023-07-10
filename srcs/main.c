@@ -35,7 +35,7 @@ int	camera_direction(int code, t_all *all)
 		all->scene->light->orig.z = all->scene->light->orig.z + k;
 	else if (code == 65438)
 		all->scene->light->orig.z = all->scene->light->orig.z - k;
-	render(all->scene, all->mlx_data);
+	render(all);
 	return (0);
 }
 
@@ -75,7 +75,7 @@ int	main(int argc, char **argv)
 	parsing(argc, argv, &scene);
 	mlx_key_hook(mlx_data.win, key_hook_man, &all);
 	mlx_hook(mlx_data.win, 17, 0, clos, &scene);
-	render(&scene, &mlx_data);
+	render(all);
 	mlx_loop(mlx_data.mlx);
 	free_scene(&scene);
 	return (0);

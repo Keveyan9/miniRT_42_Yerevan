@@ -1,5 +1,5 @@
 /*
-** mlx_new_image.c for MiniLibX in raytraceur
+** mlx_new_image.c for MiniLibX in ray_traceur
 ** 
 ** Made by Charlie Root
 ** Login   <ol@epitech.net>

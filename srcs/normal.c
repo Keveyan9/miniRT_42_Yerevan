@@ -14,46 +14,32 @@
 
 t_vec	sphere_normal(t_vec p, t_vec center)
 {
-	return (normalize(vecSub(p, center)));
+	return (normalize(vec_sub(p, center)));
 }
 
-t_vec topCapCenter(t_cylinder cyl)
+t_vec	top_cap_center(t_cylinder cyl)
 {
-    t_vec top;
+	t_vec	top;
 
-    top = vecScale(-0.5 * cyl.height, cyl.axis);
-    top = vecAdd(cyl.center, top);
-    return (top);
+	top = vec_scale(-0.5 * cyl.height, cyl.axis);
+	top = vec_add(cyl.center, top);
+	return (top);
 }
 
-t_vec bottomCapCenter(t_cylinder cyl)
+t_vec	bottom_cap_center(t_cylinder cyl)
 {
-    t_vec btm;
+	t_vec	btm;
 
-    btm = vecScale(0.5 * cyl.height, cyl.axis);
-    btm = vecAdd(btm, cyl.center);
-    return (btm);
+	btm = vec_scale(0.5 * cyl.height, cyl.axis);
+	btm = vec_add(btm, cyl.center);
+	return (btm);
 }
 
-t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
+t_vec	cylinder_normal(t_cylinder cylin, t_cross cross, float m)
 {
-	t_vec	bottom_center;
-	t_vec	top_center;
-	t_vec	v;
-	t_vec	pt;
-	float	t;
+	t_vec	norm;
 
-	bottom_center = bottomCapCenter(cyl);
-	top_center = topCapCenter(cyl);
-	if (distance(p, top_center) < cyl.radius)
-		return (cyl.axis);
-	if (distance(p, bottom_center) < cyl.radius)
-		return (vecInverse(cyl.axis));
-	else
-	{
-		v = vecSub(p, bottom_center);
-		t = dotProduct(v, cyl.axis);
-		pt = vecAdd(bottom_center, vecScale(t, cyl.axis));
-		return (normalize(vecSub(p, pt)));
-	}
+	norm = normalize(vec_sub(vec_sub(cross.p,
+					top_cap_center(cylin)), vec_scale(m, cylin.axis)));
+	return (norm);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checkerUtils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 18:08:03 by zkarapet          #+#    #+#             */
+/*   Updated: 2023/07/10 18:08:04 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int	vector_range_check(t_vec *vector, float lower_bound, float upper_bound)
@@ -13,7 +25,7 @@ int	vector_norm_check(t_vec *vector)
 {
 	float	len;
 
-	len = vecNorm(*vector);
+	len = vec_norm(*vector);
 	if (len >= 0.95 && len <= 1)
 		return (1);
 	return (0);

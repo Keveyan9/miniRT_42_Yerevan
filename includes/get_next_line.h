@@ -9,7 +9,6 @@
 /*   Updated: 2023/06/08 01:21:05 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
@@ -34,4 +33,5 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		read_chek(int fd, char **temporary, long int *read_value);
 int		take_temporary(char **temporary, size_t *i_return);
 void	freek(char **s);
+
 #endif

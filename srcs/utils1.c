@@ -1,11 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 18:15:46 by zkarapet          #+#    #+#             */
+/*   Updated: 2023/07/10 18:15:48 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-float ft_atof(char *str)
+void	atof_check(char *str, float *result, float fraction)
 {
-	float result = 0.0;
-	float sign = 1.0;
-	float fraction = 0.1;
+	str++;
+	while (ft_isdigit(*str))
+	{
+		*result += (*str - '0') * fraction;
+		fraction /= 10.0;
+		str++;
+	}
+}
 
+float	ft_atof(char *str)
+{
+	float	result;
+	float	sign;
+	float	fraction;
+
+	result = 0.0;
+	sign = 1;
+	fraction = 0.1;
 	while (ft_isspace(*str))
 		str++;
 	if (*str == '-')
@@ -21,15 +47,7 @@ float ft_atof(char *str)
 		str++;
 	}
 	if (*str == '.')
-	{
-		str++;
-		while (ft_isdigit(*str))
-		{
-			result += (*str - '0') * fraction;
-			fraction /= 10.0;
-			str++;
-		}
-	}
+		atof_check(str, &result, fraction);
 	return (result * sign);
 }
 
@@ -43,7 +61,7 @@ int	ft_double_len(char **str)
 	return (i);
 }
 
-bool	isInRangeCheck(float number, float lower, float upper)
+bool	is_in_range_check(float number, float lower, float upper)
 {
 	if (number >= lower && number <= upper)
 		return (true);
@@ -57,16 +75,4 @@ void	swap(float	*a, float *b)
 	c = *a;
 	*a = *b;
 	*b = c;
-}
-
-float	findMin(float a, float b, float c)
-{
-	if (a < b && a < c)
-		return (a);
-	else if (b < a && b <=c)
-		return (b);
-	else if (c < a && c < b)
-		return (c);
-	else 
-		return (INFINITY);
 }

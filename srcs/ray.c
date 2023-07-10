@@ -1,78 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 18:14:31 by zkarapet          #+#    #+#             */
+/*   Updated: 2023/07/10 18:14:32 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_vec   gettingWPrime(t_matrix lookAt)
+t_vec	getting_wprime(t_matrix look_at)
 {
-    t_vec   wPrime;
-    t_vec   uCoeff;
-    t_vec   vCoeff;
-    t_vec   wCoeff;
+	t_vec	w_prime;
+	t_vec	u_coeff;
+	t_vec	v_coeff;
+	t_vec	w_coeff;
 
-    uCoeff = vecScale(((float)-(WIDTH - 1)/2), lookAt.right);
-    vCoeff = vecScale(((float)(HEIGHT - 1)/2), lookAt.up);
-    wCoeff = vecScale(500, lookAt.forward);
-    wPrime = vecAdd(vecAdd(uCoeff, vCoeff), wCoeff);
-    return(wPrime);
+	u_coeff = vec_scale((-(float)(WIDTH - 1) / 2), look_at.right);
+	v_coeff = vec_scale(((float)(HEIGHT - 1) / 2), look_at.up);
+	w_coeff = vec_scale(500, look_at.forward);
+	w_prime = vec_add(vec_add(u_coeff, v_coeff), w_coeff);
+	return (w_prime);
 }
 
-t_vec   rayDirGenerate(t_matrix lookAt, float x, float y)
+t_vec	ray_dir_generate(t_matrix look_at, float x, float y)
 {
-    t_vec   rayDir;
-    t_vec   xu;
-    t_vec   yMinusv;
-    t_vec   wPrime;
+	t_vec	ray_dir;
+	t_vec	xu;
+	t_vec	yminusv;
+	t_vec	w_prime;
 
-    xu = vecScale(x, lookAt.right);
-    yMinusv = vecScale(y, vecScale(-1, lookAt.up));
-    wPrime = gettingWPrime(lookAt);
-    rayDir = vecAdd(vecAdd(xu, yMinusv), wPrime);
-    rayDir = normalize(rayDir);
-    return (rayDir);
+	xu = vec_scale(x, look_at.right);
+	yminusv = vec_scale(y, vec_scale(-1, look_at.up));
+	w_prime = getting_wprime(look_at);
+	ray_dir = vec_add(vec_add(xu, yminusv), w_prime);
+	ray_dir = normalize(ray_dir);
+	return (ray_dir);
 }
 
-// t_vec   vecMultMatrix(t_matrix m, t_vec v)
-// {
-//     t_vec   dest;
-
-//     // print_vec(m.forward, "forward isss\n");
-//     // print_vec(m.up, "up isss\n");
-//     // print_vec(m.right, "right isss\n");
-//     dest.x = v.x * m.right.x + v.y * m.up.x + v.z * m.forward.x;
-//     dest.y = v.x * m.right.y + v.y * m.up.y + v.z * m.forward.y;
-//     dest.z = v.x * m.right.z + v.y * m.up.z + v.z * m.forward.z;
-//     return (dest);
-// }
-
-// t_vec   rayDirGenerate(t_matrix lookAt, t_cam camera, float x, float y)
-// {
-//     t_vec   rayDir;
-//     float   scale;
-//     float   aspectRatio;
-
-//     if (HEIGHT < WIDTH)
-//         aspectRatio = (float)WIDTH / (float)HEIGHT;
-//     else
-//         aspectRatio = (float)HEIGHT / (float)WIDTH;
-//     // printf("aspectratio == %f\n", aspectRatio);
-//     scale = tan((camera.fov * 0.5 * M_PI) / 180);
-//     // printf("scale == %f\n", scale);
-//     rayDir.x = (2.0 * (x + 0.5) / (float)WIDTH - 1.0) * scale * aspectRatio;
-//     // printf("rayDir.x == %f\n", rayDir.x);
-//     rayDir.y = (1.0 - 2.0 * (y + 0.5) / (float)HEIGHT) * scale;
-//     // printf("rayDir.y == %f\n", rayDir.y);
-//     rayDir.z = FOCAL_DIST;
-//     rayDir = vecMultMatrix(lookAt, rayDir);
-//     rayDir = normalize(rayDir);
-//     return (rayDir);
-// }
-
-t_ray   rayGenerate(float x, float y, t_cam camera)
+t_ray	ray_generate(float x, float y, t_cam camera)
 {
-    t_ray       ray;
-    t_matrix    lookAt;
+	t_ray		ray;
+	t_matrix	lookat;
 
-    ray.orig = camera.orig;
-    LookAt(&lookAt, camera);
-    ray.dir = rayDirGenerate(lookAt, x, y);
-    return (ray);
+	ray.orig = camera.orig;
+	look_at(&lookat, camera);
+	ray.dir = ray_dir_generate(lookat, x, y);
+	return (ray);
 }
-

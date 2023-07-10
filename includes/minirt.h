@@ -146,7 +146,7 @@ void			LookAt(t_matrix *matrix, t_cam camera);
 
 //rayTrace
 bool			rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross);
-
+void			calculate(t_all *all , int x, int y);
 ///cline
 void			free_scene(t_scene *s);
 

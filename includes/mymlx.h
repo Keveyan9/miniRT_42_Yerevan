@@ -18,7 +18,7 @@ typedef struct s_all
     t_scene *scene;
     int x;
     int y;
-    
+    int check;
 }   t_all;
 
 #endif

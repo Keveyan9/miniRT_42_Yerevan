@@ -34,3 +34,12 @@ t_vec	bottom_cap_center(t_cylinder cyl)
 	btm = vec_add(btm, cyl.center);
 	return (btm);
 }
+
+t_vec	cylinder_normal(t_cylinder cylin, t_cross cross, float m)
+{
+	t_vec	norm;
+
+	norm = normalize(vec_sub(vec_sub(cross.p,
+					top_cap_center(cylin)), vec_scale(m, cylin.axis)));
+	return (norm);
+}

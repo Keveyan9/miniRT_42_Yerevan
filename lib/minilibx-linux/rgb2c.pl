@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-## rgb2c.pl for MiniLibX in /home/boulon/work/c/raytraceur/minilibx
+## rgb2c.pl for MiniLibX in /home/boulon/work/c/ray_traceur/minilibx
 ## 
 ## Made by Olivier Crouzet
 ## Login   <ol@epitech.net>

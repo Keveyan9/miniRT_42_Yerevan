@@ -22,25 +22,25 @@ bool	solve_quadratic(t_quadratic *q)
 	return (true);
 }
 
-t_vec cylinder_normal2(t_cylinder cylin, t_cross cross, float m)
+void	fill_quadratic(t_quadratic *q, t_ray ray, t_vec x, t_cylinder cylin)
 {
-	t_vec norm;
-
-	norm = normalize(vec_sub(vec_sub(cross.p, top_cap_center(cylin)), vec_scale(m, cylin.axis)));
-	return (norm);
+	q->a = dot_product(ray.dir, ray.dir)
+		- pow(dot_product(ray.dir, cylin.axis), 2);
+	q->c = dot_product(x, x)
+		- pow(dot_product(x, cylin.axis), 2) - cylin.radius * cylin.radius;
+	q->b = 2 * (dot_product(ray.dir, x)
+			- dot_product(ray.dir, cylin.axis) * dot_product(x, cylin.axis));
 }
 
-bool intersect_infinite_cylin(t_ray ray, t_cylinder cylin, t_cross *cross)
+bool	intersect_infinite_cylin(t_ray ray, t_cylinder cylin, t_cross *cross)
 {
-	t_quadratic q;
-	t_vec X;
-	float m;
+	t_quadratic	q;
+	t_vec		x;
+	float		m;
 
 	cylin.top_cap_cent = top_cap_center(cylin);
-	X = vec_sub(ray.orig, cylin.top_cap_cent);
-	q.a = dot_product(ray.dir, ray.dir) - pow(dot_product(ray.dir, cylin.axis), 2);
-	q.c = dot_product(X, X) - pow(dot_product(X, cylin.axis), 2) - cylin.radius * cylin.radius;
-	q.b = 2 * (dot_product(ray.dir, X) - dot_product(ray.dir, cylin.axis) * dot_product(X, cylin.axis));
+	x = vec_sub(ray.orig, cylin.top_cap_cent);
+	fill_quadratic(&q, ray, x, cylin);
 	if (!solve_quadratic(&q) || (q.t2 <= EPSILON && q.t1 <= EPSILON))
 		return (false);
 	if (q.t1 <= EPSILON || (q.t2 > EPSILON && (q.t2 < q.t1)))
@@ -48,32 +48,32 @@ bool intersect_infinite_cylin(t_ray ray, t_cylinder cylin, t_cross *cross)
 	if (cross->t < 0)
 		return (false);
 	cross->t = q.t1;
-	m = dot_product(ray.dir, cylin.axis) * cross->t + dot_product(X, cylin.axis);
-	if (m >= 0 && m <= cylin.height)
-	{
-		point_calc(&cross->p, ray, cross->t);
-		cross->n = cylinder_normal2(cylin, *cross, m);
-		cross->color = cylin.tint;
-		return (true);
-	}
-	return (false);
+	m = dot_product(ray.dir, cylin.axis)
+		* cross->t + dot_product(x, cylin.axis);
+	if (m < 0 || m > cylin.height)
+		return (false);
+	point_calc(&cross->p, ray, cross->t);
+	cross->n = cylinder_normal(cylin, *cross, m);
+	cross->color = cylin.tint;
+	return (true);
 }
 
-void cap_check(t_cross cross_pl, t_cylinder cylin, float *t, t_cross *tmp)
+void	cap_check(t_cross cross_pl, t_cylinder cylin, float *t, t_cross *tmp)
 {
-	if (distance(cross_pl.p, cylin.top_cap_cent) <= cylin.radius && cross_pl.t < *t)
+	if (distance(cross_pl.p, cylin.top_cap_cent)
+		<= cylin.radius && cross_pl.t < *t)
 	{
 		*tmp = cross_pl;
 		*t = cross_pl.t;
 	}
 }
 
-bool intersect_cylin(t_ray ray, t_cylinder cylin, t_cross *cross)
+bool	intersect_cylin(t_ray ray, t_cylinder cylin, t_cross *cross)
 {
-	t_plane plane;
-	t_cross cross_pl;
-	t_cross tmp;
-	float t;
+	t_plane	plane;
+	t_cross	cross_pl;
+	t_cross	tmp;
+	float	t;
 
 	t = INFINITY;
 	plane.point = cylin.top_cap_cent;

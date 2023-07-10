@@ -127,7 +127,7 @@ t_color			final_color(t_cross *cross, t_color amb,
 t_vec			sphere_normal(t_vec p, t_vec center);
 t_vec			top_cap_center(t_cylinder cyl);
 t_vec			bottom_cap_center(t_cylinder cyl);
-t_vec			cylinder_normal(t_cylinder cyl, t_vec p);
+t_vec			cylinder_normal(t_cylinder cylin, t_cross cross, float m);
 void			render(t_scene *scene, t_mlx *mlx_data);
 
 //colorOperations.c
@@ -142,10 +142,11 @@ void			mlx_data_init(t_mlx *mlx_data);
 //look_at.c
 void			look_at(t_matrix *matrix, t_cam camera);
 
-//rayTrace
-bool			rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross);
+//ray_trace
+bool			ray_trace(t_scene *scene, t_ray ray, t_cross **final_cross);
 
 ///cline
 void			free_scene(t_scene *s);
 int				is_rt_file(char *path);
+
 #endif

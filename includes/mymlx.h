@@ -1,5 +1,5 @@
-#ifndef MYMlX_H
-# define MYMlX_H
+#ifndef MYMMlX_H
+# define MYMMlX_H
 
 typedef struct s_mlx
 {

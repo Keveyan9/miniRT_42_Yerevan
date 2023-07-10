@@ -1,7 +1,5 @@
-#ifndef	MYMLX_H
-# define MYMLX_H
-
-# include "minirt.h"
+#ifndef MYMMlX_H
+# define MYMMlX_H
 
 typedef struct s_mlx
 {
@@ -13,13 +11,11 @@ typedef struct s_mlx
 	int		line_length;
 	int		endian;
 }	t_mlx;
-typedef struct s_oll
-{
-    t_mlx    *mlxData;
-    t_scene *scene;
-	int		x;
-	int		y;
 
-}   t_oll;
+typedef struct s_all
+{
+	t_mlx	*mlx_data;
+	t_scene	*scene;
+}	t_all;
 
 #endif

@@ -1,5 +1,5 @@
 /*
-** mlx_get_data_addr.c for MiniLibX in raytraceur
+** mlx_get_data_addr.c for MiniLibX in ray_traceur
 ** 
 ** Made by Charlie Root
 ** Login   <ol@epitech.net>

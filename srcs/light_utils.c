@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/07 11:51:31 by aivanyan          #+#    #+#             */
+/*   Updated: 2023/07/10 12:42:43 by aivanyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color	colorMul(t_color c, float f)
+t_color	color_mul(t_color c, float f)
 {
 	t_color	col;
 
@@ -11,7 +22,7 @@ t_color	colorMul(t_color c, float f)
 	return (col);
 }
 
-t_color	init_color(float r, float g, float b)
+t_color	init_rgb(float r, float g, float b)
 {
 	t_color	c;
 
@@ -25,8 +36,8 @@ t_vec	reflect_vec(t_vec l, t_vec n)
 {
 	t_vec	r;
 
-	r = vecMul(n, 2 * dotProduct(l, n));
-	r = vecSub(l, r);
+	r = vec_mul(n, 2 * dot_product(l, n));
+	r = vec_sub(l, r);
 	return (r);
 }
 
@@ -40,7 +51,6 @@ void	point_calc(t_vec *p, t_ray r, float t)
 t_color	final_color(t_cross *cross, t_color amb, t_color diff, t_color spec)
 {
 	t_color	col;
-
 
 	col.r = amb.r + diff.r + spec.r;
 	col.g = amb.g + diff.g + spec.g;

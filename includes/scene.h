@@ -3,7 +3,7 @@
 
 # include "vectorRay.h"
 
-# define SPLIT_SET	" \t\v\b"
+# define SPLIT_SET " \t\v\b"
 
 typedef struct s_ambient
 {
@@ -36,9 +36,9 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	t_vec	point;
-	t_vec	normal;
-	t_color	tint;
+	t_vec			point;
+	t_vec			normal;
+	t_color			tint;
 	struct s_plane	*next;
 }	t_plane;
 
@@ -47,8 +47,8 @@ typedef struct s_cylinder
 	t_vec				center;
 	t_vec				axis;
 	t_color				tint;
-	t_vec				topCapCent;
-	t_vec				bottomCapCent;
+	t_vec				top_cap_cent;
+	t_vec				bottom_cap_cent;
 	float				radius;
 	float				height;
 	struct s_cylinder	*next;
@@ -65,6 +65,7 @@ typedef struct s_scene
 	t_plane		*begin_plane;
 	t_cylinder	*cylin;
 	t_cylinder	*begin_cylinder;
+	char		**vec_splitted;
 }	t_scene;
 
 #endif

@@ -9,9 +9,8 @@
 /*   Updated: 2023/06/08 01:21:05 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_lINE_H
+# define GET_NEXT_lINE_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1

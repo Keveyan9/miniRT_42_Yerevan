@@ -1,167 +1,146 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rayTrace.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 18:15:22 by zkarapet          #+#    #+#             */
+/*   Updated: 2023/07/10 18:15:23 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_cross	*loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
+t_cross	*loop_sphere_list(t_sphere *sphere, t_ray ray, t_scene *scene)
 {
-    t_sphere *head;
-    t_cross *cross;
-    t_cross tmpCross;
+	t_sphere	*head;
+	t_cross		*cross;
+	t_cross		tmp_cross;
 
-    head = sphere;
-    cross = malloc(sizeof(t_cross));
-    if (!cross)
-        exit_code(1, "cross malloc failed", scene, NULL);
-    tmpCross.t = INFINITY;
-    while (head)
-    {
-        if (intersectSphere(ray, *head, cross) && cross->t < tmpCross.t)
-            tmpCross = *cross;
-        head = head->next;
-    }
-    *cross = tmpCross;
-    return (cross);
+	head = sphere;
+	cross = malloc(sizeof(t_cross));
+	if (!cross)
+		exit_code(1, "cross malloc failed", scene, NULL);
+	tmp_cross.t = INFINITY;
+	while (head)
+	{
+		if (intersect_sphere(ray, *head, cross) && cross->t < tmp_cross.t)
+			tmp_cross = *cross;
+		head = head->next;
+	}
+	*cross = tmp_cross;
+	return (cross);
 }
 
-t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
+t_cross	*loop_plane_list(t_plane *plane, t_ray ray, t_scene *scene)
 {
-    t_plane *head;
-    t_cross *cross;
-    t_cross tmpCross;
- 
-    head = plane;
-    cross = malloc(sizeof(t_cross));
-    if (!cross)
-        exit_code(1, "cross malloc failed", scene, NULL);
-    tmpCross.t = INFINITY;
-    while (head)
-    {
-        if (intersectPlane(ray, *head, cross) && cross->t < tmpCross.t)
-            tmpCross = *cross;
-        head = head->next;
-    }
-    *cross = tmpCross;
-    return (cross);
+	t_plane	*head;
+	t_cross	*cross;
+	t_cross	tmp_cross;
+
+	head = plane;
+	cross = malloc(sizeof(t_cross));
+	if (!cross)
+		exit_code(1, "cross malloc failed", scene, NULL);
+	tmp_cross.t = INFINITY;
+	while (head)
+	{
+		if (intersect_plane(ray, *head, cross) && cross->t < tmp_cross.t)
+			tmp_cross = *cross;
+		head = head->next;
+	}
+	*cross = tmp_cross;
+	return (cross);
 }
 
-t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
+t_cross	*loop_cylin_list(t_cylinder *cylin, t_ray ray, t_scene *scene)
 {
-    t_cylinder  *head;
-    t_cross     *cross;
-    t_cross tmpCross;
+	t_cylinder	*head;
+	t_cross		*cross;
+	t_cross		tmp_cross;
 
-    head = cylin;
-    cross = malloc(sizeof(t_cross));
-    if (!cross)
-        exit_code(1, "cross malloc failed", scene, NULL);
-    tmpCross.t = INFINITY;
-    while (head)
-    {
-        if (intersectCylin2(ray, *head, cross) && cross->t < tmpCross.t)
-            tmpCross = *cross;
-        head = head->next;
-    }
-    *cross = tmpCross;
-    return (cross);
+	head = cylin;
+	cross = malloc(sizeof(t_cross));
+	if (!cross)
+		exit_code(1, "cross malloc failed", scene, NULL);
+	tmp_cross.t = INFINITY;
+	while (head)
+	{
+		if (intersect_cylin(ray, *head, cross) && cross->t < tmp_cross.t)
+			tmp_cross = *cross;
+		head = head->next;
+	}
+	*cross = tmp_cross;
+	return (cross);
 }
 
-bool	rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross)
+bool	ray_trace(t_scene *scene, t_ray ray, t_cross **final_cross)
 {
-	float	tNear;
-	t_cross	*crossPlane;
-	t_cross	*crossSphere;
-	t_cross	*crossCylin;
+	float	t_near;
+	t_cross	*cross_plane;
+	t_cross	*cross_sphere;
+	t_cross	*cross_cylin;
 
-	tNear = INFINITY;
-	crossPlane = loopPlaneList(scene->plane, ray, scene);
-	crossCylin = loopCylinList(scene->cylin, ray, scene);
-	crossSphere = loopSphereList(scene->sphere, ray, scene);
-	tNear = findMin(crossPlane->t, crossSphere->t, crossCylin->t);
-	if (tNear == crossPlane->t)
+	t_near = INFINITY;
+	cross_plane = loop_plane_list(scene->plane, ray, scene);
+	cross_cylin = loop_cylin_list(scene->cylin, ray, scene);
+	cross_sphere = loop_sphere_list(scene->sphere, ray, scene);
+	t_near = find_min(cross_plane->t, cross_sphere->t, cross_cylin->t);
+	if (t_near == cross_plane->t)
 	{
-		*finalCross = crossPlane;
-		free_null(crossSphere);
-		free_null(crossCylin);
+		*final_cross = cross_plane;
+		free_null(cross_sphere);
+		free_null(cross_cylin);
 	}
-	else if (tNear == crossSphere->t)
+	else if (t_near == cross_sphere->t)
 	{
-		*finalCross = crossSphere;
-		free_null(crossPlane);
-		free_null(crossCylin);
+		*final_cross = cross_sphere;
+		free_null(cross_plane);
+		free_null(cross_cylin);
 	}
-	else if (tNear == crossCylin->t)
+	else if (t_near == cross_cylin->t)
 	{
-		*finalCross = crossCylin;
-		free_null(crossPlane);
-		free_null(crossSphere);
+		*final_cross = cross_cylin;
+		free_null(cross_plane);
+		free_null(cross_sphere);
 	}
-	if (tNear != INFINITY)
+	if (t_near != INFINITY)
 		return (1);
 	return (0);
 }
 
-int create_rgb(int r, int g, int b)
+int	create_rgb(int r, int g, int b)
 {
-    return (r << 16 | g << 8 | b);
+	return (r << 16 | g << 8 | b);
 }
 
-
-static void calculate(t_oll *oll , int x, int y)
+void	render(t_scene *scene, t_mlx *mlx_data)
 {
-	t_cross			*finalCross;
-	t_ray			ray;
-	t_color			col;
+	int				xy[2];
 	unsigned int	color;
-	
-	finalCross = NULL;
-	ray = rayGenerate(x, y, *(oll->scene->cam));
-	rayTrace(oll->scene, ray, &finalCross);
-	if (finalCross->t == INFINITY)
-		color = create_rgb (0, 0, 0);
-		else
-		{
-			col = final_lighting(oll->scene, finalCross);
-			color = makeIntFromRGB(col);
-		}
-	free_null(finalCross);
-	my_mlx_pixel_put(oll->mlxData, x, y, color);
-}
+	t_ray			ray;
+	t_cross			*final_cross;
+	t_color			col;
 
-void *thread_width_function(void *data)
-{
-	t_oll 		*oll;
-	int			xy[2];
-	oll = data;
-	xy[0] =	oll->x;
+	final_cross = NULL;
 	xy[1] = -1;
-	while (++(xy[1]) < HEIGHT)
-		calculate(oll,xy[0],xy[1]);
-	return (NULL);
-}
-
-void	render(t_oll *oll)
-{
-	int	result_w;
-	int	count_treads;
-	int	cycle;
-	pthread_t threads[WIDTH];
-
-	result_w = 0;
-	cycle = 0;
-	count_treads = 0;
-	
-	oll->x = -1;
-	while (++(oll->x) <  WIDTH)
+	while (++xy[1] < HEIGHT)
 	{
-		// thread_width_function(oll);
-		result_w = pthread_create(&threads[count_treads++], NULL, thread_width_function, oll);
-		if (result_w != 0) 
+		xy[0] = -1;
+		while (++xy[0] < WIDTH)
 		{
-			perror("Thread creation failed");
-			exit(EXIT_FAILURE);
+			ray = ray_generate(xy[0], xy[1], *(scene->cam));
+			if (!ray_trace(scene, ray, &final_cross))
+				color = create_rgb(0, 0, 0);
+			else
+			{
+				col = final_lighting(scene, final_cross);
+				color = make_int_from_rgb(col);
+			}
+			free_null(final_cross);
+			my_mlx_pixel_put(mlx_data, xy[0], xy[1], color);
 		}
-		usleep (250);
 	}
-	while(cycle < WIDTH)
-		 pthread_join(threads[cycle++], NULL);
-	mlx_put_image_to_window(oll->mlxData->mlx, oll->mlxData->win,oll->mlxData->img, 0, 0);
-	return;
+	mlx_put_image_to_window(mlx_data->mlx, mlx_data->win, mlx_data->img, 0, 0);
 }

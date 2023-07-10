@@ -1,112 +1,123 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checkers.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 18:07:45 by zkarapet          #+#    #+#             */
+/*   Updated: 2023/07/10 18:07:47 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-void	checkVector(char **vec_splitted, t_vec *vector,
-		float lower_bound, float upper_bound, t_scene *scene)
+void	check_vector(t_vec *vector, float lower, float upper, t_scene *scene)
 {
-	if (ft_double_len(vec_splitted) != 3)
+	if (ft_double_len(scene->vec_splitted) != 3)
 		exit_code(1, "Invalid number of parameters for vector\n",
-			scene, vec_splitted);
-	if (!only_digit_in_str(vec_splitted[0]))
-		exit_code(1, "X coordinate of vector is invalid\n", scene, vec_splitted);
-	if (!only_digit_in_str(vec_splitted[1]))
-		exit_code(1, "Y coordinate of vector is invalid\n", scene, vec_splitted);
-	if (!only_digit_in_str(vec_splitted[2]))
-		exit_code(1, "Z coordinate of vector is invalid\n", scene, vec_splitted);
-	vector->x = ft_atof(vec_splitted[0]);
-	vector->y = ft_atof(vec_splitted[1]);
-	vector->z = ft_atof(vec_splitted[2]);
-	if (lower_bound != -8 && vector_range_check(vector,
-		lower_bound, upper_bound) == 0)
+			scene, scene->vec_splitted);
+	if (!only_digit_in_str(scene->vec_splitted[0]))
+		exit_code(1, "X is invalid\n", scene, scene->vec_splitted);
+	if (!only_digit_in_str(scene->vec_splitted[1]))
+		exit_code(1, "Y is invalid\n", scene, scene->vec_splitted);
+	if (!only_digit_in_str(scene->vec_splitted[2]))
+		exit_code(1, "Z is invalid\n", scene, scene->vec_splitted);
+	vector->x = ft_atof(scene->vec_splitted[0]);
+	vector->y = ft_atof(scene->vec_splitted[1]);
+	vector->z = ft_atof(scene->vec_splitted[2]);
+	if (lower != -8 && vector_range_check(vector, lower, upper) == 0)
 		exit_code(1, "Vector coordinates are out of range\n",
-			scene, vec_splitted);
-	else if (lower_bound == -8 && vector_norm_check(vector) == 0)
-		exit_code(1, "Vector's norm is out of range\n", scene, vec_splitted);
-	if(vec_splitted)
-		double_free(vec_splitted);
+			scene, scene->vec_splitted);
+	else if (lower == -8 && vector_norm_check(vector) == 0)
+		exit_code(1, "Vector is not unit\n", scene, scene->vec_splitted);
+	if (scene->vec_splitted)
+		double_free(scene->vec_splitted);
 }
 
-void	checkColor(char **vec_splitted, t_color *tint, t_scene *scene)
-
+void	check_color(t_color *tint, t_scene *scene)
 {
-	if (ft_double_len(vec_splitted) != 3)
+	if (ft_double_len(scene->vec_splitted) != 3)
 		exit_code(1, "Invalid number of parameters for color\n",
-			scene, vec_splitted);
-	if (!only_digit_in_str(vec_splitted[0]))
-		exit_code(1, "R of color is invalid\n", scene, vec_splitted);
-	if (!only_digit_in_str(vec_splitted[1]))
-		exit_code(1, "G of color is invalid\n", scene, vec_splitted);
-	if (!only_digit_in_str(vec_splitted[2])) 
-		exit_code(1, "B of color is invalid\n", scene, vec_splitted);
-	tint->r = ft_atof(vec_splitted[0]);
-	tint->g = ft_atof(vec_splitted[1]);
-	tint->b = ft_atof(vec_splitted[2]);
+			scene, scene->vec_splitted);
+	if (!only_digit_in_str(scene->vec_splitted[0]))
+		exit_code(1, "R of color is invalid\n", scene, scene->vec_splitted);
+	if (!only_digit_in_str(scene->vec_splitted[1]))
+		exit_code(1, "G of color is invalid\n", scene, scene->vec_splitted);
+	if (!only_digit_in_str(scene->vec_splitted[2]))
+		exit_code(1, "B of color is invalid\n", scene, scene->vec_splitted);
+	tint->r = ft_atof(scene->vec_splitted[0]);
+	tint->g = ft_atof(scene->vec_splitted[1]);
+	tint->b = ft_atof(scene->vec_splitted[2]);
 	if (color_range_check(tint) == 0)
 		exit_code(1, "Color coordinates are out of range\n",
-			scene, vec_splitted);
-	if(vec_splitted)
-		double_free(vec_splitted);
-	
+			scene, scene->vec_splitted);
+	if (scene->vec_splitted)
+		double_free(scene->vec_splitted);
 }
 
-void checker_A(char **splitted_A, t_scene *scene)
+void	checker_a(char **splitted_a, t_scene *scene)
 {
-
 	float	ratio;
-	char	**rgb_splitted;
 	t_color	color;
 	int		len;
 
 	ratio = 1;
-	len = ft_double_len(splitted_A);
+	len = ft_double_len(splitted_a);
 	if (len != 3)
-		if (!(len == 4 && splitted_A[3][0] == '\n'))
+		if (!(len == 4 && splitted_a[3][0] == '\n'))
 			exit_code(1, "Invalid number of parameters for A\n",
-			scene, splitted_A);
-	ratio = ft_atof(splitted_A[1]);
+				scene, splitted_a);
+	ratio = ft_atof(splitted_a[1]);
+	if (!only_digit_in_str(splitted_a[1]))
+		exit_code(1, "ratio for A is invalid\n", scene, splitted_a);
 	if (ratio < 0.0 || ratio > 1.0)
-		exit_code(1, "Ratio is out of range for A\n", scene, splitted_A);
-	rgb_splitted = ft_split(splitted_A[2], ',');
-	checkColor(rgb_splitted, &color, scene);
-	scene->amb = initAmbient(ratio, color, scene);
+		exit_code(1, "Ratio is out of range for A\n", scene, splitted_a);
+	scene->vec_splitted = ft_split(splitted_a[2], ',');
+	check_color(&color, scene);
+	scene->amb = init_ambient(ratio, color, scene);
 }
 
-void checker_C(char **splitted_C, t_scene *scene)
+void	checker_c(char **splitted_c, t_scene *scene)
 {
-	char **origin;
-	t_vec originVec;
-	t_vec orientVec;
-	float fov;
-	int len;
+	t_vec	origin_vec;
+	t_vec	orient_vec;
+	float	fov;
+	int		len;
 
-	len = ft_double_len(splitted_C);
+	len = ft_double_len(splitted_c);
 	if (len != 4)
-		if (!(len == 5 && splitted_C[4][0] == '\n'))
-			exit_code(1, "Invalid number of parameters for C\n", scene, splitted_C);
-	origin = ft_split(splitted_C[1], ',');
-	checkVector(origin, &originVec, INT_MIN, FLT_MAX,scene);
-	checkVector(ft_split(splitted_C[2], ','), &orientVec, -8, 1,scene);
-	fov = ft_atof(splitted_C[3]);
+		if (!(len == 5 && splitted_c[4][0] == '\n'))
+			exit_code(1, "Invalid parameters for C\n", scene, splitted_c);
+	scene->vec_splitted = ft_split(splitted_c[1], ',');
+	check_vector(&origin_vec, INT_MIN, FLT_MAX, scene);
+	scene->vec_splitted = ft_split(splitted_c[2], ',');
+	check_vector(&orient_vec, -8, 1, scene);
+	fov = ft_atof(splitted_c[3]);
 	if (fov < 0.0 || fov > 180.0)
-		exit_code(1, "fov is out of range for C\n", scene, splitted_C);
-	scene->cam = initCam(originVec, orientVec, fov,scene);
-
+		exit_code(1, "fov is out of range for C\n", scene, splitted_c);
+	scene->cam = init_cam(origin_vec, orient_vec, fov, scene);
 }
 
-void checker_L(char **splitted_L, t_scene *scene)
+void	checker_l(char **splitted_l, t_scene *scene)
 {
-	t_vec origin_vec;
-	float ratio;
-	t_color color;
-	int len;
-	
-	len = ft_double_len(splitted_L);
+	t_vec	origin_vec;
+	float	ratio;
+	t_color	color;
+	int		len;
+
+	len = ft_double_len(splitted_l);
 	if (len != 4)
-		if (!(len == 5 && splitted_L[4][0] == '\n'))
-				exit_code(1, "Invalid number of parameters for L\n",scene, splitted_L);
-	checkVector(ft_split(splitted_L[1], ','), &origin_vec, INT_MIN, FLT_MAX ,scene);
-	ratio = ft_atof(splitted_L[2]);
+		if (!(len == 5 && splitted_l[4][0] == '\n'))
+			exit_code(1, "Invalid parameters for l\n", scene, splitted_l);
+	scene->vec_splitted = ft_split(splitted_l[1], ',');
+	check_vector(&origin_vec, INT_MIN, FLT_MAX, scene);
+	ratio = ft_atof(splitted_l[2]);
+	if (!only_digit_in_str(splitted_l[2]))
+		exit_code(1, "ratio for l is invalid\n", scene, splitted_l);
 	if (ratio < 0.0 || ratio > 1.0)
-		exit_code(1, "Ratio is out of range for L\n", scene, splitted_L);
-	checkColor(ft_split(splitted_L[3], ','), &color,scene);
-	scene->light = initLight(origin_vec, ratio, color, scene);
+		exit_code(1, "Ratio is out of range for l\n", scene, splitted_l);
+	scene->vec_splitted = ft_split(splitted_l[3], ',');
+	check_color(&color, scene);
+	scene->light = initlight(origin_vec, ratio, color, scene);
 }

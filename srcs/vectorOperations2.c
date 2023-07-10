@@ -12,34 +12,44 @@
 
 #include "minirt.h"
 
-t_vec	sphere_normal(t_vec p, t_vec center)
+t_vec	vec_scale(float n, t_vec p)
 {
-	return (normalize(vec_sub(p, center)));
+	t_vec	v;
+
+	v.x = n * p.x;
+	v.y = n * p.y;
+	v.z = n * p.z;
+	return (v);
 }
 
-t_vec	top_cap_center(t_cylinder cyl)
+float	distance(t_vec p1, t_vec p2)
 {
-	t_vec	top;
-
-	top = vec_scale(-0.5 * cyl.height, cyl.axis);
-	top = vec_add(cyl.center, top);
-	return (top);
+	return (sqrt(pow(p2.x - p1.x, 2)
+			+ pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2)));
 }
 
-t_vec	bottom_cap_center(t_cylinder cyl)
+float	vec_norm(t_vec vec)
 {
-	t_vec	btm;
+	float	norm;
 
-	btm = vec_scale(0.5 * cyl.height, cyl.axis);
-	btm = vec_add(btm, cyl.center);
-	return (btm);
-}
-
-t_vec	cylinder_normal(t_cylinder cylin, t_cross cross, float m)
-{
-	t_vec	norm;
-
-	norm = normalize(vec_sub(vec_sub(cross.p,
-					top_cap_center(cylin)), vec_scale(m, cylin.axis)));
+	norm = sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 	return (norm);
+}
+
+t_vec	vec_mul(t_vec v, float f)
+{
+	t_vec	vec;
+
+	vec.x = v.x * f;
+	vec.y = v.y * f;
+	vec.z = v.z * f;
+	return (vec);
+}
+
+t_vec	vec_inverse(t_vec v)
+{
+	v.x = -v.x;
+	v.y = -v.y;
+	v.z = -v.z;
+	return (v);
 }

@@ -32,17 +32,17 @@ int checkerForEachObject(char **splitted_line, t_scene *scene)
 	static int L = 0;
 
 	if (ft_strncmp(splitted_line[0], "A", 2) == 0 && ++A)
-		giveError(A, scene, splitted_line, checker_A);
+		giveError(A, scene, splitted_line, checker_a);
 	else if (ft_strncmp(splitted_line[0], "C", 2) == 0 && ++C)
-		giveError(C, scene, splitted_line, checker_C);
+		giveError(C, scene, splitted_line, checker_c);
 	else if (ft_strncmp(splitted_line[0], "L", 2) == 0 && ++L)
-		giveError(L, scene, splitted_line, checker_L);
+		giveError(L, scene, splitted_line, checker_l);
 	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
 		checkerPl(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
 		checkerSp(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "cy", 3) == 0)
-		checkerCy(splitted_line, scene);
+		checker_cy(splitted_line, scene);
 	else
 		exit_code(1, "Invalid argument\n", scene, NULL);
 	return (A + C + L);

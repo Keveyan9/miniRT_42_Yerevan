@@ -54,6 +54,13 @@ typedef struct s_cylinder
 	struct s_cylinder *next;
 } t_cylinder;
 
+typedef	struct	s_parsing
+{
+	char **orientSplitted;
+	char **originSplitted;
+	char **tint;
+}	t_parsing;
+
 typedef struct s_scene
 {
 	t_ambient *amb;
@@ -65,6 +72,8 @@ typedef struct s_scene
 	t_plane *begin_plane;
 	t_cylinder *cylin;
 	t_cylinder *begin_cylinder;
+	char		**vec_splitted;
+	// t_parsing pars;
 } t_scene;
 
 #endif

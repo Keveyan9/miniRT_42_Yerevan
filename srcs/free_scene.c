@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minirt.h"
+#include "minirt.h"
 
 static void	free_sphere(t_sphere *spher)
 {

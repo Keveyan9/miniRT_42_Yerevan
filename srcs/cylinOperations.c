@@ -1,18 +1,18 @@
 #include "minirt.h"
 
-t_cylinder *ft_lstlast_cylin(t_cylinder *lst)
+t_cylinder	*ft_lstlast_cylin(t_cylinder *lst)
 {
 	while (lst && lst->next)
 		lst = lst->next;
 	return (lst);
 }
 
-void ft_lstadd_back_cy(t_cylinder **lst, t_cylinder *new)
+void	ft_lstadd_back_cy(t_cylinder **lst, t_cylinder *new)
 {
-	t_cylinder *position;
+	t_cylinder	*position;
 
 	if (!lst || !new)
-		return;
+		return ;
 	if (*lst == NULL)
 		*lst = new;
 	else
@@ -22,53 +22,44 @@ void ft_lstadd_back_cy(t_cylinder **lst, t_cylinder *new)
 	}
 }
 
-t_cylinder *initCylinder(t_vec center, t_vec normal, t_color tint, float radius, float height)
+t_cylinder	*init_cylinder(t_vec center, t_vec normal, t_color tint, char **cy)
 {
-
 	t_cylinder	*cylinder;
 
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
-		exit_code(1, "cylinder malloc failed",NULL,NULL);
+		exit_code(1, "cylinder malloc failed", NULL, NULL);
 	initVector(center, &(cylinder->center));
 	initVector(normal, &(cylinder->axis));
 	initColor(tint, &(cylinder->tint));
-	cylinder->radius = radius;
-	cylinder->height = height;
+	cylinder->radius = ft_atof(cy[3]) / 2;
+	cylinder->height = ft_atof(cy[4]);
 	cylinder->topCapCent = topCapCenter(*cylinder);
 	cylinder->bottomCapCent = bottomCapCenter(*cylinder);
 	cylinder->next = NULL;
 	return (cylinder);
 }
 
-void checkerCy(char **splitted_cy, t_scene *scene)
+void	checker_cy(char **cy, t_scene *scene)
 {
-	char **orientationSplitted;
-	char **origin;
-	char **tint;
-	t_vec originVec;
-	t_vec orientVec;
-	t_color tintVec;
-	float radius;
-	float height;
+	t_vec	origin_vec;
+	t_vec	orient_vec;
+	t_color	tint_vec;
 	int		len;
 
-	len = ft_double_len(splitted_cy);
+	len = ft_double_len(cy);
 	if (len != 6)
-		if (!(len == 7 && splitted_cy[6][0] == '\n'))
-			exit_code(1, "Invalid number of parameters for cylin\n", scene, NULL);
-	origin = ft_split(splitted_cy[1], ',');
-	orientationSplitted = ft_split(splitted_cy[2], ',');
-	tint = ft_split(splitted_cy[5], ',');
-	radius = ft_atof(splitted_cy[3]) / 2;
-	height = ft_atof(splitted_cy[4]);
-	checkVector(origin, &originVec, INT_MIN, FLT_MAX, scene);
-	checkVector(orientationSplitted, &orientVec, -8, 1, scene);
-	checkColor(tint, &tintVec, scene);
+		if (!(len == 7 && cy[6][0] == '\n'))
+			exit_code(1, "Invalid parameters for cylin\n", scene, NULL);
+	scene->vec_splitted = ft_split(cy[1], ',');
+	check_vector(&origin_vec, INT_MIN, FLT_MAX, scene);
+	scene->vec_splitted = ft_split(cy[2], ',');
+	check_vector(&orient_vec, -8, 1, scene);
+	scene->vec_splitted = ft_split(cy[5], ',');
+	check_color(&tint_vec, scene);
 	if (!scene->cylin)
-		scene->cylin = initCylinder(originVec, orientVec,
-			tintVec, radius, height);
+		scene->cylin = init_cylinder(origin_vec, orient_vec, tint_vec, cy);
 	else
 		ft_lstadd_back_cy(&scene->cylin,
-			initCylinder(originVec, orientVec, tintVec, radius, height));
+			init_cylinder(origin_vec, orient_vec, tint_vec, cy));
 }

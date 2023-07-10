@@ -41,7 +41,7 @@ void	checkerSp(char **splitted_sp, t_scene *scene)
 	char	**center;
 	char	**tint;
 	t_vec	centerVec;
-	t_color	tintVec;
+	t_color	tint_vec;
 	float	radius;
 	int		len;
 
@@ -51,11 +51,11 @@ void	checkerSp(char **splitted_sp, t_scene *scene)
 			exit_code(1, "Invalid number of parameters for sp\n",scene,NULL);
 	center = ft_split(splitted_sp[1], ',');
 	tint = ft_split(splitted_sp[3], ',');
-	checkVector(center, &centerVec, INT_MIN, FLT_MAX,scene);
-	checkColor(tint, &tintVec,scene);
+	check_vector(center, &centerVec, INT_MIN, FLT_MAX,scene);
+	check_color(tint, &tint_vec,scene);
 	radius = ft_atof(splitted_sp[2]);
 	if (!scene->sphere)
-		scene->sphere = initSphere(centerVec, tintVec, radius,scene);
+		scene->sphere = initSphere(centerVec, tint_vec, radius,scene);
 	else
-		ft_lstadd_back_sp(&scene->sphere, initSphere(centerVec, tintVec, radius,scene));
+		ft_lstadd_back_sp(&scene->sphere, initSphere(centerVec, tint_vec, radius,scene));
 }

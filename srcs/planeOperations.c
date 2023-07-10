@@ -42,8 +42,8 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	char	**orientationSplitted;
 	char	**origin;
 	char	**tintSplitted;
-	t_vec	originVec;
-	t_vec	orientVec;
+	t_vec	origin_vec;
+	t_vec	orient_vec;
 	t_color	tint;
 	int		len;
 
@@ -55,12 +55,12 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	origin = ft_split(splitted_pl[1], ',');
 	orientationSplitted = ft_split(splitted_pl[2], ',');
 	tintSplitted = ft_split(splitted_pl[3], ',');
-	checkVector(origin, &originVec, INT_MIN, FLT_MAX, scene);
-	checkVector(orientationSplitted, &orientVec, -8, 1, scene);
-	checkColor(tintSplitted, &tint, scene);
+	check_vector(origin, &origin_vec, INT_MIN, FLT_MAX, scene);
+	check_vector(orientationSplitted, &orient_vec, -8, 1, scene);
+	check_color(tintSplitted, &tint, scene);
 	if (!scene->plane)
-		scene->plane = initPlane(originVec, orientVec, tint, scene);
+		scene->plane = initPlane(origin_vec, orient_vec, tint, scene);
 	else
 		ft_lstadd_back_pl(&scene->plane,
-			initPlane(originVec, orientVec, tint, scene));
+			initPlane(origin_vec, orient_vec, tint, scene));
 }

@@ -55,7 +55,7 @@ t_cross *loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
 	tmpCross.t = INFINITY;
 	while (head)
 	{
-		if (intersectCylin(ray, *head, cross) && cross->t < tmpCross.t)
+		if (intersect_cylin(ray, *head, cross) && cross->t < tmpCross.t)
 			tmpCross = *cross;
 		head = head->next;
 	}

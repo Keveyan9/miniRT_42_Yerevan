@@ -93,19 +93,18 @@ t_cam			*initCam(t_vec origin, t_vec orient, float fov, t_scene *scene);
 t_light			*initLight(t_vec orig, float ratio, \
 					t_color tint, t_scene *scene);
 //checkers.c
-void			checkVector(char **vec_splitted, t_vec *vector, \
-				float lower_bound, float upper_bound, t_scene *scene);
-void			checkColor(char **vec_splitted, t_color *tint, t_scene *scene);
-void			checker_C(char **splitted_C, t_scene *scene);
-void			checker_L(char **splitted_L, t_scene *scene);
-void			checker_A(char **splitted_A, t_scene *scene);
+void			check_vector(t_vec *vector, float lower_bound, float upper_bound, t_scene *scene);
+void			check_color(t_color *tint, t_scene *scene);
+void			checker_c(char **splitted_c, t_scene *scene);
+void			checker_l(char **splitted_l, t_scene *scene);
+void			checker_a(char **splitted_a, t_scene *scene);
 void			checkerPl(char **splitted_pl, t_scene *scene);
 void			checkerSp(char **splitted_sp, t_scene *scene);
-void			checkerCy(char **splitted_cy, t_scene *scene);
+void			checker_cy(char **splitted_cy, t_scene *scene);
 //intersections
 bool			intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
 bool			intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
-bool 			intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
+bool 			intersect_cylin(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
 t_ray			rayGenerate(float x, float y, t_cam camera);
 

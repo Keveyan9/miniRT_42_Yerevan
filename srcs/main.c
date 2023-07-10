@@ -72,10 +72,11 @@ int	main(int argc, char **argv)
 	init_scene(&scene);
 	mlxInit(&mlxData);
 	parsing(argc, argv, &scene);
-	mlx_key_hook(mlxData.win, key_hook_man, &oll);
-	mlx_hook(mlxData.win, 17, 0, clos, &scene);
-	render(&oll);
-	mlx_loop(mlxData.mlx);
-	free_scene(&scene);
+	// mlx_key_hook(mlxData.win, key_hook_man, &oll);
+	// mlx_hook(mlxData.win, 17, 0, clos, &scene);
+	// render(&oll);
+	// mlx_loop(mlxData.mlx);
+	// free_scene(&scene);
+	while(1);
 	return (0);
 }

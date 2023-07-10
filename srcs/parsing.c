@@ -64,8 +64,7 @@ static void	reading_file(int fd, t_scene *scene)
 			double_free(splitted);
 	}
 	if (count != 3)
-		exit_code(1, "upper letter objects are repeated or absent in file\n", \
-			scene, NULL);
+		exit_code(1, "upper letter objects are repeated or absent in file\n", scene, NULL);
 }
 
 void	parsing(int argc, char **argv, t_scene *var_scene)

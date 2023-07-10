@@ -138,7 +138,6 @@ void	render(t_scene *scene, t_mlx *mlx_data)
 			{
 				col = final_lighting(scene, finalCross);
 				color = make_int_from_rgb(col);
-				//color = create_rgb(0, 0, 255);
 			}
 			free_null(finalCross);
 			my_mlx_pixel_put(mlx_data, xy[0], xy[1], color);

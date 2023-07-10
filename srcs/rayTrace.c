@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_cross *loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
+t_cross *loopSpherelist(t_sphere *sphere, t_ray ray, t_scene *scene)
 {
 	t_sphere *head;
 	t_cross *cross;
@@ -13,7 +13,7 @@ t_cross *loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
 	tmpCross.t = INFINITY;
 	while (head)
 	{
-		if (intersectSphere(ray, *head, cross) && cross->t < tmpCross.t)
+		if (intersect_sphere(ray, *head, cross) && cross->t < tmpCross.t)
 			tmpCross = *cross;
 		head = head->next;
 	}
@@ -21,7 +21,7 @@ t_cross *loopSphereList(t_sphere *sphere, t_ray ray, t_scene *scene)
 	return (cross);
 }
 
-t_cross *loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
+t_cross *loopPlanelist(t_plane *plane, t_ray ray, t_scene *scene)
 {
 	t_plane *head;
 	t_cross *cross;
@@ -34,7 +34,7 @@ t_cross *loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
 	tmpCross.t = INFINITY;
 	while (head)
 	{
-		if (intersectPlane(ray, *head, cross) && cross->t < tmpCross.t)
+		if (intersect_plane(ray, *head, cross) && cross->t < tmpCross.t)
 			tmpCross = *cross;
 		head = head->next;
 	}
@@ -42,7 +42,7 @@ t_cross *loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
 	return (cross);
 }
 
-t_cross *loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
+t_cross *loopCylinlist(t_cylinder *cylin, t_ray ray, t_scene *scene)
 {
 	t_cylinder *head;
 	t_cross *cross;
@@ -72,10 +72,10 @@ bool rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross)
 	t_cross *crossCylin;
 
 	tNear = INFINITY;
-	crossPlane = loopPlaneList(scene->plane, ray, scene);
-	crossCylin = loopCylinList(scene->cylin, ray, scene);
-	crossSphere = loopSphereList(scene->sphere, ray, scene);
-	tNear = findMin(crossPlane->t, crossSphere->t, crossCylin->t);
+	crossPlane = loopPlanelist(scene->plane, ray, scene);
+	crossCylin = loopCylinlist(scene->cylin, ray, scene);
+	crossSphere = loopSpherelist(scene->sphere, ray, scene);
+	tNear = find_min(crossPlane->t, crossSphere->t, crossCylin->t);
 	if (tNear == crossPlane->t)
 	{
 		*finalCross = crossPlane;
@@ -104,7 +104,7 @@ int create_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-void render(t_scene *scene, t_mlx *mlxData)
+void	render(t_scene *scene, t_mlx *mlx_data)
 {
 	int xy[2];
 	unsigned int color;
@@ -119,7 +119,7 @@ void render(t_scene *scene, t_mlx *mlxData)
 		xy[0] = -1;
 		while (++xy[0] < WIDTH)
 		{
-			ray = rayGenerate(xy[0], xy[1], *(scene->cam));
+			ray = ray_generate(xy[0], xy[1], *(scene->cam));
 			if (!rayTrace(scene, ray, &finalCross))
 				color = create_rgb(0, 0, 0);
 			else
@@ -129,8 +129,8 @@ void render(t_scene *scene, t_mlx *mlxData)
 				//color = create_rgb(0, 0, 255);
 			}
 			free_null(finalCross);
-			my_mlx_pixel_put(mlxData, xy[0], xy[1], color);
+			my_mlx_pixel_put(mlx_data, xy[0], xy[1], color);
 		}
 	}
-	mlx_put_image_to_window(mlxData->mlx, mlxData->win, mlxData->img, 0, 0);
+	mlx_put_image_to_window(mlx_data->mlx, mlx_data->win, mlx_data->img, 0, 0);
 }

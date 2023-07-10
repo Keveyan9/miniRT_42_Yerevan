@@ -1,4 +1,3 @@
-
 NAME	= miniRT
 
 HEAD	= includes

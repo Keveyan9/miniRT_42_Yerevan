@@ -1,6 +1,6 @@
 #include "scene.h"
 
-int	isInSet(char c)
+int	is_in_set(char c)
 {
 	int	j;
 

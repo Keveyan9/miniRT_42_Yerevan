@@ -29,13 +29,13 @@ t_cylinder	*init_cylinder(t_vec center, t_vec normal, t_color tint, char **cy)
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		exit_code(1, "cylinder malloc failed", NULL, NULL);
-	initVector(center, &(cylinder->center));
-	initVector(normal, &(cylinder->axis));
-	initColor(tint, &(cylinder->tint));
+	init_vector(center, &(cylinder->center));
+	init_vector(normal, &(cylinder->axis));
+	init_color(tint, &(cylinder->tint));
 	cylinder->radius = ft_atof(cy[3]) / 2;
 	cylinder->height = ft_atof(cy[4]);
-	cylinder->topCapCent = topCapCenter(*cylinder);
-	cylinder->bottomCapCent = bottomCapCenter(*cylinder);
+	cylinder->top_cap_cent = top_cap_center(*cylinder);
+	cylinder->bottom_cap_cent = bottom_cap_center(*cylinder);
 	cylinder->next = NULL;
 	return (cylinder);
 }

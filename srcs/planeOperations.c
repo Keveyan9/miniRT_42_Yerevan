@@ -22,26 +22,22 @@ void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 	}
 }
 
-static t_plane	*initPlane(t_vec point, t_vec normal, t_color tint, t_scene *scene)
+static t_plane	*init_plane(t_vec point, t_vec normal, t_color col, t_scene *sc)
 {
-
-	t_plane *plane;
+	t_plane	*plane;
 
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
-		exit_code(1, "plane malloc failed", scene, NULL);
-	initVector(point, &(plane->point));
-	initVector(normal, &(plane->normal));
-	initColor(tint, &(plane->tint));
+		exit_code(1, "plane malloc failed", sc, NULL);
+	init_vector(point, &(plane->point));
+	init_vector(normal, &(plane->normal));
+	init_color(col, &(plane->tint));
 	plane->next = NULL;
 	return (plane);
 }
 
-void	checkerPl(char **splitted_pl, t_scene *scene)
+void	checker_pl(char **splitted_pl, t_scene *scene)
 {
-	char	**orientationSplitted;
-	char	**origin;
-	char	**tintSplitted;
 	t_vec	origin_vec;
 	t_vec	orient_vec;
 	t_color	tint;
@@ -50,17 +46,16 @@ void	checkerPl(char **splitted_pl, t_scene *scene)
 	len = ft_double_len(splitted_pl);
 	if (len != 4)
 		if (!(len == 5 && splitted_pl[4][0] == '\n'))
-			exit_code(1, "Invalid number of parameters for pl\n",scene, NULL);
-
-	origin = ft_split(splitted_pl[1], ',');
-	orientationSplitted = ft_split(splitted_pl[2], ',');
-	tintSplitted = ft_split(splitted_pl[3], ',');
-	check_vector(origin, &origin_vec, INT_MIN, FLT_MAX, scene);
-	check_vector(orientationSplitted, &orient_vec, -8, 1, scene);
-	check_color(tintSplitted, &tint, scene);
+			exit_code(1, "Invalid number of parameters for pl\n", scene, NULL);
+	scene->vec_splitted = ft_split(splitted_pl[1], ',');
+	check_vector(&origin_vec, INT_MIN, FLT_MAX, scene);
+	scene->vec_splitted = ft_split(splitted_pl[2], ',');
+	check_vector(&orient_vec, -8, 1, scene);
+	scene->vec_splitted = ft_split(splitted_pl[3], ',');
+	check_color(&tint, scene);
 	if (!scene->plane)
-		scene->plane = initPlane(origin_vec, orient_vec, tint, scene);
+		scene->plane = init_plane(origin_vec, orient_vec, tint, scene);
 	else
 		ft_lstadd_back_pl(&scene->plane,
-			initPlane(origin_vec, orient_vec, tint, scene));
+			init_plane(origin_vec, orient_vec, tint, scene));
 }

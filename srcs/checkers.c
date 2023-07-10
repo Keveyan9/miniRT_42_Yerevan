@@ -63,7 +63,7 @@ void	checker_a(char **splitted_a, t_scene *scene)
 		exit_code(1, "Ratio is out of range for A\n", scene, splitted_a);
 	scene->vec_splitted = ft_split(splitted_a[2], ',');
 	check_color(&color, scene);
-	scene->amb = initAmbient(ratio, color, scene);
+	scene->amb = init_ambient(ratio, color, scene);
 }
 
 void	checker_c(char **splitted_c, t_scene *scene)
@@ -84,7 +84,7 @@ void	checker_c(char **splitted_c, t_scene *scene)
 	fov = ft_atof(splitted_c[3]);
 	if (fov < 0.0 || fov > 180.0)
 		exit_code(1, "fov is out of range for C\n", scene, splitted_c);
-	scene->cam = initCam(origin_vec, orient_vec, fov, scene);
+	scene->cam = init_cam(origin_vec, orient_vec, fov, scene);
 }
 
 void	checker_l(char **splitted_l, t_scene *scene)
@@ -97,15 +97,15 @@ void	checker_l(char **splitted_l, t_scene *scene)
 	len = ft_double_len(splitted_l);
 	if (len != 4)
 		if (!(len == 5 && splitted_l[4][0] == '\n'))
-			exit_code(1, "Invalid parameters for L\n", scene, splitted_l);
+			exit_code(1, "Invalid parameters for l\n", scene, splitted_l);
 	scene->vec_splitted = ft_split(splitted_l[1], ',');
 	check_vector(&origin_vec, INT_MIN, FLT_MAX, scene);
 	ratio = ft_atof(splitted_l[2]);
 	if (!only_digit_in_str(splitted_l[2]))
-		exit_code(1, "ratio for L is invalid\n", scene, splitted_l);
+		exit_code(1, "ratio for l is invalid\n", scene, splitted_l);
 	if (ratio < 0.0 || ratio > 1.0)
-		exit_code(1, "Ratio is out of range for L\n", scene, splitted_l);
+		exit_code(1, "Ratio is out of range for l\n", scene, splitted_l);
 	scene->vec_splitted = ft_split(splitted_l[3], ',');
 	check_color(&color, scene);
-	scene->light = initLight(origin_vec, ratio, color, scene);
+	scene->light = initlight(origin_vec, ratio, color, scene);
 }

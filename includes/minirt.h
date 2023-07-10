@@ -33,12 +33,11 @@
 
 # define WIDTH 1600
 # define HEIGHT 900
-# define FOCAL_DIST 0.5
 # define EPSILON 0.001
 # define STRENGTH 0.5
 # define SHININESS 32
 
-typedef	struct s_matrix
+typedef struct s_matrix
 {
 	t_vec	right;
 	t_vec	up;
@@ -58,22 +57,23 @@ typedef struct s_quadratic
 	float	a;
 	float	b;
 	float	c;
-	float	D;
+	float	delta;
 	float	t1;
 	float	t2;
 }	t_quadratic;
 
+t_color			col_mul(t_color a, t_color b);
 void			exit_code(int code, char *msg, t_scene *scene, char **string);
 void			parsing(int argc, char **argv, t_scene *scene);
 void			print_vec(t_vec vec, char *msg);
 //utils1.c
 int				ft_double_len(char **str);
 float			ft_atof(char *str);
-bool			isInRangeCheck(float number, float lower, float upper);
+bool			is_in_range_check(float number, float lower, float upper);
 void			swap(float	*a, float *b);
-float			findMin(float a, float b, float c);
-//isInSet.c
-int				isInSet(char c);
+float			find_min(float a, float b, float c);
+//is_in_set.c
+int				is_in_set(char c);
 int				ft_isspace(char c);
 //main.c
 void			init_scene(t_scene *scene);
@@ -86,27 +86,27 @@ int				vector_norm_check(t_vec *vector);
 int				vector_range_check(t_vec *vector, \
 				float lower_bound, float upper_bound);
 //objectsInit.c
-void			initVector(t_vec vector, t_vec *objVect);
-void			initColor(t_color tint, t_color *ambTint);
-t_ambient		*initAmbient(float ratio, t_color tint, t_scene *scene);
-t_cam			*initCam(t_vec origin, t_vec orient, float fov, t_scene *scene);
-t_light			*initLight(t_vec orig, float ratio, \
+void			init_vector(t_vec vector, t_vec *objVect);
+void			init_color(t_color tint, t_color *ambTint);
+t_ambient		*init_ambient(float ratio, t_color tint, t_scene *scene);
+t_cam			*init_cam(t_vec or, t_vec ori, float fov, t_scene *scene);
+t_light			*initlight(t_vec orig, float ratio,
 					t_color tint, t_scene *scene);
 //checkers.c
-void			check_vector(t_vec *vector, float lower_bound, float upper_bound, t_scene *scene);
+void			check_vector(t_vec *v, float l, float u, t_scene *s);
 void			check_color(t_color *tint, t_scene *scene);
 void			checker_c(char **splitted_c, t_scene *scene);
 void			checker_l(char **splitted_l, t_scene *scene);
 void			checker_a(char **splitted_a, t_scene *scene);
-void			checkerPl(char **splitted_pl, t_scene *scene);
-void			checkerSp(char **splitted_sp, t_scene *scene);
+void			checker_pl(char **splitted_pl, t_scene *scene);
+void			checker_sp(char **splitted_sp, t_scene *scene);
 void			checker_cy(char **splitted_cy, t_scene *scene);
 //intersections
-bool			intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
-bool			intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
-bool 			intersect_cylin(t_ray ray, t_cylinder cylin, t_cross *cross);
+bool			intersect_plane(t_ray ray, t_plane plane, t_cross *cross);
+bool			intersect_sphere(t_ray ray, t_sphere sphere, t_cross *cross);
+bool			intersect_cylin(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
-t_ray			rayGenerate(float x, float y, t_cam camera);
+t_ray			ray_generate(float x, float y, t_cam camera);
 
 // light.c
 t_color			ambient_lighting(t_ambient *ambient);
@@ -116,8 +116,8 @@ bool			shadow(t_cross *cross, t_scene *scene);
 t_color			final_lighting(t_scene *scene, t_cross *cross);
 
 // light_utils.c
-t_color			colorMul(t_color c, float f);
-t_color			init_color(float r, float g, float b);
+t_color			color_mul(t_color c, float f);
+t_color			init_rgb(float r, float g, float b);
 t_vec			reflect_vec(t_vec l, t_vec n);
 void			point_calc(t_vec *p, t_ray r, float t);
 t_color			final_color(t_cross *cross, t_color amb,
@@ -125,10 +125,10 @@ t_color			final_color(t_cross *cross, t_color amb,
 
 //normal.c
 t_vec			sphere_normal(t_vec p, t_vec center);
-t_vec			topCapCenter(t_cylinder cyl);
-t_vec			bottomCapCenter(t_cylinder cyl);
+t_vec			top_cap_center(t_cylinder cyl);
+t_vec			bottom_cap_center(t_cylinder cyl);
 t_vec			cylinder_normal(t_cylinder cyl, t_vec p);
-void			render(t_scene *scene, t_mlx *mlxData);
+void			render(t_scene *scene, t_mlx *mlx_data);
 
 //colorOperations.c
 unsigned int	makeIntFromRGB(t_color color);
@@ -137,15 +137,15 @@ t_color			makeRGBfromInt(unsigned int color);
 //mlxFunctions.c
 void			my_mlx_pixel_put(t_mlx *data,
 					double x, double y, unsigned int color);
-void			mlxInit(t_mlx *mlxData);
+void			mlx_data_init(t_mlx *mlx_data);
 
-//LookAt.c
-void			LookAt(t_matrix *matrix, t_cam camera);
+//look_at.c
+void			look_at(t_matrix *matrix, t_cam camera);
 
 //rayTrace
 bool			rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross);
 
 ///cline
 void			free_scene(t_scene *s);
-
+int				is_rt_file(char *path);
 #endif

@@ -13,7 +13,7 @@ int	vector_norm_check(t_vec *vector)
 {
 	float	len;
 
-	len = vecNorm(*vector);
+	len = vec_norm(*vector);
 	if (len >= 0.95 && len <= 1)
 		return (1);
 	return (0);

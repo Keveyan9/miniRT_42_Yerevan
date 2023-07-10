@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:51:31 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/07/07 13:27:44 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:42:43 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ t_color		final_lighting(t_scene *scene, t_cross *cross)
 
 
 	amb_factor = ambient_lighting(scene->amb);
-	if (!shadow(cross, scene))
-	{
+	//if (!shadow(cross, scene))
+	//{
 		diffuse = diffuse_lighting(scene->light, cross);
 		specular = specular_lightning(scene ,cross);
 		cross->color = final_color(cross, amb_factor, diffuse, specular);
-	}
-	else
-		cross->color = col_mul(amb_factor, cross->color);
+//	}
+	//else
+	//	cross->color = col_mul(amb_factor, cross->color);
 	return (cross->color);
 }

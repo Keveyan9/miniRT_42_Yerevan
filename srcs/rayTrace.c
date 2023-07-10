@@ -60,6 +60,7 @@ t_cross *loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
 		head = head->next;
 	}
 	*cross = tmpCross;
+	//printf("t ==== %f\n", cross->t);
 	return (cross);
 }
 
@@ -125,6 +126,7 @@ void render(t_scene *scene, t_mlx *mlxData)
 			{
 				col = final_lighting(scene, finalCross);
 				color = makeIntFromRGB(col);
+				//color = create_rgb(0, 0, 255);
 			}
 			free_null(finalCross);
 			my_mlx_pixel_put(mlxData, xy[0], xy[1], color);

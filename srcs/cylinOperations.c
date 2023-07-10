@@ -36,6 +36,7 @@ t_cylinder *initCylinder(t_vec center, t_vec normal, t_color tint, float radius,
 	cylinder->radius = radius;
 	cylinder->height = height;
 	cylinder->topCapCent = topCapCenter(*cylinder);
+	cylinder->bottomCapCent = bottomCapCenter(*cylinder);
 	cylinder->next = NULL;
 	return (cylinder);
 }

@@ -24,19 +24,38 @@
 # include <float.h>
 # include <math.h>
 # include <stdbool.h>
+# include <pthread.h>
 # include "../lib/minilibx_opengl/mlx.h"
 # include "../lib/libft/libft.h"
 # include "get_next_line.h"
 # include "scene.h"
-# include "mymlx.h"
 # include "vectorRay.h"
-# include <pthread.h>
 
 # define WIDTH 1600
 # define HEIGHT 900
 # define EPSILON 0.001
 # define STRENGTH 0.5
 # define SHININESS 32
+
+typedef struct s_mlx
+{
+	void	*win;
+	void	*mlx;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_mlx;
+
+typedef struct s_all
+{
+	t_mlx	*mlx_data;
+	t_scene	*scene;
+	int		x;
+	int		y;
+	int		check;
+}	t_all;
 
 typedef struct s_matrix
 {
@@ -133,7 +152,6 @@ void			render(t_all *all);
 
 //colorOperations.c
 unsigned int	make_int_from_rgb(t_color color);
-t_color			makeRGBfromInt(unsigned int color);
 
 //mlxFunctions.c
 void			my_mlx_pixel_put(t_mlx *data,

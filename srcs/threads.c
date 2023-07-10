@@ -11,6 +11,27 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
+void	calculate(t_all *all, int x, int y)
+{
+	t_cross			*final_cross;
+	t_ray			ray;
+	t_color			col;
+	unsigned int	color;
+
+	final_cross = NULL;
+	ray = ray_generate(x, y, *(all->scene->cam));
+	ray_trace(all->scene, ray, &final_cross);
+	if (final_cross->t == INFINITY)
+		color = (0 << 16 | 0 << 8 | 0);
+	else
+	{
+		col = final_lighting(all->scene, final_cross);
+		color = make_int_from_rgb(col);
+	}
+	free_null(final_cross);
+	my_mlx_pixel_put(all->mlx_data, x, y, color);
+}
+
 void	*thread_width_function(void *data)
 {
 	t_all		*all;
@@ -42,7 +63,7 @@ void	render(t_all *all)
 		result_w = pthread_create(&threads[count_treads++],
 				NULL, thread_width_function, all);
 		if (result_w != 0)
-			exit_code("Thread creation failed", EXIT_FAILURE);
+			exit_code(1, "Thread creation failed", all->scene, NULL);
 		while (all->check)
 			;
 	}

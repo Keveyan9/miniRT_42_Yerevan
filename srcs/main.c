@@ -75,7 +75,7 @@ int	main(int argc, char **argv)
 	parsing(argc, argv, &scene);
 	mlx_key_hook(mlx_data.win, key_hook_man, &all);
 	mlx_hook(mlx_data.win, 17, 0, clos, &scene);
-	render(all);
+	render(&all);
 	mlx_loop(mlx_data.mlx);
 	free_scene(&scene);
 	return (0);

@@ -74,6 +74,30 @@ t_cross	*loop_cylin_list(t_cylinder *cylin, t_ray ray, t_scene *scene)
 	return (cross);
 }
 
+t_cross	*near_t_deciding(t_cross *plane, t_cross *sphere,
+			t_cross *cylin, float t_near)
+{
+	if (t_near == plane->t)
+	{
+		free_null(sphere);
+		free_null(cylin);
+		return (plane);
+	}
+	else if (t_near == sphere->t)
+	{
+		free_null(plane);
+		free_null(cylin);
+		return (sphere);
+	}
+	else if (t_near == cylin->t)
+	{
+		free_null(plane);
+		free_null(sphere);
+		return (cylin);
+	}
+	return (NULL);
+}
+
 bool	ray_trace(t_scene *scene, t_ray ray, t_cross **final_cross)
 {
 	float	t_near;
@@ -86,46 +110,9 @@ bool	ray_trace(t_scene *scene, t_ray ray, t_cross **final_cross)
 	cross_cylin = loop_cylin_list(scene->cylin, ray, scene);
 	cross_sphere = loop_sphere_list(scene->sphere, ray, scene);
 	t_near = find_min(cross_plane->t, cross_sphere->t, cross_cylin->t);
-	if (t_near == cross_plane->t)
-	{
-		*final_cross = cross_plane;
-		free_null(cross_sphere);
-		free_null(cross_cylin);
-	}
-	else if (t_near == cross_sphere->t)
-	{
-		*final_cross = cross_sphere;
-		free_null(cross_plane);
-		free_null(cross_cylin);
-	}
-	else if (t_near == cross_cylin->t)
-	{
-		*final_cross = cross_cylin;
-		free_null(cross_plane);
-		free_null(cross_sphere);
-	}
+	*final_cross = near_t_deciding(cross_plane,
+			cross_sphere, cross_cylin, t_near);
 	if (t_near != INFINITY)
 		return (1);
 	return (0);
-}
-
-void	calculate(t_all *all, int x, int y)
-{
-	t_cross			*final_cross;
-	t_ray			ray;
-	t_color			col;
-	unsigned int	color;
-
-	final_cross = NULL;
-	ray = ray_generate(x, y, *(all->scene->cam));
-	ray_trace(all->scene, ray, &final_cross);
-	if (final_cross->t == INFINITY)
-		color = (0 << 16 | 0 << 8 | 0);
-	else
-	{
-		col = final_lighting(all->scene, final_cross);
-		color = make_int_from_rgb(col);
-	}
-	free_null(final_cross);
-	my_mlx_pixel_put(all->mlx_data, x, y, color);
 }

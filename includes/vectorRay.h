@@ -33,7 +33,6 @@ typedef struct s_ray
 	t_vec	dir;
 }	t_ray;
 
-
 t_vec	vec_add(t_vec a, t_vec b);
 t_vec	vec_sub(t_vec a, t_vec b);
 float	dot_product(t_vec a, t_vec b);

@@ -12,7 +12,7 @@ typedef struct s_mlx
 	int		endian;
 }	t_mlx;
 
-typedef struct s_pll
+typedef struct s_all
 {
 	t_mlx	*mlx_data;
 	t_scene	*scene;

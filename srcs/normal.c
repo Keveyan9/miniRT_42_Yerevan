@@ -34,26 +34,3 @@ t_vec	bottom_cap_center(t_cylinder cyl)
 	btm = vec_add(btm, cyl.center);
 	return (btm);
 }
-
-t_vec	cylinder_normal(t_cylinder cyl, t_vec p)
-{
-	t_vec	bottom_center;
-	t_vec	top_center;
-	t_vec	v;
-	t_vec	pt;
-	float	t;
-
-	bottom_center = bottom_cap_center(cyl);
-	top_center = top_cap_center(cyl);
-	if (distance(p, top_center) < cyl.radius)
-		return (cyl.axis);
-	if (distance(p, bottom_center) < cyl.radius)
-		return (vec_inverse(cyl.axis));
-	else
-	{
-		v = vec_sub(p, bottom_center);
-		t = dot_product(v, cyl.axis);
-		pt = vec_add(bottom_center, vec_scale(t, cyl.axis));
-		return (normalize(vec_sub(p, pt)));
-	}
-}

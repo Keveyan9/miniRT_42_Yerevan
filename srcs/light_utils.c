@@ -1,14 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/07 11:51:31 by aivanyan          #+#    #+#             */
+/*   Updated: 2023/07/10 12:42:43 by aivanyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
-
-t_color	col_mul(t_color a, t_color b)
-{
-	t_color	c;
-
-	c.r = a.r * b.r;
-	c.g = a.g * b.g;
-	c.b = a.b * b.b;
-	return (c);
-}
 
 t_color	color_mul(t_color c, float f)
 {

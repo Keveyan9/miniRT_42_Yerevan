@@ -131,7 +131,7 @@ t_vec			cylinder_normal(t_cylinder cyl, t_vec p);
 void			render(t_scene *scene, t_mlx *mlx_data);
 
 //colorOperations.c
-unsigned int	makeIntFromRGB(t_color color);
+unsigned int	make_int_from_rgb(t_color color);
 t_color			makeRGBfromInt(unsigned int color);
 
 //mlxFunctions.c

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 18:12:18 by zkarapet          #+#    #+#             */
+/*   Updated: 2023/07/10 18:12:20 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int	clos(t_scene *scene)
@@ -42,7 +54,7 @@ int	key_hook_man(int code, t_all *all)
 		all->scene->cam->orig.x = all->scene->cam->orig.x + k;
 	else if (code == 100 || code == 2)
 		all->scene->cam->orig.x = all->scene->cam->orig.x - k;
-	else if (code == 113 )
+	else if (code == 113)
 		all->scene->cam->orig.z = all->scene->cam->orig.z + k;
 	else if (code == 101)
 		all->scene->cam->orig.z = all->scene->cam->orig.z - k;

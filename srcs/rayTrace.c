@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rayTrace.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 18:15:22 by zkarapet          #+#    #+#             */
+/*   Updated: 2023/07/10 18:15:23 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_cross *loopSpherelist(t_sphere *sphere, t_ray ray, t_scene *scene)
@@ -125,7 +137,7 @@ void	render(t_scene *scene, t_mlx *mlx_data)
 			else
 			{
 				col = final_lighting(scene, finalCross);
-				color = makeIntFromRGB(col);
+				color = make_int_from_rgb(col);
 				//color = create_rgb(0, 0, 255);
 			}
 			free_null(finalCross);

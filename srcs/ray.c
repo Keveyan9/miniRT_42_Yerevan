@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/10 18:14:31 by zkarapet          #+#    #+#             */
+/*   Updated: 2023/07/10 18:14:32 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_vec	getting_wprime(t_matrix look_at)
@@ -7,8 +19,8 @@ t_vec	getting_wprime(t_matrix look_at)
 	t_vec	v_coeff;
 	t_vec	w_coeff;
 
-	u_coeff = vec_scale(((float)-(WIDTH - 1)/2), look_at.right);
-	v_coeff = vec_scale(((float)(HEIGHT - 1)/2), look_at.up);
+	u_coeff = vec_scale((-(float)(WIDTH - 1) / 2), look_at.right);
+	v_coeff = vec_scale(((float)(HEIGHT - 1) / 2), look_at.up);
 	w_coeff = vec_scale(500, look_at.forward);
 	w_prime = vec_add(vec_add(u_coeff, v_coeff), w_coeff);
 	return (w_prime);

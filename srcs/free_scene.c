@@ -9,7 +9,8 @@
 /*   Updated: 2023/07/07 02:26:24 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minirt.h"
+
+# include "minirt.h"
 
 static void	free_sphere(t_sphere *spher)
 {
@@ -52,6 +53,7 @@ static void	free_cylin(t_cylinder *cylin)
 
 void	free_scene(t_scene *s)
 {
+
 	if (s->amb)
 		free_null(s->amb);
 	if (s->cam)

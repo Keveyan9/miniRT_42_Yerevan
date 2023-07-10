@@ -33,7 +33,6 @@ char	**ft_strjoin_double_point(char **split, char *str)
 {
 	char	**new_split;
 	int		n;
-
 	n = 0;
 	new_split = 0;
 	if (str)
@@ -51,3 +50,4 @@ char	**ft_strjoin_double_point(char **split, char *str)
 	new_split = norm_strjoin_double(new_split, split, str);
 	return (new_split);
 }
+

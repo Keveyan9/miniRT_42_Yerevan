@@ -1,35 +1,42 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 00:27:23 by skeveyan          #+#    #+#             */
-/*   Updated: 2023/07/10 00:27:29 by skeveyan         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 #include "minirt.h"
 
-static char	**check_d_line(char *line)
+static char **check_d_line(char *line)
 {
-	char	**splitted;
+	char **splitted;
 
 	splitted = ft_split_m(line);
 	return (splitted);
 }
 
-int	checkerForEachObject(char **splitted_line, t_scene *scene)
+int is_rt_file(char *path)
 {
-	static int	upperLetters;
+	int len;
 
-	upperLetters = 0;
-	if (ft_strncmp(splitted_line[0], "A", 2) == 0 && ++upperLetters)
-		checker_A(splitted_line, scene);
-	else if (ft_strncmp(splitted_line[0], "C", 2) == 0 && ++upperLetters)
-		checker_C(splitted_line, scene);
-	else if (ft_strncmp(splitted_line[0], "L", 2) == 0 && ++upperLetters)
-		checker_L(splitted_line, scene);
+	len = ft_strlen(path) - 3;
+	if (len > 0)
+		return (ft_strncmp(path + len, ".rt", 3) == 0);
+	return (0);
+}
+
+void	giveError(int stat, t_scene *scene, char **splittedd, void (*checker)(char **splitted, t_scene *sc))
+{
+	if (stat != 1)
+		exit_code(1, "Upper letters must be declared once in the scene\n", scene, NULL);
+	checker(splittedd, scene);
+}
+
+int checkerForEachObject(char **splitted_line, t_scene *scene)
+{
+	static int A = 0;
+	static int C = 0;
+	static int L = 0;
+
+	if (ft_strncmp(splitted_line[0], "A", 2) == 0 && ++A)
+		giveError(A, scene, splitted_line, checker_A);
+	else if (ft_strncmp(splitted_line[0], "C", 2) == 0 && ++C)
+		giveError(C, scene, splitted_line, checker_C);
+	else if (ft_strncmp(splitted_line[0], "L", 2) == 0 && ++L)
+		giveError(L, scene, splitted_line, checker_L);
 	else if (ft_strncmp(splitted_line[0], "pl", 3) == 0)
 		checkerPl(splitted_line, scene);
 	else if (ft_strncmp(splitted_line[0], "sp", 3) == 0)
@@ -38,14 +45,14 @@ int	checkerForEachObject(char **splitted_line, t_scene *scene)
 		checkerCy(splitted_line, scene);
 	else
 		exit_code(1, "Invalid argument\n", scene, NULL);
-	return (upperLetters);
+	return (A + C + L);
 }
 
-static void	reading_file(int fd, t_scene *scene)
+static void reading_file(int fd, t_scene *scene)
 {
-	char	*line;
-	char	**splitted;
-	int		count;
+	char *line;
+	char **splitted;
+	int count;
 
 	line = NULL;
 	splitted = NULL;
@@ -54,22 +61,22 @@ static void	reading_file(int fd, t_scene *scene)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-			break ;
+			break;
 		splitted = check_d_line(line);
 		if (line)
 			free_null(line);
-		if (splitted && splitted[0][0] != '\n')
+		if (splitted && splitted[0] && splitted[0][0] != '\n')
 			count = checkerForEachObject(splitted, scene);
 		if (splitted)
 			double_free(splitted);
 	}
 	if (count != 3)
-		exit_code(1, "upper letter objects are repeated or absent in file\n", scene, NULL);
+		exit_code(1, "Upper letters must be declared once in the scene\n", scene, NULL);
 }
 
-void	parsing(int argc, char **argv, t_scene *var_scene)
+void parsing(int argc, char **argv, t_scene *var_scene)
 {
-	int		fd;
+	int fd;
 
 	fd = 0;
 	if (argc != 2)
@@ -79,6 +86,8 @@ void	parsing(int argc, char **argv, t_scene *var_scene)
 		else
 			exit_code(1, "More arguments\n", NULL, NULL);
 	}
+	if (is_rt_file(argv[1]) == 0)
+		exit_code(1, "file requires .rt extension\n", NULL, NULL);
 	fd = open(argv[1], O_RDWR);
 	if (fd < 0)
 		exit_code(1, "error opening the file\n", NULL, NULL);

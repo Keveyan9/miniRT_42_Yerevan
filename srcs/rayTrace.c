@@ -47,7 +47,7 @@ t_cross	*loopPlaneList(t_plane *plane, t_ray ray, t_scene *scene)
 	{
 		if (intersectPlane(ray, *head, cross) && cross->t < tmpCross.t)
 			tmpCross = *cross;
-			head = head->next;
+		head = head->next;
 	}
 	*cross = tmpCross;
 	return (cross);
@@ -66,7 +66,7 @@ t_cross	*loopCylinList(t_cylinder *cylin, t_ray ray, t_scene *scene)
 	tmpCross.t = INFINITY;
 	while (head)
 	{
-		if (intersectCylin2(ray, *head, cross) && cross->t < tmpCross.t)
+		if (intersectCylin(ray, *head, cross) && cross->t < tmpCross.t)
 			tmpCross = *cross;
 		head = head->next;
 	}
@@ -114,7 +114,7 @@ int	create_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-static void	calculate(t_oll *oll , int x, int y)
+static void	calculate(t_all *all , int x, int y)
 {
 	t_cross			*finalCross;
 	t_ray			ray;
@@ -122,33 +122,33 @@ static void	calculate(t_oll *oll , int x, int y)
 	unsigned int	color;
 
 	finalCross = NULL;
-	ray = rayGenerate(x, y, *(oll->scene->cam));
-	rayTrace(oll->scene, ray, &finalCross);
+	ray = rayGenerate(x, y, *(all->scene->cam));
+	rayTrace(all->scene, ray, &finalCross);
 	if (finalCross->t == INFINITY)
 		color = create_rgb (0, 0, 0);
 	else
 	{
-		col = final_lighting(oll->scene, finalCross);
+		col = final_lighting(all->scene, finalCross);
 		color = makeIntFromRGB(col);
 	}
 	free_null(finalCross);
-	my_mlx_pixel_put(oll->mlxData, x, y, color);
+	my_mlx_pixel_put(all->mlxData, x, y, color);
 }
 
 void	*thread_width_function(void *data)
 {
-	t_oll		*oll;
+	t_all		*all;
 	int			xy[2];
 
-	oll = data;
-	xy[0] =	oll->x;
+	all = data;
+	xy[0] =	all->x;
 	xy[1] = -1;
 	while (++(xy[1]) < HEIGHT)
-		calculate(oll, xy[0], xy[1]);
+		calculate(all, xy[0], xy[1]);
 	return (NULL);
 }
 
-void	render(t_oll *oll)
+void	render(t_all *all)
 {
 	int			result_w;
 	int			count_treads;
@@ -158,11 +158,11 @@ void	render(t_oll *oll)
 	result_w = 0;
 	cycle = 0;
 	count_treads = 0;
-	oll->x = -1;
-	while (++(oll->x) < WIDTH)
+	all->x = -1;
+	while (++(all->x) < WIDTH)
 	{
 		result_w = pthread_create(&threads[count_treads++],
-				NULL, thread_width_function, oll);
+				NULL, thread_width_function, all);
 		if (result_w != 0)
 		{
 			perror("Thread creation failed");
@@ -172,7 +172,7 @@ void	render(t_oll *oll)
 	}
 	while (cycle < WIDTH)
 		pthread_join(threads[cycle++], NULL);
-	mlx_put_image_to_window(oll->mlxData->mlx, oll->mlxData->win,
-		oll->mlxData->img, 0, 0);
+	mlx_put_image_to_window(all->mlxData->mlx, all->mlxData->win,
+		all->mlxData->img, 0, 0);
 	return ;
 }

@@ -32,10 +32,10 @@
 # include "vectorRay.h"
 #include <pthread.h>
 
-# define WIDTH 1280
-# define HEIGHT 720
-# define EPSILON 0.0001
+# define WIDTH 1000
+# define HEIGHT 700
 # define FOCAL_DIST 0.5
+# define EPSILON 0.001
 # define STRENGTH 0.5
 # define SHININESS 32
 
@@ -53,6 +53,16 @@ typedef struct s_cross
 	float				t;
 	t_color				color;
 }	t_cross;
+
+typedef struct s_quadratic
+{
+	float	a;
+	float	b;
+	float	c;
+	float	D;
+	float	t1;
+	float	t2;
+}	t_quadratic;
 
 void			exit_code(int code, char *msg, t_scene *scene, char **string);
 void			parsing(int argc, char **argv, t_scene *scene);
@@ -96,8 +106,7 @@ void			checkerCy(char **splitted_cy, t_scene *scene);
 //intersections
 bool			intersectPlane(t_ray ray, t_plane plane, t_cross *cross);
 bool			intersectSphere(t_ray ray, t_sphere sphere, t_cross *cross);
-// bool			intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
-bool 			intersectCylin2(t_ray ray, t_cylinder cylin, t_cross *cross);
+bool 			intersectCylin(t_ray ray, t_cylinder cylin, t_cross *cross);
 //ray.c
 t_ray			rayGenerate(float x, float y, t_cam camera);
 
@@ -121,7 +130,7 @@ t_vec			sphere_normal(t_vec p, t_vec center);
 t_vec			topCapCenter(t_cylinder cyl);
 t_vec			bottomCapCenter(t_cylinder cyl);
 t_vec			cylinder_normal(t_cylinder cyl, t_vec p);
-void			render(t_oll *oll);
+void			render(t_all *all);
 
 //colorOperations.c
 unsigned int	makeIntFromRGB(t_color color);
@@ -140,4 +149,5 @@ bool			rayTrace(t_scene *scene, t_ray ray, t_cross **finalCross);
 
 ///cline
 void			free_scene(t_scene *s);
+
 #endif

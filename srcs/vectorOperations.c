@@ -1,18 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   vectorOperations.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: skeveyan <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 00:39:55 by skeveyan          #+#    #+#             */
-/*   Updated: 2023/07/10 00:39:59 by skeveyan         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-#include "minirt.h"
-#include <math.h>
 
-t_vec	vecAdd(t_vec a, t_vec b)
+# include "minirt.h"
+# include <math.h>
+
+t_vec   vecAdd(t_vec a, t_vec b)
 {
 	t_vec	p;
 
@@ -22,7 +12,7 @@ t_vec	vecAdd(t_vec a, t_vec b)
 	return (p);
 }
 
-t_vec	vecSub(t_vec a, t_vec b)
+t_vec   vecSub(t_vec a, t_vec b)
 {
 	t_vec	p;
 
@@ -32,12 +22,12 @@ t_vec	vecSub(t_vec a, t_vec b)
 	return (p);
 }
 
-float	dotProduct(t_vec a, t_vec b)
+float   dotProduct(t_vec a, t_vec b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-t_vec	cross(t_vec a, t_vec b)
+t_vec   cross(t_vec a, t_vec b)
 {
 	t_vec	cp;
 
@@ -47,7 +37,7 @@ t_vec	cross(t_vec a, t_vec b)
 	return (cp);
 }
 
-t_vec	normalize(t_vec p)
+t_vec   normalize(t_vec p)
 {
 	t_vec	n;
 	float	len;
@@ -61,9 +51,9 @@ t_vec	normalize(t_vec p)
 	return (n);
 }
 
-t_vec	vecScale(float n, t_vec p)
+t_vec   vecScale(float n, t_vec p)
 {
-	t_vec	v;
+	t_vec   v;
 
 	v.x = n * p.x;
 	v.y = n * p.y;
@@ -71,10 +61,9 @@ t_vec	vecScale(float n, t_vec p)
 	return (v);
 }
 
-float	distance(t_vec p1, t_vec p2)
+float   distance(t_vec p1, t_vec p2)
 {
-	return (sqrt (pow(p2.x - p1.x, 2) +
-			pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2)));
+	return (sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2)));
 }
 
 float	vecNorm(t_vec vec)
